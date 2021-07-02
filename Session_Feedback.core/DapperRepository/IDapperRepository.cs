@@ -7,7 +7,7 @@ namespace Session_Feedback.core.DapperRepository
     public interface IDapperRepository<T> where T :class
     {
         Task<T> GetById(string sp, DynamicParameters parms);
-        IEnumerable<T> GetAll(string sp);
+        IEnumerable<T> GetAll(string sp, DynamicParameters parms);
         Task<T> Insert(string sp, DynamicParameters parms);
         Task<T> Update(string sp, DynamicParameters parms);
         Task<bool> Delete(string sp, int id);

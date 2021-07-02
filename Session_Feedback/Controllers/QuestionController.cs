@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Dapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Session_Feedback.core.DapperModelRepositories;
@@ -15,17 +16,22 @@ namespace Session_Feedback.Controllers
     {
         private readonly string connectionString;
         private readonly DapperQuestionRepository _dapperQuestionRepository;
+        private readonly DapperSessionRepository _dapperSessionRepository;
 
         public QuestionController(IConfiguration configuration)
         {
             connectionString = configuration.GetConnectionString("connection_string");
             _dapperQuestionRepository = new DapperQuestionRepository(connectionString);
+            _dapperSessionRepository = new DapperSessionRepository(connectionString);
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            var questions = _dapperQuestionRepository.GetAll("");
+            DynamicParameters parms = new DynamicParameters();
+            parms.Add("@StatementType", "SelectAll");
+
+            var questions = _dapperQuestionRepository.GetAll("Question",parms);
             return Ok(questions);
         }
     }

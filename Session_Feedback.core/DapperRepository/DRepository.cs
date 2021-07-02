@@ -25,13 +25,10 @@ namespace Session_Feedback.core.DapperRepository
             return await _dbConnection.QueryFirstOrDefaultAsync<T>(sp, param: parms, commandType: CommandType.StoredProcedure);
         }
 
-        public IEnumerable<T> GetAll(string sp)
+        public IEnumerable<T> GetAll(string sp, DynamicParameters parms)
         {
             if (_dbConnection.State == ConnectionState.Closed)
                 _dbConnection.Open();
-
-            DynamicParameters parms = new DynamicParameters();
-            parms.Add("@StatementType", "Select");
 
             var result = _dbConnection.Query<T>(sp, param : parms,commandType: CommandType.StoredProcedure);
 

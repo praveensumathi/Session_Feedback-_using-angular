@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Dapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Session_Feedback.core.DapperModelRepositories;
@@ -25,7 +26,10 @@ namespace Session_Feedback.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var questions = _dapperAnswerRepository.GetAll("");
+            DynamicParameters parms = new DynamicParameters();
+            parms.Add("@StatementType", "SelectAll");
+
+            var questions = _dapperAnswerRepository.GetAll("",parms);
             return Ok(questions);
         }
 
