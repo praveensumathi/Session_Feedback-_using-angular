@@ -1,8 +1,9 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using Dapper.Contrib.Extensions;
+using System;
 
 namespace Session_Feedback.core.Models
 {
+    [Table("Answers")]
     public class Answer
     {
         [Key]

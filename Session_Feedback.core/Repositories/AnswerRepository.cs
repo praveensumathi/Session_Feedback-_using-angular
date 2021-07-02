@@ -5,7 +5,7 @@ namespace Session_Feedback.core.Repositories
 {
     class AnswerRepository : GenericRepository<Answer>
     {
-        public AnswerRepository() : base(Helper.OpenSession())
+        public AnswerRepository(string connectionString) : base(Helper.OpenSession(connectionString))
         {
 
         }

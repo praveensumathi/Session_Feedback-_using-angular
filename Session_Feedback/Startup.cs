@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Session_Feedback.core.DapperRepository;
 
 namespace Session_Feedback
 {
@@ -26,6 +27,8 @@ namespace Session_Feedback
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            //services.AddTransient<IDapperRepository, DRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

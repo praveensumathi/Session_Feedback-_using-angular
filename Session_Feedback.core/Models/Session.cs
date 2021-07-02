@@ -1,7 +1,9 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using Dapper.Contrib.Extensions;
+using System;
+using System.Collections.Generic;
 namespace Session_Feedback.core.Models
 {
+    [Table("Sessions")]
     public class Session
     {
         [Key]
@@ -9,8 +11,6 @@ namespace Session_Feedback.core.Models
         public string Name { get; set; }
         public string CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
-
-        public int FeedbackId { get; set; }
-        public Feedback Feedback { get; set; }
+        public ICollection<Question> Questions { get; set; }
     }
 }
