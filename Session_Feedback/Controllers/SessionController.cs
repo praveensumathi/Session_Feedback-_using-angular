@@ -5,7 +5,7 @@ using Session_Feedback.core.DapperModelRepositories;
 namespace Session_Feedback.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class SessionController : ControllerBase
     {
         //private readonly SessionRepository _sessionRepository;
