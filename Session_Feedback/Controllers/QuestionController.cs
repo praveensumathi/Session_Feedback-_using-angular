@@ -17,7 +17,6 @@ namespace Session_Feedback.Controllers
     {
         private readonly string connectionString;
         private readonly DapperQuestionRepository _dapperQuestionRepository;
-        private readonly DapperSessionRepository _dapperSessionRepository;
         public QuestionController(IConfiguration configuration)
         {
             connectionString = configuration.GetConnectionString("connection_string");
@@ -31,7 +30,18 @@ namespace Session_Feedback.Controllers
             DynamicParameters parms = new DynamicParameters();
             parms.Add("@StatementType", "SelectAll");
 
-            var questions = _dapperQuestionRepository.GetAllQuestionAnswers("Question",parms);
+            var questions = _dapperQuestionRepository.GetQuestionAnswers("Question",parms);
+            return Ok(questions);
+        }
+
+        [HttpGet("{sessionId}")]
+        public IActionResult Get(int sessionId)
+        {
+            DynamicParameters parms = new DynamicParameters();
+            parms.Add("@StatementType", "SelectBySId");
+            parms.Add("@SessionId", sessionId);
+
+            var questions = _dapperQuestionRepository.GetQuestionAnswers("Question", parms);
             return Ok(questions);
         }
     }

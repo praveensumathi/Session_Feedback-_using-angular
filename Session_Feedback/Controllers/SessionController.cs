@@ -9,16 +9,12 @@ namespace Session_Feedback.Controllers
     [Route("api/[controller]")]
     public class SessionController : ControllerBase
     {
-        //private readonly SessionRepository _sessionRepository;
-        private readonly DapperSessionRepository _dapperSessionRepository;
-
         private readonly string connectionString;
+        private readonly DapperSessionRepository _dapperSessionRepository;
 
         public SessionController(IConfiguration configuration)
         {
-            
             connectionString = configuration.GetConnectionString("connection_string");
-            //_sessionRepository = new SessionRepository(connectionString);
             _dapperSessionRepository = new DapperSessionRepository(connectionString);
         }
 
@@ -28,7 +24,7 @@ namespace Session_Feedback.Controllers
             DynamicParameters parms = new DynamicParameters();
             parms.Add("@StatementType", "SelectAll");
 
-            var data = _dapperSessionRepository.GetAll("Session",parms);
+            var data = _dapperSessionRepository.GetAllSessionQuestion("Session",parms);
             return Ok(data);
         }
 

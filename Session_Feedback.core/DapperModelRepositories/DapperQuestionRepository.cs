@@ -19,7 +19,7 @@ namespace Session_Feedback.core.DapperModelRepositories
 
         }
 
-        public IEnumerable<Question> GetAllQuestionAnswers(string sp, DynamicParameters parms)
+        public IEnumerable<Question> GetQuestionAnswers(string sp, DynamicParameters parms)
         {
             var questionDictionary = new Dictionary<int, Question>();
 
@@ -38,6 +38,7 @@ namespace Session_Feedback.core.DapperModelRepositories
                    }
                    question.Answers.Add(a);
                    return question;
+
                }, splitOn: "SessionId", param: parms, commandType: CommandType.StoredProcedure).Distinct().ToList();
 
             return result;
