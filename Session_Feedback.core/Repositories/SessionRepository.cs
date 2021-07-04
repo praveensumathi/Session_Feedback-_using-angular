@@ -7,9 +7,9 @@ using System.Linq;
 
 namespace Session_Feedback.core.Repositories
 {
-    public class SessionRepository:GenericRepository<Session>
+    public class QuestionRepostory:GenericRepository<Question>
     {
-        public SessionRepository(string connectionString):base(Helper.OpenSession(connectionString))
+        public QuestionRepostory(string connectionString):base(Helper.OpenSession(connectionString))
         {
 
         }

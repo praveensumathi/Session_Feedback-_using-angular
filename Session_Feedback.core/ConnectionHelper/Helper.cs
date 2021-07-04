@@ -10,7 +10,10 @@ namespace Session_Feedback.core.ConnectionHelper
         public static IDbConnection OpenSession(string connectionString)
         {
             IDbConnection session = new SqlConnection(connectionString);
-            session.Open();
+            if(session.State == ConnectionState.Closed)
+            {
+                session.Open();
+            }
             return session;
         }
     }
