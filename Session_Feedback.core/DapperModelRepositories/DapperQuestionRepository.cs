@@ -43,5 +43,31 @@ namespace Session_Feedback.core.DapperModelRepositories
 
             return result;
         }
+
+        public Question GetQuestionAnswersById(string sp, DynamicParameters parms)
+        {
+            var questionDictionary = new Dictionary<int, Question>();
+
+            if (DbConnection.State == ConnectionState.Closed)
+                DbConnection.Open();
+
+            var result = DbConnection.Query<Question, Answer, Question>(sp, (q, a) =>
+            {
+                Question question;
+
+                if (!(questionDictionary.TryGetValue(q.QuestionId, out question)))
+                {
+                    question = q;
+                    question.Answers = new List<Answer>();
+                    questionDictionary.Add(q.QuestionId, q);
+                }
+                question.Answers.Add(a);
+                return question;
+
+            }, splitOn: "SessionId", param: parms, commandType: CommandType.StoredProcedure).FirstOrDefault();
+
+            return result;
+        }
+
     }
 }

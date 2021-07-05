@@ -21,7 +21,6 @@ namespace Session_Feedback.Controllers
         {
             connectionString = configuration.GetConnectionString("connection_string");
             _dapperQuestionRepository = new DapperQuestionRepository(connectionString);
-            //_dapperSessionRepository = new DapperSessionRepository(connectionString);
         }
 
         [HttpGet]
@@ -43,6 +42,17 @@ namespace Session_Feedback.Controllers
 
             var questions = _dapperQuestionRepository.GetQuestionAnswers("Question", parms);
             return Ok(questions);
+        }
+
+        [HttpGet("[action]")]
+        public IActionResult GetByQId(long QuestionId)
+        {
+            DynamicParameters parms = new DynamicParameters();
+            parms.Add("@Id", QuestionId);
+            parms.Add("@StatementType", "SelectByQId");
+
+            var answers = _dapperQuestionRepository.GetQuestionAnswersById("Question", parms);
+            return Ok(answers);
         }
     }
 }

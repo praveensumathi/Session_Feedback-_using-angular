@@ -29,8 +29,8 @@ namespace Session_Feedback.Controllers
             DynamicParameters parms = new DynamicParameters();
             parms.Add("@StatementType", "SelectAll");
 
-            var questions = _dapperAnswerRepository.GetAll("",parms);
-            return Ok(questions);
+            var answers = _dapperAnswerRepository.GetAll("",parms);
+            return Ok(answers);
         }
 
     }

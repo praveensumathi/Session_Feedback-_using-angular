@@ -50,24 +50,14 @@ namespace Session_Feedback.core.DapperRepository
             return false;
         }
 
-        public async Task<T> Insert(string sp, DynamicParameters parms)
+        public int Insert(string sp, DynamicParameters parms)
         {
-            T result;
+            int result;
 
             if (_dbConnection.State == ConnectionState.Closed)
                 _dbConnection.Open();
 
-            using var tran = _dbConnection.BeginTransaction();
-            try
-            {
-                result = await _dbConnection.QueryFirstOrDefaultAsync<T>(sp, parms, commandType: CommandType.StoredProcedure, transaction: tran);
-                tran.Commit();
-            }
-            catch (Exception ex)
-            {
-                tran.Rollback();
-                throw ex;
-            }
+            result = _dbConnection.QueryFirstOrDefault<int>(sp, parms, commandType: CommandType.StoredProcedure);
 
             return result;
         }

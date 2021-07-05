@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Session_Feedback.core.DapperModelRepositories;
+using Session_Feedback.core.Models;
+using System.Collections.Generic;
 
 namespace Session_Feedback.Controllers
 {
@@ -28,5 +30,19 @@ namespace Session_Feedback.Controllers
             return Ok(data);
         }
 
+        [HttpPost]
+        public IActionResult Post([FromBody] Session session)
+        {
+            DynamicParameters parms = new DynamicParameters();
+            parms.Add("@Name", session.Name);
+            parms.Add("@CreatedBy", session.CreatedBy);
+            parms.Add("@CreatedOn", session.CreatedOn);
+            parms.Add("@StatementType", "Insert");
+
+            var insertedId = _dapperSessionRepository.Insert("Session", parms);
+            session.SessionId = insertedId;
+            session.Questions = new List<Question>();
+            return Ok(session);
+        }
     }
 }
