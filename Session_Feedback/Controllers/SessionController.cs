@@ -35,20 +35,8 @@ namespace Session_Feedback.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Session session)
         {
-            DynamicParameters parms = new DynamicParameters();
-            parms.Add("@Name", session.Name);
-            parms.Add("@CreatedBy", session.CreatedBy);
-            parms.Add("@CreatedOn", session.CreatedOn);
-            parms.Add("@StatementType", "Insert");
-
-            var insertedId = _dapperSessionRepository.Insert("Session", parms);
-            session.SessionId = insertedId;
-            if(insertedId != null)
-            {
-                var AffectedRow = _dapperQuestionRepository.Insert
-            }
-
-            return Ok(session);
+            var result = _dapperSessionRepository.InsertSessionWithBulkQuestions(session);
+            return Ok(result);
         }
     }
 }

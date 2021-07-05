@@ -49,8 +49,11 @@ namespace Session_Feedback.core.DapperModelRepositories
             return result;
         }
 
-        public IEnumerable<Session> InsertSessionWithBulkQuestions(Session session)
+        public Session InsertSessionWithBulkQuestions(Session session)
         {
+            DapperPlusManager.Entity<Session>().Table("Sessions").Identity(x => x.SessionId);
+            DapperPlusManager.Entity<Question>().Table("Questions").Identity(x => x.QuestionId);
+
             List <Session> sessions= new List<Session>() { session };
 
             if (DbConnection.State == ConnectionState.Closed)
@@ -58,6 +61,13 @@ namespace Session_Feedback.core.DapperModelRepositories
 
             DbConnection.BulkInsert<Session>(sessions).ThenForEach(s => s.Questions.ForEach(q => q.SessionId = s.SessionId))
                 .ThenBulkInsert(s => s.Questions);
+
+            DynamicParameters parms = new DynamicParameters();
+            parms.Add("@StatementType", "SelectAll");
+
+            var result = GetAllSessionQuestion("Session", parms).Where(s => s.Name == session.Name).FirstOrDefault();
+
+            return result;
         }
     }
 }
