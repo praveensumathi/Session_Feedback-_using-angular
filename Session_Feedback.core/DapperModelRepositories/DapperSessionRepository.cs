@@ -5,6 +5,7 @@ using Session_Feedback.core.Models;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using Z.Dapper.Plus;
 
 namespace Session_Feedback.core.DapperModelRepositories
 {
@@ -46,6 +47,17 @@ namespace Session_Feedback.core.DapperModelRepositories
             }, splitOn: "QuestionId", param: parms, commandType: CommandType.StoredProcedure).Distinct().ToList();
 
             return result;
+        }
+
+        public IEnumerable<Session> InsertSessionWithBulkQuestions(Session session)
+        {
+            List <Session> sessions= new List<Session>() { session };
+
+            if (DbConnection.State == ConnectionState.Closed)
+                DbConnection.Open();
+
+            DbConnection.BulkInsert<Session>(sessions).ThenForEach(s => s.Questions.ForEach(q => q.SessionId = s.SessionId))
+                .ThenBulkInsert(s => s.Questions);
         }
     }
 }

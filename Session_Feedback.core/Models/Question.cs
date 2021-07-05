@@ -13,6 +13,8 @@ namespace Session_Feedback.core.Models
         public string FeedbackQuestion { get; set; }
         public string CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
+
+        public int SessionId { get; set; }
         public ICollection<Answer> Answers { get; set; }
     }
 }

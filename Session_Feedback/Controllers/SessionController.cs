@@ -13,11 +13,13 @@ namespace Session_Feedback.Controllers
     {
         private readonly string connectionString;
         private readonly DapperSessionRepository _dapperSessionRepository;
+        private readonly DapperQuestionRepository _dapperQuestionRepository;
 
         public SessionController(IConfiguration configuration)
         {
             connectionString = configuration.GetConnectionString("connection_string");
             _dapperSessionRepository = new DapperSessionRepository(connectionString);
+            _dapperQuestionRepository = new DapperQuestionRepository(connectionString);
         }
 
         [HttpGet]
@@ -41,7 +43,11 @@ namespace Session_Feedback.Controllers
 
             var insertedId = _dapperSessionRepository.Insert("Session", parms);
             session.SessionId = insertedId;
-            session.Questions = new List<Question>();
+            if(insertedId != null)
+            {
+                var AffectedRow = _dapperQuestionRepository.Insert
+            }
+
             return Ok(session);
         }
     }
