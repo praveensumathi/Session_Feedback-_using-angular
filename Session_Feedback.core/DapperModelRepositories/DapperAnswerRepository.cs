@@ -16,7 +16,7 @@ namespace Session_Feedback.core.DapperModelRepositories
 
         }
 
-        public IEnumerable<Answer> GetQuestionAnswersById(string sp, DynamicParameters parms)
+        public IEnumerable<Answer> GetQuestionAnswersByQId(string sp, DynamicParameters parms)
         {
             if (DbConnection.State == ConnectionState.Closed)
                 DbConnection.Open();

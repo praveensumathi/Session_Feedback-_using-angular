@@ -22,7 +22,7 @@ namespace Session_Feedback.Controllers
             _dapperAnswerRepository = new DapperAnswerRepository(connectionString);
         }
 
-
+        //api/answer/2
         [HttpGet("{questionId}")]
         public IActionResult GetAnswersByQId(long QuestionId)
         {
@@ -30,7 +30,7 @@ namespace Session_Feedback.Controllers
             parms.Add("@QuestionId", QuestionId);
             parms.Add("@StatementType", "SelectByQId");
 
-            var answers = _dapperAnswerRepository.GetQuestionAnswersById("Answer", parms);
+            var answers = _dapperAnswerRepository.GetQuestionAnswersByQId("Answer", parms);
             return Ok(answers);
         }
 

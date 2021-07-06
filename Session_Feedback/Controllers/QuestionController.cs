@@ -25,6 +25,7 @@ namespace Session_Feedback.Controllers
 
         }
 
+        //api/question/15
         [HttpGet("{sessionId}")]
         public IActionResult Get(int sessionId)
         {
