@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Session_Feedback.core.DapperRepository
 {
-    public class DRepository<T> : IDapperRepository<T> where T :class
+    public class DRepository<T> : IDapperRepository<T> where T : class
     {
         private readonly IDbConnection _dbConnection;
 
@@ -29,7 +29,7 @@ namespace Session_Feedback.core.DapperRepository
             if (_dbConnection.State == ConnectionState.Closed)
                 _dbConnection.Open();
 
-            var result = _dbConnection.Query<T>(sp, param : parms,commandType: CommandType.StoredProcedure);
+            var result = _dbConnection.Query<T>(sp, param: parms, commandType: CommandType.StoredProcedure);
 
             return result;
         }
@@ -51,14 +51,23 @@ namespace Session_Feedback.core.DapperRepository
 
         public int Insert(string sp, DynamicParameters parms)
         {
-            int result;
 
             if (_dbConnection.State == ConnectionState.Closed)
                 _dbConnection.Open();
 
-            result = _dbConnection.QueryFirstOrDefault<int>(sp, parms, commandType: CommandType.StoredProcedure);
+            using var tran = _dbConnection.BeginTransaction();
+            try
+            {
+                var result = _dbConnection.QueryFirstOrDefault<int>(sp, parms, commandType: CommandType.StoredProcedure, transaction: tran);
 
-            return result;
+                tran.Commit();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                tran.Rollback();
+                throw ex;
+            }
         }
 
         public bool Update(string sp, DynamicParameters parms)
@@ -70,8 +79,8 @@ namespace Session_Feedback.core.DapperRepository
             try
             {
                 var result = _dbConnection.Execute(sp, parms, commandType: CommandType.StoredProcedure, transaction: tran);
-                
-                if (result != 0)
+
+                if (result > 0)
                 {
                     tran.Commit();
                     return true;

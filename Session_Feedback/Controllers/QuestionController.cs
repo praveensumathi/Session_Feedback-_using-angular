@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Session_Feedback.core.DapperModelRepositories;
+using Session_Feedback.core.Models;
 using Session_Feedback.core.Repositories;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace Session_Feedback.Controllers
         {
             connectionString = configuration.GetConnectionString("connection_string");
             _dapperQuestionRepository = new DapperQuestionRepository(connectionString);
-            
+
         }
 
         [HttpGet("{sessionId}")]
@@ -35,15 +36,47 @@ namespace Session_Feedback.Controllers
             return Ok(questions);
         }
 
-        [HttpGet("[action]")]
-        public IActionResult GetByQId(long QuestionId)
+        //[HttpGet("[action]")]
+        //public IActionResult GetByQId(long QuestionId)
+        //{
+        //    DynamicParameters parms = new DynamicParameters();
+        //    parms.Add("@Id", QuestionId);
+        //    parms.Add("@StatementType", "SelectByQId");
+
+        //    var answers = _dapperQuestionRepository.GetQuestionAnswersById("Question", parms);
+        //    return Ok(answers);
+        //}
+
+        [HttpPost]
+        public IActionResult Post([FromBody] Question question)
         {
             DynamicParameters parms = new DynamicParameters();
-            parms.Add("@Id", QuestionId);
-            parms.Add("@StatementType", "SelectByQId");
+            parms.Add("@StatementType", "Insert");
+            parms.Add("@FeedbackQuestion", question.FeedbackQuestion);
+            parms.Add("@CreatedBy", question.CreatedBy);
+            parms.Add("@CreatedOn", DateTime.Now);
+            parms.Add("@SessionId", question.SessionId);
+            
+            var id = _dapperQuestionRepository.Insert("Question", parms);
 
-            var answers = _dapperQuestionRepository.GetQuestionAnswersById("Question", parms);
-            return Ok(answers);
+            question.QuestionId = id;
+            return Ok(question);
+        }
+
+        [HttpPut]
+        public IActionResult Put([FromBody] Question question)
+        {
+            DynamicParameters parms = new DynamicParameters();
+            parms.Add("@Id", question.QuestionId);
+            parms.Add("@FeedbackQuestion", question.FeedbackQuestion);
+            parms.Add("@StatementType", "Update");
+
+            bool isUpdated = _dapperQuestionRepository.Update("Question", parms);
+            if (isUpdated)
+            {
+                return Ok(isUpdated);
+            }
+            return Ok(false);
         }
     }
 }

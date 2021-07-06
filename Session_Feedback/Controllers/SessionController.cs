@@ -35,8 +35,8 @@ namespace Session_Feedback.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Session session)
         {
-            var data = _dapperSessionRepository.InsertSessionWithBulkQuestions(session);
-            return Ok(data);
+            var newSession = _dapperSessionRepository.InsertSessionWithBulkQuestions(session);
+            return Ok(newSession);
         }
 
         [HttpPut]
