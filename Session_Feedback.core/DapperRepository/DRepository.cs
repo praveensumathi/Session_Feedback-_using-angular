@@ -16,13 +16,12 @@ namespace Session_Feedback.core.DapperRepository
             _dbConnection = dbConnection;
         }
 
-        public async Task<T> GetById(string sp, DynamicParameters parms)
+        public T GetById(string sp, DynamicParameters parms)
         {
             if (_dbConnection.State == ConnectionState.Closed)
                 _dbConnection.Open();
 
-
-            return await _dbConnection.QueryFirstOrDefaultAsync<T>(sp, param: parms, commandType: CommandType.StoredProcedure);
+            return _dbConnection.QueryFirstOrDefault<T>(sp, param: parms, commandType: CommandType.StoredProcedure);
         }
 
         public IEnumerable<T> GetAll(string sp, DynamicParameters parms)
@@ -62,18 +61,22 @@ namespace Session_Feedback.core.DapperRepository
             return result;
         }
 
-        public async Task<T> Update(string sp, DynamicParameters parms)
+        public bool Update(string sp, DynamicParameters parms)
         {
-            T result;
-
             if (_dbConnection.State == ConnectionState.Closed)
                 _dbConnection.Open();
 
             using var tran = _dbConnection.BeginTransaction();
             try
             {
-                result = await _dbConnection.QueryFirstOrDefaultAsync<T>(sp, parms, commandType: CommandType.StoredProcedure, transaction: tran);
-                tran.Commit();
+                var result = _dbConnection.Execute(sp, parms, commandType: CommandType.StoredProcedure, transaction: tran);
+                
+                if (result != 0)
+                {
+                    tran.Commit();
+                    return true;
+                }
+                else return false;
             }
             catch (Exception ex)
             {
@@ -81,7 +84,6 @@ namespace Session_Feedback.core.DapperRepository
                 throw ex;
             }
 
-            return result;
 
         }
     }

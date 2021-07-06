@@ -23,13 +23,15 @@ namespace Session_Feedback.Controllers
             _dapperAnswerRepository = new DapperAnswerRepository(connectionString);
         }
 
-        [HttpGet]
-        public IActionResult Get()
+
+        [HttpGet("{questionId}")]
+        public IActionResult GetAnswersByQId(long QuestionId)
         {
             DynamicParameters parms = new DynamicParameters();
-            parms.Add("@StatementType", "SelectAll");
+            parms.Add("@QuestionId", QuestionId);
+            parms.Add("@StatementType", "SelectByQId");
 
-            var answers = _dapperAnswerRepository.GetAll("",parms);
+            var answers = _dapperAnswerRepository.GetQuestionAnswersById("Answer", parms);
             return Ok(answers);
         }
 

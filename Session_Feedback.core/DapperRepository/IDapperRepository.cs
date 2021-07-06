@@ -6,10 +6,10 @@ namespace Session_Feedback.core.DapperRepository
 {
     public interface IDapperRepository<T> where T :class
     {
-        Task<T> GetById(string sp, DynamicParameters parms);
+        T GetById(string sp, DynamicParameters parms);
         IEnumerable<T> GetAll(string sp, DynamicParameters parms);
         int Insert(string sp, DynamicParameters parms);
-        Task<T> Update(string sp, DynamicParameters parms);
+        bool Update(string sp, DynamicParameters parms);
         Task<bool> Delete(string sp, int id);
     }
 }

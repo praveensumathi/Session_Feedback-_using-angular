@@ -59,15 +59,10 @@ namespace Session_Feedback.core.DapperModelRepositories
             if (DbConnection.State == ConnectionState.Closed)
                 DbConnection.Open();
 
-            DbConnection.BulkInsert<Session>(sessions).ThenForEach(s => s.Questions.ForEach(q => q.SessionId = s.SessionId))
+            var result = DbConnection.BulkInsert<Session>(sessions).ThenForEach(s => s.Questions.ForEach(q => q.SessionId = s.SessionId))
                 .ThenBulkInsert(s => s.Questions);
-
-            DynamicParameters parms = new DynamicParameters();
-            parms.Add("@StatementType", "SelectAll");
-
-            var result = GetAllSessionQuestion("Session", parms).Where(s => s.Name == session.Name).FirstOrDefault();
-
-            return result;
+           
+            return session;
         }
     }
 }

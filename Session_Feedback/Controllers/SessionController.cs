@@ -28,15 +28,31 @@ namespace Session_Feedback.Controllers
             DynamicParameters parms = new DynamicParameters();
             parms.Add("@StatementType", "SelectAll");
 
-            var data = _dapperSessionRepository.GetAllSessionQuestion("Session",parms);
+            var data = _dapperSessionRepository.GetAll("Session",parms);
             return Ok(data);
         }
 
         [HttpPost]
         public IActionResult Post([FromBody] Session session)
         {
-            var result = _dapperSessionRepository.InsertSessionWithBulkQuestions(session);
-            return Ok(result);
+            var data = _dapperSessionRepository.InsertSessionWithBulkQuestions(session);
+            return Ok(data);
+        }
+
+        [HttpPut]
+        public IActionResult Put([FromBody] Session session)
+        {
+            DynamicParameters parms = new DynamicParameters();
+            parms.Add("@Id", session.SessionId);
+            parms.Add("@Name", session.Name);
+            parms.Add("@StatementType", "Update");
+
+            bool isUpdated = _dapperSessionRepository.Update("Session",parms);
+            if(isUpdated)
+            {
+                return Ok(isUpdated);
+            }
+            return Ok(false);
         }
     }
 }

@@ -21,16 +21,7 @@ namespace Session_Feedback.Controllers
         {
             connectionString = configuration.GetConnectionString("connection_string");
             _dapperQuestionRepository = new DapperQuestionRepository(connectionString);
-        }
-
-        [HttpGet]
-        public IActionResult Get()
-        {
-            DynamicParameters parms = new DynamicParameters();
-            parms.Add("@StatementType", "SelectAll");
-
-            var questions = _dapperQuestionRepository.GetQuestionAnswers("Question",parms);
-            return Ok(questions);
+            
         }
 
         [HttpGet("{sessionId}")]
@@ -40,7 +31,7 @@ namespace Session_Feedback.Controllers
             parms.Add("@StatementType", "SelectBySId");
             parms.Add("@SessionId", sessionId);
 
-            var questions = _dapperQuestionRepository.GetQuestionAnswers("Question", parms);
+            var questions = _dapperQuestionRepository.GetQuestionsBySId("Question", parms);
             return Ok(questions);
         }
 

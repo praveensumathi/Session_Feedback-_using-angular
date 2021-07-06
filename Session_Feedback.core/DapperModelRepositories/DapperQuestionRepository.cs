@@ -19,27 +19,12 @@ namespace Session_Feedback.core.DapperModelRepositories
 
         }
 
-        public IEnumerable<Question> GetQuestionAnswers(string sp, DynamicParameters parms)
+        public IEnumerable<Question> GetQuestionsBySId(string sp, DynamicParameters parms)
         {
-            var questionDictionary = new Dictionary<int, Question>();
-
             if (DbConnection.State == ConnectionState.Closed)
                 DbConnection.Open();
 
-            var result = DbConnection.Query<Question, Answer, Question>(sp, (q, a) =>
-               {
-                   Question question;
-
-                   if (!(questionDictionary.TryGetValue(q.QuestionId, out question)))
-                   {
-                       question = q;
-                       question.Answers = new List<Answer>();
-                       questionDictionary.Add(q.QuestionId, q);
-                   }
-                   question.Answers.Add(a);
-                   return question;
-
-               }, splitOn: "SessionId", param: parms, commandType: CommandType.StoredProcedure).Distinct().ToList();
+            var result = DbConnection.Query<Question>(sp, param: parms, commandType: CommandType.StoredProcedure);
 
             return result;
         }

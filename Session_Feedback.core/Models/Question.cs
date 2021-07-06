@@ -1,4 +1,5 @@
 ﻿using Dapper.Contrib.Extensions;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
@@ -15,6 +16,7 @@ namespace Session_Feedback.core.Models
         public DateTime CreatedOn { get; set; }
 
         public int SessionId { get; set; }
-        public ICollection<Answer> Answers { get; set; }
+
+        public List<Answer> Answers { get; set; } = new List<Answer>();
     }
 }

@@ -11,5 +11,7 @@ namespace Session_Feedback.core.Models
         public string QuestionAnswer { get; set; }
         public string AnsweredBy { get; set; }
         public DateTime AnsweredOn { get; set; }
+
+        public int QuestionId { get; set; }
     }
 }
