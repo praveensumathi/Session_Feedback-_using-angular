@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Session_Feedback.core.DapperModelRepositories;
 using Session_Feedback.core.Models;
+using Session_Feedback.core.UnitOfWorks;
+using System;
 using System.Collections.Generic;
 
 namespace Session_Feedback.Controllers
@@ -14,12 +16,14 @@ namespace Session_Feedback.Controllers
         private readonly string connectionString;
         private readonly DapperSessionRepository _dapperSessionRepository;
         private readonly DapperQuestionRepository _dapperQuestionRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public SessionController(IConfiguration configuration)
+        public SessionController(IConfiguration configuration,IUnitOfWork unitOfWork)
         {
             connectionString = configuration.GetConnectionString("connection_string");
             _dapperSessionRepository = new DapperSessionRepository(connectionString);
             _dapperQuestionRepository = new DapperQuestionRepository(connectionString);
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
@@ -28,15 +32,20 @@ namespace Session_Feedback.Controllers
             DynamicParameters parms = new DynamicParameters();
             parms.Add("@StatementType", "SelectAll");
 
-            var data = _dapperSessionRepository.GetAll("Session",parms);
-            return Ok(data);
+            //var data = _dapperSessionRepository.GetAll("Session",parms);
+            var d = _unitOfWork.Sessions.GetAll("Session", parms);
+            _unitOfWork.Commit();
+            return Ok(d);
         }
 
         [HttpPost]
         public IActionResult Post([FromBody] Session session)
         {
-            var newSession = _dapperSessionRepository.InsertSessionWithBulkQuestions(session);
-            return Ok(newSession);
+            //var newSession = _dapperSessionRepository.InsertSessionWithBulkQuestions(session);
+            session.CreatedOn = DateTime.Now;
+            var news = _unitOfWork.Sessions.InsertSessionWithBulkQuestions(session);
+            _unitOfWork.Commit();
+            return Ok(news);
         }
 
         [HttpPut]

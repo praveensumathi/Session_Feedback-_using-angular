@@ -8,6 +8,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Z.Dapper.Plus;
 
 namespace Session_Feedback.core.DapperModelRepositories
 {
@@ -27,6 +28,26 @@ namespace Session_Feedback.core.DapperModelRepositories
             var result = DbConnection.Query<Question>(sp, param: parms, commandType: CommandType.StoredProcedure);
 
             return result;
+        }
+
+        public bool DeleteQuestionWithAnswers(long QId)
+        {
+            DapperPlusManager.Entity<Question>().Table("Questions").Identity(x => x.QuestionId);
+            DapperPlusManager.Entity<Answer>().Table("Sessions").Identity(x => x.AnswerId);
+
+            DynamicParameters parms = new DynamicParameters();
+            parms.Add("@Id", QId);
+            parms.Add("@StatementType", "SelectByQId");
+
+            var question = GetQuestionAnswersById("Question", parms);
+
+            List<Question> questions = new List<Question>() { question };
+
+            if (DbConnection.State == ConnectionState.Closed)
+                DbConnection.Open();
+
+            DbConnection.BulkDelete(questions.SelectMany(q => q.Answers)).BulkDelete(questions);
+            return true;
         }
 
         public Question GetQuestionAnswersById(string sp, DynamicParameters parms)
@@ -53,6 +74,5 @@ namespace Session_Feedback.core.DapperModelRepositories
 
             return result;
         }
-
     }
 }

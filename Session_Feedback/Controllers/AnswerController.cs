@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Session_Feedback.core.DapperModelRepositories;
+using Session_Feedback.core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,5 +35,20 @@ namespace Session_Feedback.Controllers
             return Ok(answers);
         }
 
+        [HttpPost]
+        public IActionResult Post([FromBody] Answer answer)
+        {
+            DynamicParameters parms = new DynamicParameters();
+            parms.Add("@QuestionAnswer", answer.QuestionAnswer);
+            parms.Add("@AnsweredBy", answer.AnsweredBy);
+            parms.Add("@AnsweredOn", DateTime.Now);
+            parms.Add("@QuestionId", answer.QuestionId);
+            parms.Add("@StatementType", "Insert");
+
+            var id = _dapperAnswerRepository.Insert("Answer", parms);
+
+            answer.AnswerId = id;
+            return Ok(answer);
+        }
     }
 }

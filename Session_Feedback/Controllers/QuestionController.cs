@@ -79,5 +79,11 @@ namespace Session_Feedback.Controllers
             }
             return Ok(false);
         }
+
+        //[HttpDelete]
+        //public IActionResult Delete(long QuestionId)
+        //{
+
+        //}
     }
 }

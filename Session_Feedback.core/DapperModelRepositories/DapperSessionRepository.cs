@@ -59,7 +59,7 @@ namespace Session_Feedback.core.DapperModelRepositories
             if (DbConnection.State == ConnectionState.Closed)
                 DbConnection.Open();
 
-            var result = DbConnection.BulkInsert<Session>(sessions).ThenForEach(s => s.Questions.ForEach(q => q.SessionId = s.SessionId))
+            DbConnection.BulkInsert<Session>(sessions).ThenForEach(s => s.Questions.ForEach(q => q.SessionId = s.SessionId))
                 .ThenBulkInsert(s => s.Questions);
            
             return session;
