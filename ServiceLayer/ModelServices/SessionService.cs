@@ -11,8 +11,9 @@ namespace ServiceLayer
 {
     public class SessionService : ISessionService
     {
-        private IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
+        private readonly string StoreProcedure = "Session";
         public SessionService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -23,7 +24,7 @@ namespace ServiceLayer
             DynamicParameters parms = new DynamicParameters();
             parms.Add("@StatementType", "SelectAll");
 
-            var sessions = _unitOfWork.Sessions.GetAll("Session", parms);
+            var sessions = _unitOfWork.Sessions.GetAll(StoreProcedure, parms);
             _unitOfWork.Commit();
 
             return sessions;
@@ -45,7 +46,7 @@ namespace ServiceLayer
             parms.Add("@Name", session.Name);
             parms.Add("@StatementType", "Update");
 
-            var isUpdated = _unitOfWork.Sessions.Update("Session", parms);
+            var isUpdated = _unitOfWork.Sessions.Update(StoreProcedure, parms);
 
             if (isUpdated)
             {

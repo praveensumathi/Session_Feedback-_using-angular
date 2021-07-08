@@ -29,7 +29,8 @@ namespace Session_Feedback.core.Repositories
 
         public T GetById(string sp, DynamicParameters parms)
         {
-            throw new NotImplementedException();
+            var result = Connection.QueryFirstOrDefault<T>(sp, param: parms,commandType:CommandType.StoredProcedure,transaction:Transaction);
+            return result;
         }
 
         public int Insert(string sp, DynamicParameters parms)

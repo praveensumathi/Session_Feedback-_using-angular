@@ -16,11 +16,13 @@ namespace Session_Feedback.core.ModelRepositories
         public SessionRepository(IDbTransaction dbTransaction) : base(dbTransaction)
         {
         }
+        private readonly string SessionTableName = "Sessions";
+        private readonly string QuestionTableName = "Questions";
 
         public Session InsertSessionWithBulkQuestions(Session session)
         {
-            DapperPlusManager.Entity<Session>().Table("Sessions").Identity(x => x.Id);
-            DapperPlusManager.Entity<Question>().Table("Questions").Identity(x => x.Id);
+            DapperPlusManager.Entity<Session>().Table(SessionTableName).Identity(x => x.Id);
+            DapperPlusManager.Entity<Question>().Table(QuestionTableName).Identity(x => x.Id);
 
             List<Session> sessions = new List<Session>() { session };
 
