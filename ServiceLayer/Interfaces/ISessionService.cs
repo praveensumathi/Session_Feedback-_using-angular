@@ -10,6 +10,7 @@ namespace ServiceLayer
     public interface ISessionService
     {
         IEnumerable<Session> GetAll();
+        Session GetById(int sessionId);
         Session Insert(Session session);
         bool Update(Session session);
     }

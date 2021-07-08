@@ -29,7 +29,20 @@ namespace ServiceLayer.ModelServices
 
             var questions = _unitOfWork.Questions.GetQuestionsBySId(StoreProcedure, parms);
             _unitOfWork.Commit();
+
             return questions;
+        }
+
+        public Question GetById(int questionId)
+        {
+            DynamicParameters parms = new DynamicParameters();
+            parms.Add("@StatementType", "GetById");
+            parms.Add("@Id", questionId);
+
+            var question = _unitOfWork.Questions.GetById(StoreProcedure, parms);
+            _unitOfWork.Commit();
+
+            return question;
         }
 
         public Question Insert(Question question)
@@ -43,7 +56,9 @@ namespace ServiceLayer.ModelServices
 
             var insertedId = _unitOfWork.Questions.Insert(StoreProcedure, parms);
             _unitOfWork.Commit();
+
             question.Id = insertedId;
+
             return question;
         }
 
@@ -57,19 +72,9 @@ namespace ServiceLayer.ModelServices
             parms.Add("@ModifiedOn", question.ModifiedOn = DateTime.Now);
 
             var result = _unitOfWork.Questions.Update(StoreProcedure, parms);
+            _unitOfWork.Commit();
 
             return result;
-        }
-
-        public Question GetById(int questionId)
-        {
-            DynamicParameters parms = new DynamicParameters();
-            parms.Add("@StatementType", "GetById");
-            parms.Add("@Id", questionId);
-
-            var question = _unitOfWork.Questions.GetById(StoreProcedure, parms);
-
-            return question;
         }
     }
 }

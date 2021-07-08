@@ -30,6 +30,17 @@ namespace ServiceLayer
             return sessions;
         }
 
+        public Session GetById(int sessionId)
+        {
+            DynamicParameters parms = new DynamicParameters();
+            parms.Add("@StatementType", "GetById");
+            parms.Add("@Id", sessionId);
+
+            var session = _unitOfWork.Sessions.GetById(StoreProcedure, parms);
+            _unitOfWork.Commit();
+            return session;
+        }
+
         public Session Insert(Session session)
         {
             session.CreatedOn = DateTime.Now;
@@ -48,11 +59,7 @@ namespace ServiceLayer
 
             var isUpdated = _unitOfWork.Sessions.Update(StoreProcedure, parms);
 
-            if (isUpdated)
-            {
-                _unitOfWork.Commit();
-            }
-
+            _unitOfWork.Commit();
             return isUpdated;
         }
     }

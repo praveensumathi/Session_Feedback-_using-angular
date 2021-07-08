@@ -6,8 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ServiceLayer;
-using Session_Feedback.core.DapperRepository;
-using Session_Feedback.core.Repositories;
+using ServiceLayer.Interfaces;
+using ServiceLayer.ModelServices;
 using Session_Feedback.core.UnitOfWorks;
 
 namespace Session_Feedback
@@ -32,6 +32,7 @@ namespace Session_Feedback
             });
 
             services.AddTransient<ISessionService, SessionService>();
+            services.AddTransient<IQuestionService, QuestionService>();
             services.AddTransient<IUnitOfWork,UnitOfWork>();
         }
 
