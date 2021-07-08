@@ -12,7 +12,7 @@ namespace Session_Feedback.core.UnitOfWorks
     {
         SessionRepository Sessions { get; }
         QuestionRepository Questions { get; }
-
+        AnswerRepository Answers { get; }
         void Commit();
     }
 }

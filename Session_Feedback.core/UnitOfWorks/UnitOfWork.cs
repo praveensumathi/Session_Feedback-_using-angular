@@ -15,7 +15,8 @@ namespace Session_Feedback.core.UnitOfWorks
         private IDbConnection _connection;
         private IDbTransaction _transaction;
         private SessionRepository _sessionRepository;
-        private QuestionRepository questionRepository;
+        private QuestionRepository _questionRepository;
+        private AnswerRepository _answerRepository;
 
         private bool _disposed;
 
@@ -38,7 +39,15 @@ namespace Session_Feedback.core.UnitOfWorks
         {
             get
             {
-                return questionRepository ??= new QuestionRepository(_transaction);
+                return _questionRepository ??= new QuestionRepository(_transaction);
+            }
+        }
+
+        public AnswerRepository Answers
+        {
+            get
+            {
+                return _answerRepository ??= new AnswerRepository(_transaction);
             }
         }
 

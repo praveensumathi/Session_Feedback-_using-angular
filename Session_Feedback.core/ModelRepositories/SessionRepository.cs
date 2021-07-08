@@ -1,4 +1,5 @@
-﻿using Session_Feedback.core.Models;
+﻿using Dapper;
+using Session_Feedback.core.Models;
 using Session_Feedback.core.Repositories;
 using Session_Feedback.core.UnitOfWorks;
 using System;
@@ -16,6 +17,7 @@ namespace Session_Feedback.core.ModelRepositories
         public SessionRepository(IDbTransaction dbTransaction) : base(dbTransaction)
         {
         }
+
         private readonly string SessionTableName = "Sessions";
         private readonly string QuestionTableName = "Questions";
 
@@ -36,6 +38,37 @@ namespace Session_Feedback.core.ModelRepositories
                 .ThenBulkInsert(s => s.Questions);
 
             return session;
+        }
+
+        //Not Used this method (only for reference)
+        public IEnumerable<Session> GetAllSessionQuestion(string sp, DynamicParameters parms)
+        {
+            var sessionDictionary = new Dictionary<int, Session>();
+            var questionDictionary = new Dictionary<int, Question>();
+
+            var result = Connection.Query<Session, Question, Session>(sp, (s, q) =>
+            {
+                Session session;
+                Question question;
+
+                if (!(sessionDictionary.TryGetValue(s.Id, out session)))
+                {
+                    session = s;
+                    session.Questions = new List<Question>();
+                    sessionDictionary.Add(s.Id, s);
+                }
+                if (!(questionDictionary.TryGetValue(q.Id, out question)))
+                {
+                    question = q;
+                    question.Answers = new List<Answer>();
+                    questionDictionary.Add(q.Id, q);
+                }
+                session.Questions.Add(q);
+                return session;
+
+            }, splitOn: "QuestionId", param: parms, commandType: CommandType.StoredProcedure).Distinct().ToList();
+
+            return result;
         }
     }
 }
