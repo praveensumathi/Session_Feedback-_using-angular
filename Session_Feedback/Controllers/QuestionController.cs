@@ -19,7 +19,7 @@ namespace Session_Feedback.Controllers
     {
         private readonly IQuestionService _questionService;
 
-        public QuestionController(IConfiguration configuration,IUnitOfWork unitOfWork,IQuestionService questionService)
+        public QuestionController(IQuestionService questionService)
         {
             _questionService = questionService;
         }
