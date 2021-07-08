@@ -1,5 +1,6 @@
 ﻿using Session_Feedback.core.Models;
 using Session_Feedback.core.Repositories;
+using Session_Feedback.core.UnitOfWorks;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -14,22 +15,23 @@ namespace Session_Feedback.core.ModelRepositories
     {
         public SessionRepository(IDbTransaction dbTransaction) : base(dbTransaction)
         {
-
         }
 
         public Session InsertSessionWithBulkQuestions(Session session)
         {
-            DapperPlusManager.Entity<Session>().Table("Sessions").Identity(x => x.SessionId);
-            DapperPlusManager.Entity<Question>().Table("Questions").Identity(x => x.QuestionId);
+            DapperPlusManager.Entity<Session>().Table("Sessions").Identity(x => x.Id);
+            DapperPlusManager.Entity<Question>().Table("Questions").Identity(x => x.Id);
 
             List<Session> sessions = new List<Session>() { session };
 
-            Connection.UseBulkOptions(options => options.Transaction = (System.Data.Common.DbTransaction)Transaction).BulkInsert<Session>(sessions).ThenForEach(s => s.Questions.ForEach(q =>
-            {
-                q.SessionId = s.SessionId;
-                q.CreatedOn = DateTime.Now;
-            }
-            )).ThenBulkInsert(s => s.Questions);
+            Connection.UseBulkOptions(options => options.Transaction = (System.Data.Common.DbTransaction)Transaction)
+                .BulkInsert<Session>(sessions)
+                .ThenForEach(s => s.Questions.ForEach(q =>
+                {
+                    q.SessionId = s.Id;
+                    q.CreatedOn = DateTime.Now;
+                }))
+                .ThenBulkInsert(s => s.Questions);
 
             return session;
         }

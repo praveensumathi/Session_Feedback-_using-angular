@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Session_Feedback.core.DapperModelRepositories;
 using Session_Feedback.core.Models;
 using Session_Feedback.core.Repositories;
+using Session_Feedback.core.UnitOfWorks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,10 +19,13 @@ namespace Session_Feedback.Controllers
     {
         private readonly string connectionString;
         private readonly DapperQuestionRepository _dapperQuestionRepository;
-        public QuestionController(IConfiguration configuration)
+        private readonly IUnitOfWork _unitOfWork;
+
+        public QuestionController(IConfiguration configuration,IUnitOfWork unitOfWork)
         {
             connectionString = configuration.GetConnectionString("connection_string");
             _dapperQuestionRepository = new DapperQuestionRepository(connectionString);
+            _unitOfWork = unitOfWork;
 
         }
 
@@ -33,7 +37,9 @@ namespace Session_Feedback.Controllers
             parms.Add("@StatementType", "SelectBySId");
             parms.Add("@SessionId", sessionId);
 
-            var questions = _dapperQuestionRepository.GetQuestionsBySId("Question", parms);
+            //var questions = _dapperQuestionRepository.GetQuestionsBySId("Question", parms);
+            var questions = _unitOfWork.Questions.GetQuestionsBySId("Question", parms);
+            _unitOfWork.Commit();
             return Ok(questions);
         }
 
@@ -57,10 +63,11 @@ namespace Session_Feedback.Controllers
             parms.Add("@CreatedBy", question.CreatedBy);
             parms.Add("@CreatedOn", DateTime.Now);
             parms.Add("@SessionId", question.SessionId);
-            
-            var id = _dapperQuestionRepository.Insert("Question", parms);
 
-            question.QuestionId = id;
+            //var id = _dapperQuestionRepository.Insert("Question", parms);
+            var id = _unitOfWork.Questions.Insert("Question", parms);
+            _unitOfWork.Commit();
+            question.Id = id;
             return Ok(question);
         }
 
@@ -68,7 +75,7 @@ namespace Session_Feedback.Controllers
         public IActionResult Put([FromBody] Question question)
         {
             DynamicParameters parms = new DynamicParameters();
-            parms.Add("@Id", question.QuestionId);
+            parms.Add("@Id", question.Id);
             parms.Add("@FeedbackQuestion", question.FeedbackQuestion);
             parms.Add("@StatementType", "Update");
 

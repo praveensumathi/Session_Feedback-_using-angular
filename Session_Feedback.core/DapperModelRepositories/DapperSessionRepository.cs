@@ -29,17 +29,17 @@ namespace Session_Feedback.core.DapperModelRepositories
                 Session session;
                 Question question;
 
-                if (!(sessionDictionary.TryGetValue(s.SessionId, out session)))
+                if (!(sessionDictionary.TryGetValue(s.Id, out session)))
                 {
                     session = s;
                     session.Questions = new List<Question>();
-                    sessionDictionary.Add(s.SessionId, s);
+                    sessionDictionary.Add(s.Id, s);
                 }
-                if (!(questionDictionary.TryGetValue(q.QuestionId, out question)))
+                if (!(questionDictionary.TryGetValue(q.Id, out question)))
                 {
                     question = q;
                     question.Answers = new List<Answer>();
-                    questionDictionary.Add(q.QuestionId, q);
+                    questionDictionary.Add(q.Id, q);
                 }
                 session.Questions.Add(q);
                 return session;
@@ -51,15 +51,15 @@ namespace Session_Feedback.core.DapperModelRepositories
 
         public Session InsertSessionWithBulkQuestions(Session session)
         {
-            DapperPlusManager.Entity<Session>().Table("Sessions").Identity(x => x.SessionId);
-            DapperPlusManager.Entity<Question>().Table("Questions").Identity(x => x.QuestionId);
+            DapperPlusManager.Entity<Session>().Table("Sessions").Identity(x => x.Id);
+            DapperPlusManager.Entity<Question>().Table("Questions").Identity(x => x.Id);
 
             List <Session> sessions= new List<Session>() { session };
 
             if (DbConnection.State == ConnectionState.Closed)
                 DbConnection.Open();
 
-            DbConnection.BulkInsert<Session>(sessions).ThenForEach(s => s.Questions.ForEach(q => q.SessionId = s.SessionId))
+            DbConnection.BulkInsert<Session>(sessions).ThenForEach(s => s.Questions.ForEach(q => q.SessionId = s.Id))
                 .ThenBulkInsert(s => s.Questions);
            
             return session;

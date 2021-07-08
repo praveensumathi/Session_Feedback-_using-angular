@@ -15,6 +15,8 @@ namespace Session_Feedback.core.UnitOfWorks
         private IDbConnection _connection;
         private IDbTransaction _transaction;
         private SessionRepository _sessionRepository;
+        private QuestionRepository questionRepository;
+
         private bool _disposed;
 
         public UnitOfWork(IConfiguration configuration)
@@ -30,6 +32,14 @@ namespace Session_Feedback.core.UnitOfWorks
             { 
                 return _sessionRepository ??= new SessionRepository(_transaction); 
             } 
+        }
+
+        public QuestionRepository Questions
+        {
+            get
+            {
+                return questionRepository ??= new QuestionRepository(_transaction);
+            }
         }
 
         public void Commit()

@@ -11,6 +11,7 @@ namespace Session_Feedback.core.UnitOfWorks
     public interface IUnitOfWork : IDisposable
     {
         SessionRepository Sessions { get; }
+        QuestionRepository Questions { get; }
 
         void Commit();
     }

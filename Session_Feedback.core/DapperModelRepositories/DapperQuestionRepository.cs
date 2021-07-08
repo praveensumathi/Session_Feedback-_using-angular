@@ -32,7 +32,7 @@ namespace Session_Feedback.core.DapperModelRepositories
 
         public bool DeleteQuestionWithAnswers(long QId)
         {
-            DapperPlusManager.Entity<Question>().Table("Questions").Identity(x => x.QuestionId);
+            DapperPlusManager.Entity<Question>().Table("Questions").Identity(x => x.Id);
             DapperPlusManager.Entity<Answer>().Table("Sessions").Identity(x => x.AnswerId);
 
             DynamicParameters parms = new DynamicParameters();
@@ -61,11 +61,11 @@ namespace Session_Feedback.core.DapperModelRepositories
             {
                 Question question;
 
-                if (!(questionDictionary.TryGetValue(q.QuestionId, out question)))
+                if (!(questionDictionary.TryGetValue(q.Id, out question)))
                 {
                     question = q;
                     question.Answers = new List<Answer>();
-                    questionDictionary.Add(q.QuestionId, q);
+                    questionDictionary.Add(q.Id, q);
                 }
                 question.Answers.Add(a);
                 return question;

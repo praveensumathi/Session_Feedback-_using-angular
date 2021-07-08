@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using ServiceLayer;
 using Session_Feedback.core.DapperModelRepositories;
 using Session_Feedback.core.Models;
 using Session_Feedback.core.UnitOfWorks;
@@ -13,50 +14,31 @@ namespace Session_Feedback.Controllers
     [Route("api/[controller]")]
     public class SessionController : ControllerBase
     {
-        private readonly string connectionString;
-        private readonly DapperSessionRepository _dapperSessionRepository;
-        private readonly DapperQuestionRepository _dapperQuestionRepository;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly ISessionService _sessionService;
 
-        public SessionController(IConfiguration configuration,IUnitOfWork unitOfWork)
+        public SessionController(ISessionService sessionService)
         {
-            connectionString = configuration.GetConnectionString("connection_string");
-            _dapperSessionRepository = new DapperSessionRepository(connectionString);
-            _dapperQuestionRepository = new DapperQuestionRepository(connectionString);
-            _unitOfWork = unitOfWork;
+            _sessionService = sessionService;
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult GetAll()
         {
-            DynamicParameters parms = new DynamicParameters();
-            parms.Add("@StatementType", "SelectAll");
-
-            //var data = _dapperSessionRepository.GetAll("Session",parms);
-            var d = _unitOfWork.Sessions.GetAll("Session", parms);
-            _unitOfWork.Commit();
-            return Ok(d);
+            var sessions = _sessionService.GetAll();
+            return Ok(sessions);
         }
 
         [HttpPost]
         public IActionResult Post([FromBody] Session session)
         {
-            //var newSession = _dapperSessionRepository.InsertSessionWithBulkQuestions(session);
-            session.CreatedOn = DateTime.Now;
-            var news = _unitOfWork.Sessions.InsertSessionWithBulkQuestions(session);
-            _unitOfWork.Commit();
-            return Ok(news);
+            var newSession = _sessionService.Insert(session);
+            return Ok(newSession);
         }
 
         [HttpPut]
         public IActionResult Put([FromBody] Session session)
         {
-            DynamicParameters parms = new DynamicParameters();
-            parms.Add("@Id", session.SessionId);
-            parms.Add("@Name", session.Name);
-            parms.Add("@StatementType", "Update");
-
-            bool isUpdated = _dapperSessionRepository.Update("Session",parms);
+            bool isUpdated = _sessionService.Update(session);
             if(isUpdated)
             {
                 return Ok(isUpdated);
