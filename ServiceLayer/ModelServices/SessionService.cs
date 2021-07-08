@@ -41,7 +41,7 @@ namespace ServiceLayer
             return session;
         }
 
-        public Session Insert(Session session)
+        public Session InsertWithQuestions(Session session)
         {
             session.CreatedOn = DateTime.Now;
             var newSession = _unitOfWork.Sessions.InsertSessionWithBulkQuestions(session);

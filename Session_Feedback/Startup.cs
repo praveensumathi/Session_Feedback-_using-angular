@@ -33,6 +33,7 @@ namespace Session_Feedback
 
             services.AddTransient<ISessionService, SessionService>();
             services.AddTransient<IQuestionService, QuestionService>();
+            services.AddTransient<IAnswerService, AnswerService>();
             services.AddTransient<IUnitOfWork,UnitOfWork>();
         }
 

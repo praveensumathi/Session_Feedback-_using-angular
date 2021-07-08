@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using Session_Feedback.core.Models;
 using Session_Feedback.core.Repositories;
-using Session_Feedback.core.UnitOfWorks;
 using System;
 using System.Collections.Generic;
 using System.Data;

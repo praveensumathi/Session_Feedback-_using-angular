@@ -1,9 +1,6 @@
-﻿using Dapper;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Mvc;
 using ServiceLayer;
 using Session_Feedback.core.Models;
-using Session_Feedback.core.UnitOfWorks;
 using System;
 using System.Collections.Generic;
 
@@ -30,7 +27,7 @@ namespace Session_Feedback.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Session session)
         {
-            var newSession = _sessionService.Insert(session);
+            var newSession = _sessionService.InsertWithQuestions(session);
             return Ok(newSession);
         }
 
@@ -38,7 +35,7 @@ namespace Session_Feedback.Controllers
         public IActionResult Put([FromBody] Session session)
         {
             bool isUpdated = _sessionService.Update(session);
-            if(isUpdated)
+            if (isUpdated)
             {
                 return Ok(isUpdated);
             }

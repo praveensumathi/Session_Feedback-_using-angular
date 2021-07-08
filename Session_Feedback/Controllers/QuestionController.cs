@@ -46,7 +46,7 @@ namespace Session_Feedback.Controllers
         [HttpPut]
         public IActionResult Put([FromBody] Question question)
         {
-           
+
             bool isUpdated = _questionService.Update(question);
             return Ok(isUpdated);
         }

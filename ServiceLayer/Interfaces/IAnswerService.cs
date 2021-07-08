@@ -10,7 +10,6 @@ namespace ServiceLayer.Interfaces
     public interface IAnswerService
     {
         IEnumerable<Answer> GetAnswersByQId(int questionId);
-
         IEnumerable<Answer> GetAnswersByUIdAndQId(long userId, long questionId);
     }
 }

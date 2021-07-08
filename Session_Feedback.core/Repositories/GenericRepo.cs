@@ -29,7 +29,7 @@ namespace Session_Feedback.core.Repositories
 
         public T GetById(string sp, DynamicParameters parms)
         {
-            var result = Connection.QueryFirstOrDefault<T>(sp, param: parms,commandType:CommandType.StoredProcedure,transaction:Transaction);
+            var result = Connection.QueryFirstOrDefault<T>(sp, param: parms, commandType: CommandType.StoredProcedure, transaction: Transaction);
             return result;
         }
 

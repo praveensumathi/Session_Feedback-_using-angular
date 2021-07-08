@@ -1,7 +1,5 @@
-﻿using Dapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.Interfaces;
-using Session_Feedback.core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

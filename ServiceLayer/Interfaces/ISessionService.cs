@@ -11,7 +11,7 @@ namespace ServiceLayer
     {
         IEnumerable<Session> GetAll();
         Session GetById(int sessionId);
-        Session Insert(Session session);
+        Session InsertWithQuestions(Session session);
         bool Update(Session session);
     }
 }
