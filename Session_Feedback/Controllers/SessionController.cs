@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using ServiceLayer;
-using Session_Feedback.core.DapperModelRepositories;
 using Session_Feedback.core.Models;
 using Session_Feedback.core.UnitOfWorks;
 using System;

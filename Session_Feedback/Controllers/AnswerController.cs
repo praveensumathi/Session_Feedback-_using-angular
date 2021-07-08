@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Session_Feedback.core.DapperModelRepositories;
+using ServiceLayer.Interfaces;
 using Session_Feedback.core.Models;
 using System;
 using System.Collections.Generic;
@@ -14,41 +13,35 @@ namespace Session_Feedback.Controllers
     [ApiController]
     public class AnswerController : ControllerBase
     {
-        private readonly string connectionString;
-        private readonly DapperAnswerRepository _dapperAnswerRepository;
+        private readonly IAnswerService _answerService;
 
-        public AnswerController(IConfiguration configuration)
+        public AnswerController(IAnswerService answerService)
         {
-            connectionString = configuration.GetConnectionString("connection_string");
-            _dapperAnswerRepository = new DapperAnswerRepository(connectionString);
+            _answerService = answerService;
         }
 
         //api/answer/2
         [HttpGet("{questionId}")]
-        public IActionResult GetAnswersByQId(long QuestionId)
+        public IActionResult GetAnswersByQId(int questionId)
         {
-            DynamicParameters parms = new DynamicParameters();
-            parms.Add("@QuestionId", QuestionId);
-            parms.Add("@StatementType", "SelectByQId");
-
-            var answers = _dapperAnswerRepository.GetQuestionAnswersByQId("Answer", parms);
+            var answers = _answerService.GetAnswersByQId(questionId);
             return Ok(answers);
         }
 
-        [HttpPost]
-        public IActionResult Post([FromBody] Answer answer)
-        {
-            DynamicParameters parms = new DynamicParameters();
-            parms.Add("@QuestionAnswer", answer.QuestionAnswer);
-            parms.Add("@AnsweredBy", answer.AnsweredBy);
-            parms.Add("@AnsweredOn", DateTime.Now);
-            parms.Add("@QuestionId", answer.QuestionId);
-            parms.Add("@StatementType", "Insert");
+        //[HttpPost]
+        //public IActionResult Post([FromBody] Answer answer)
+        //{
+        //    DynamicParameters parms = new DynamicParameters();
+        //    parms.Add("@QuestionAnswer", answer.QuestionAnswer);
+        //    parms.Add("@AnsweredBy", answer.AnsweredBy);
+        //    parms.Add("@AnsweredOn", DateTime.Now);
+        //    parms.Add("@QuestionId", answer.QuestionId);
+        //    parms.Add("@StatementType", "Insert");
 
-            var id = _dapperAnswerRepository.Insert("Answer", parms);
+        //    var id = _dapperAnswerRepository.Insert("Answer", parms);
 
-            answer.AnswerId = id;
-            return Ok(answer);
-        }
+        //    answer.AnswerId = id;
+        //    return Ok(answer);
+        //}
     }
 }

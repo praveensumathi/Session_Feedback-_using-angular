@@ -1,11 +1,8 @@
 ﻿using Dapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using ServiceLayer.Interfaces;
-using Session_Feedback.core.DapperModelRepositories;
 using Session_Feedback.core.Models;
-using Session_Feedback.core.UnitOfWorks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
