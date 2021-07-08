@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SessionFeedback", "Session_Feedback\SessionFeedback.csproj", "{DB77B250-B539-401F-B201-7DF95196D8A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "Session_Feedback\API.csproj", "{DB77B250-B539-401F-B201-7DF95196D8A2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Session_Feedback.core", "Session_Feedback.core\Session_Feedback.core.csproj", "{77965895-197C-4FDD-9F6C-5EDF854A9F4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepositoryLayer", "Session_Feedback.core\RepositoryLayer.csproj", "{77965895-197C-4FDD-9F6C-5EDF854A9F4C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceLayer", "ServiceLayer\ServiceLayer.csproj", "{5315B261-3FF5-4010-ADCC-D9933B6BD73B}"
 EndProject
