@@ -29,6 +29,11 @@ namespace Session_Feedback.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] SessionViewModel sessionViewModel)
         {
+            if(sessionViewModel == null)
+            {
+                return BadRequest();
+            }
+
             var newSession = _sessionService.Insert(sessionViewModel);
             return Ok(newSession);
         }
@@ -36,14 +41,24 @@ namespace Session_Feedback.Controllers
         [HttpPost("action")]
         public IActionResult SessionWithQuestion([FromBody] Session session)
         {
+            if (session.Name == null)
+            {
+                return BadRequest();
+            }
+
             var newSession = _sessionService.InsertWithQuestions(session);
             return Ok(newSession);
         }
 
         [HttpPut]
-        public IActionResult Put([FromBody] SessionViewModel session)
+        public IActionResult Put([FromBody] SessionViewModel sessionViewModel)
         {
-            bool isUpdated = _sessionService.Update(session);
+            if (sessionViewModel == null)
+            {
+                return BadRequest();
+            }
+
+            bool isUpdated = _sessionService.Update(sessionViewModel);
             if (isUpdated)
             {
                 return Ok(isUpdated);

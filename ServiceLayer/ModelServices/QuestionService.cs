@@ -1,4 +1,6 @@
-﻿using Dapper;
+﻿using AutoMapper;
+using BAL.ViewModels;
+using Dapper;
 using ServiceLayer.Interfaces;
 using Session_Feedback.core.Models;
 using Session_Feedback.core.UnitOfWorks;
@@ -13,38 +15,44 @@ namespace ServiceLayer.ModelServices
     public class QuestionService : IQuestionService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public QuestionService(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+
+        public QuestionService(IUnitOfWork unitOfWork,IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public IEnumerable<Question> GetQuestionsBySId(int sessionId)
+        public IEnumerable<QuestionViewModel> GetQuestionsBySId(int sessionId)
         {
             var questions = _unitOfWork.Questions.GetQuestionsBySId(sessionId);
             _unitOfWork.Commit();
 
-            return questions;
+            return _mapper.Map<IEnumerable<QuestionViewModel>>(questions);
         }
 
-        public Question GetById(int questionId)
+        public QuestionViewModel GetById(int questionId)
         {
             var question = _unitOfWork.Questions.GetByQId(questionId);
             _unitOfWork.Commit();
 
-            return question;
+            return _mapper.Map<QuestionViewModel>(question);
         }
 
-        public Question Insert(Question question)
+        public QuestionViewModel Insert(QuestionViewModel questionViewModel)
         {
+            var question = _mapper.Map<Question>(questionViewModel);
+
             var newQuestion = _unitOfWork.Questions.Create(question);
             _unitOfWork.Commit();
-            
-            return newQuestion;
+
+            return _mapper.Map<QuestionViewModel>(newQuestion);
         }
 
-        public bool Update(Question question)
+        public bool Update(QuestionViewModel questionViewModel)
         {
-            
+            var question = _mapper.Map<Question>(questionViewModel);
+
             var result = _unitOfWork.Questions.UpdateQuestion(question);
             _unitOfWork.Commit();
 

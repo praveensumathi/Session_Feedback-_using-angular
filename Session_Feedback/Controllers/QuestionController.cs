@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using BAL.ViewModels;
+using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.Interfaces;
 using Session_Feedback.core.Models;
@@ -36,17 +37,26 @@ namespace Session_Feedback.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Question question)
+        public IActionResult Post([FromBody] QuestionViewModel questionViewModel)
         {
-            var newQuestion = _questionService.Insert(question);
+            if (questionViewModel is null)
+            {
+                return BadRequest();
+            }
+
+            var newQuestion = _questionService.Insert(questionViewModel);
             return Ok(newQuestion);
         }
 
         [HttpPut]
-        public IActionResult Put([FromBody] Question question)
+        public IActionResult Put([FromBody] QuestionViewModel questionViewModel)
         {
+            if (questionViewModel is null)
+            {
+                return BadRequest();
+            }
 
-            bool isUpdated = _questionService.Update(question);
+            bool isUpdated = _questionService.Update(questionViewModel);
             return Ok(isUpdated);
         }
 

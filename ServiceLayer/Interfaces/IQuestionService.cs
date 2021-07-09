@@ -1,4 +1,5 @@
-﻿using Session_Feedback.core.Models;
+﻿using BAL.ViewModels;
+using Session_Feedback.core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,9 @@ namespace ServiceLayer.Interfaces
 {
     public interface IQuestionService
     {
-        IEnumerable<Question> GetQuestionsBySId(int sessionId);
-        Question GetById(int questionId);
-        Question Insert(Question question);
-        bool Update(Question question);
+        IEnumerable<QuestionViewModel> GetQuestionsBySId(int sessionId);
+        QuestionViewModel GetById(int questionId);
+        QuestionViewModel Insert(QuestionViewModel question);
+        bool Update(QuestionViewModel question);
     }
 }
