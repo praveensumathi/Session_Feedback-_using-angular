@@ -1,4 +1,5 @@
-﻿using Session_Feedback.core.Models;
+﻿using BAL.ViewModels;
+using Session_Feedback.core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace ServiceLayer.Interfaces
 {
     public interface IAnswerService
     {
-        IEnumerable<Answer> GetAnswersByQId(int questionId);
-        IEnumerable<Answer> GetAnswersByUIdAndQId(long userId, long questionId);
+        IEnumerable<AnswerViewModel> GetAnswersByQId(int questionId);
+        IEnumerable<AnswerViewModel> GetAnswersByUIdAndQId(long userId, long questionId);
     }
 }

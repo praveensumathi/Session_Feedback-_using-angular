@@ -1,4 +1,6 @@
-﻿using Dapper;
+﻿using AutoMapper;
+using BAL.ViewModels;
+using Dapper;
 using ServiceLayer.Interfaces;
 using Session_Feedback.core.Models;
 using Session_Feedback.core.UnitOfWorks;
@@ -13,27 +15,23 @@ namespace ServiceLayer.ModelServices
     public class AnswerService : IAnswerService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        private readonly string StoreProcedure = "Answer";
-
-        public AnswerService(IUnitOfWork unitOfWork)
+        public AnswerService(IUnitOfWork unitOfWork,IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public IEnumerable<Answer> GetAnswersByQId(int questionId)
+        public IEnumerable<AnswerViewModel> GetAnswersByQId(int questionId)
         {
-            DynamicParameters parms = new DynamicParameters();
-            parms.Add("@QuestionId", questionId);
-            parms.Add("@StatementType", "SelectByQId");
-
-            var answers = _unitOfWork.Answers.GetAnswersByQId(StoreProcedure, parms);
+            var answers = _unitOfWork.Answers.GetAnswersByQId(questionId);
             _unitOfWork.Commit();
 
-            return answers;
+            return _mapper.Map<IEnumerable<AnswerViewModel>>(answers);
         }
 
-        public IEnumerable<Answer> GetAnswersByUIdAndQId(long userId, long questionId)
+        public IEnumerable<AnswerViewModel> GetAnswersByUIdAndQId(long userId, long questionId)
         {
             throw new NotImplementedException();
         }
