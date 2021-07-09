@@ -1,4 +1,6 @@
-﻿using Dapper;
+﻿using AutoMapper;
+using BAL.ViewModels;
+using Dapper;
 using Session_Feedback.core.Models;
 using Session_Feedback.core.UnitOfWorks;
 using System.Collections.Generic;
@@ -8,37 +10,51 @@ namespace ServiceLayer
     public class SessionService : ISessionService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public SessionService(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+
+        public SessionService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public IEnumerable<Session> GetAll()
+        public IEnumerable<SessionViewModel> GetAll()
         {
             var sessions = _unitOfWork.Sessions.GetAllSession();
             _unitOfWork.Commit();
 
-            return sessions;
+            return _mapper.Map<IEnumerable<SessionViewModel>>(sessions);
         }
 
-        public Session GetById(int sessionId)
+        public SessionViewModel GetById(int sessionId)
         {
             var session = _unitOfWork.Sessions.GetBySessionId(sessionId);
             _unitOfWork.Commit();
 
-            return session;
+            return _mapper.Map<SessionViewModel>(session);
         }
 
-        public Session InsertWithQuestions(Session session)
+        public SessionViewModel Insert(SessionViewModel sessionViewModel)
+        {
+            var session = _mapper.Map<Session>(sessionViewModel);
+
+            var newSession = _unitOfWork.Sessions.Create(session);
+
+            return _mapper.Map<SessionViewModel>(newSession);
+        }
+
+        public SessionViewModel InsertWithQuestions(Session session)
         {
             var newSession = _unitOfWork.Sessions.InsertSessionWithBulkQuestions(session);
             _unitOfWork.Commit();
 
-            return newSession;
+            return _mapper.Map<SessionViewModel>(newSession);
         }
 
-        public bool Update(Session session)
+        public bool Update(SessionViewModel sessionViewModel)
         {
+            var session = _mapper.Map<Session>(sessionViewModel);
+
             var isUpdated = _unitOfWork.Sessions.UpdateSession(session);
             _unitOfWork.Commit();
 

@@ -1,17 +1,15 @@
-﻿using Session_Feedback.core.Models;
+﻿using BAL.ViewModels;
+using Session_Feedback.core.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace ServiceLayer
 {
     public interface ISessionService
     {
-        IEnumerable<Session> GetAll();
-        Session GetById(int sessionId);
-        Session InsertWithQuestions(Session session);
-        bool Update(Session session);
+        IEnumerable<SessionViewModel> GetAll();
+        SessionViewModel GetById(int sessionId);
+        SessionViewModel Insert(SessionViewModel sessionViewModel);
+        SessionViewModel InsertWithQuestions(Session session);
+        bool Update(SessionViewModel session);
     }
 }

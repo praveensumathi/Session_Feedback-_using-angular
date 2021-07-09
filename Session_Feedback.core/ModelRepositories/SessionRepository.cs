@@ -42,6 +42,22 @@ namespace Session_Feedback.core.ModelRepositories
             return session;
         }
 
+        public Session Create(Session session)
+        {
+            var parms = new DynamicParameters();
+            parms.Add("@Name", session.Name);
+            parms.Add("Name", session.Name);
+            parms.Add("@CreatedBy", session.CreatedBy);
+            parms.Add("@CreatedOn", DateTime.Now);
+            parms.Add("@StatementType", "Insert");
+
+            var insetedId = Insert(StoreProcedure, parms);
+
+            session.Id = insetedId;
+
+            return session;
+        }
+
         public bool UpdateSession(Session session)
         {
             var parms = new DynamicParameters();

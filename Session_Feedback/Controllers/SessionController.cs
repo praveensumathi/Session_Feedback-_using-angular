@@ -13,30 +13,35 @@ namespace Session_Feedback.Controllers
     public class SessionController : ControllerBase
     {
         private readonly ISessionService _sessionService;
-        private readonly IMapper _mapper;
 
-        public SessionController(ISessionService sessionService, IMapper mapper)
+        public SessionController(ISessionService sessionService)
         {
             _sessionService = sessionService;
-            _mapper = mapper;
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
-            var sessions = _mapper.Map<IEnumerable<SessionViewModel>>(_sessionService.GetAll());
+            var sessions = _sessionService.GetAll();
             return Ok(sessions);
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Session session)
+        public IActionResult Post([FromBody] SessionViewModel sessionViewModel)
+        {
+            var newSession = _sessionService.Insert(sessionViewModel);
+            return Ok(newSession);
+        }
+
+        [HttpPost("action")]
+        public IActionResult SessionWithQuestion([FromBody] Session session)
         {
             var newSession = _sessionService.InsertWithQuestions(session);
             return Ok(newSession);
         }
 
         [HttpPut]
-        public IActionResult Put([FromBody] Session session)
+        public IActionResult Put([FromBody] SessionViewModel session)
         {
             bool isUpdated = _sessionService.Update(session);
             if (isUpdated)
