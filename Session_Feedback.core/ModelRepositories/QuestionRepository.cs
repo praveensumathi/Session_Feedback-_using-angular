@@ -17,7 +17,7 @@ namespace Session_Feedback.core.ModelRepositories
         {
         }
 
-        private readonly string StoreProcedure = "Question";
+        private readonly string StoreProcedure = "usp_Question";
 
         public IEnumerable<Question> GetQuestionsBySId(int sessionId)
         {
@@ -45,7 +45,7 @@ namespace Session_Feedback.core.ModelRepositories
         {
             var parms = new DynamicParameters();
             parms.Add("@StatementType", "Insert");
-            parms.Add("@FeedbackQuestion", question.FeedbackQuestion);
+            parms.Add("@Feedback", question.Feedback);
             parms.Add("@CreatedBy", question.CreatedBy);
             parms.Add("@CreatedOn", DateTime.Now);
             parms.Add("@SessionId", question.SessionId);
@@ -62,7 +62,7 @@ namespace Session_Feedback.core.ModelRepositories
             var parms = new DynamicParameters();
             parms.Add("@StatementType", "Update");
             parms.Add("@Id", question.Id);
-            parms.Add("@FeedbackQuestion", question.FeedbackQuestion);
+            parms.Add("@Feedback", question.Feedback);
             parms.Add("@ModifiedBy", question.ModifiedBy);
             parms.Add("@ModifiedOn", question.ModifiedOn = DateTime.Now);
 
@@ -75,7 +75,7 @@ namespace Session_Feedback.core.ModelRepositories
         public bool DeleteQuestionWithAnswers(long QId)
         {
             DapperPlusManager.Entity<Question>().Table("Questions").Identity(x => x.Id);
-            DapperPlusManager.Entity<Answer>().Table("Sessions").Identity(x => x.AnswerId);
+            DapperPlusManager.Entity<Answer>().Table("Sessions").Identity(x => x.Id);
 
             var parms = new DynamicParameters();
             parms.Add("@Id", QId);

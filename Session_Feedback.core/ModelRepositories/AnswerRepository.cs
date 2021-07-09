@@ -12,7 +12,7 @@ namespace Session_Feedback.core.ModelRepositories
 {
     public class AnswerRepository : GenericRepo<Answer>
     {
-        private readonly string StoreProcedure = "Answer";
+        private readonly string StoreProcedure = "usp_Answer";
 
         public AnswerRepository(IDbTransaction transaction):base(transaction)
         {

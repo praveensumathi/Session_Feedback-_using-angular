@@ -38,7 +38,7 @@ namespace Session_Feedback.Controllers
             return Ok(newSession);
         }
 
-        [HttpPost("action")]
+        [HttpPost("[action]")]
         public IActionResult SessionWithQuestion([FromBody] Session session)
         {
             if (session.Name == null)

@@ -8,8 +8,8 @@ namespace BAL.ViewModels
 {
     public class AnswerViewModel
     {
-        public int AnswerId { get; set; }
-        public string QuestionAnswer { get; set; }
+        public int Id { get; set; }
+        public string FeedbackAnswer { get; set; }
         public string AnsweredBy { get; set; }
         public DateTime AnsweredOn { get; set; }
 

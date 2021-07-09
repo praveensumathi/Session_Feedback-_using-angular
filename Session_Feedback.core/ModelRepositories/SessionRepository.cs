@@ -17,9 +17,9 @@ namespace Session_Feedback.core.ModelRepositories
         {
         }
 
-        private readonly string SessionTableName = "Sessions";
-        private readonly string QuestionTableName = "Questions";
-        private readonly string StoreProcedure = "Session";
+        private readonly string SessionTableName = "Session";
+        private readonly string QuestionTableName = "Question";
+        private readonly string StoreProcedure = "usp_Session";
 
         public IEnumerable<Session> GetAllSession()
         {
@@ -46,9 +46,9 @@ namespace Session_Feedback.core.ModelRepositories
         {
             var parms = new DynamicParameters();
             parms.Add("@Name", session.Name);
-            parms.Add("Name", session.Name);
             parms.Add("@CreatedBy", session.CreatedBy);
             parms.Add("@CreatedOn", DateTime.Now);
+            parms.Add("@ConductedBy", session.ConductedBy);
             parms.Add("@StatementType", "Insert");
 
             var insetedId = Insert(StoreProcedure, parms);
@@ -65,6 +65,7 @@ namespace Session_Feedback.core.ModelRepositories
             parms.Add("@Name", session.Name);
             parms.Add("@ModifiedBy", session.ModifiedBy);
             parms.Add("@ModifiedOn", DateTime.Now);
+            parms.Add("@ConductedBy", session.ConductedBy);
             parms.Add("@StatementType", "Update");
 
             var isUpdated = Update(StoreProcedure, parms);

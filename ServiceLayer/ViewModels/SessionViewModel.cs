@@ -14,6 +14,7 @@ namespace BAL.ViewModels
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public string ModifiedBy { get; set; }
+        public string ConductedBy { get; set; }
 
         // public List<QuestionDTO> Questions { get; set; } = new List<QuestionDTO>();
     }

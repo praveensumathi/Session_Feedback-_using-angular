@@ -9,8 +9,8 @@ namespace API.MapperProfile
     {
         public SessionFeedbackMappingProfile()
         {
-            CreateMap<Session, SessionViewModel>();
-            CreateMap<Question, QuestionViewModel>();
+            CreateMap<Session, SessionViewModel>().ReverseMap();
+            CreateMap<Question, QuestionViewModel>().ReverseMap();
             CreateMap<Answer, AnswerViewModel>();
             CreateMap<ApplicationUser, UserViewModel>();
         }

@@ -39,6 +39,7 @@ namespace ServiceLayer
             var session = _mapper.Map<Session>(sessionViewModel);
 
             var newSession = _unitOfWork.Sessions.Create(session);
+            _unitOfWork.Commit();
 
             return _mapper.Map<SessionViewModel>(newSession);
         }

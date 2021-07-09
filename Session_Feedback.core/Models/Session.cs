@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 namespace Session_Feedback.core.Models
 {
-    [Table("Sessions")]
+    [Table("Session")]
     public class Session
     {
         [Key]
@@ -13,6 +13,7 @@ namespace Session_Feedback.core.Models
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public string ModifiedBy { get; set; }
+        public string ConductedBy { get; set; }
         public List<Question> Questions { get; set; } = new List<Question>();
     }
 }

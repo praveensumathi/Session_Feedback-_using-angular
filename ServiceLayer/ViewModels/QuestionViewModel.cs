@@ -9,7 +9,7 @@ namespace BAL.ViewModels
     public class QuestionViewModel
     {
         public int Id { get; set; }
-        public string FeedbackQuestion { get; set; }
+        public string Feedback { get; set; }
         public string CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
