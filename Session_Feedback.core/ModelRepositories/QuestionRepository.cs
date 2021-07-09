@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Session_Feedback.core.Models;
 using Session_Feedback.core.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -14,14 +15,60 @@ namespace Session_Feedback.core.ModelRepositories
     {
         public QuestionRepository(IDbTransaction transaction) : base(transaction)
         {
-
         }
 
-        public IEnumerable<Question> GetQuestionsBySId(string sp, DynamicParameters parms)
+        private readonly string StoreProcedure = "Question";
+
+        public IEnumerable<Question> GetQuestionsBySId(int sessionId)
         {
-            var questions = Connection.Query<Question>(sp, param : parms, commandType: CommandType.StoredProcedure,transaction:Transaction);
+            DynamicParameters parms = new DynamicParameters();
+            parms.Add("@StatementType", "SelectBySId");
+            parms.Add("@SessionId", sessionId);
+
+            var questions = GetAll(StoreProcedure, parms);
 
             return questions;
+        }
+
+        public Question GetByQId(int questionId)
+        {
+            DynamicParameters parms = new DynamicParameters();
+            parms.Add("@StatementType", "GetById");
+            parms.Add("@Id", questionId);
+
+            var question = GetById(StoreProcedure, parms);
+
+            return question;
+        }
+
+        public Question Create(Question question)
+        {
+            DynamicParameters parms = new DynamicParameters();
+            parms.Add("@StatementType", "Insert");
+            parms.Add("@FeedbackQuestion", question.FeedbackQuestion);
+            parms.Add("@CreatedBy", question.CreatedBy);
+            parms.Add("@CreatedOn", DateTime.Now);
+            parms.Add("@SessionId", question.SessionId);
+
+            var insertedId = Insert(StoreProcedure, parms);
+
+            question.Id = insertedId;
+
+            return question;
+        }
+
+        public bool UpdateQuestion(Question question)
+        {
+            DynamicParameters parms = new DynamicParameters();
+            parms.Add("@StatementType", "Update");
+            parms.Add("@Id", question.Id);
+            parms.Add("@FeedbackQuestion", question.FeedbackQuestion);
+            parms.Add("@ModifiedBy", question.ModifiedBy);
+            parms.Add("@ModifiedOn", question.ModifiedOn = DateTime.Now);
+
+            var isUpdated = Update(StoreProcedure, parms);
+
+            return isUpdated;
         }
 
         //this method for delete question with answers

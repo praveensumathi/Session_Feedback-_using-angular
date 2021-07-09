@@ -19,9 +19,47 @@ namespace Session_Feedback.core.ModelRepositories
 
         private readonly string SessionTableName = "Sessions";
         private readonly string QuestionTableName = "Questions";
+        private readonly string StoreProcedure = "Session";
+
+        public IEnumerable<Session> GetAllSession()
+        {
+            var parms = new DynamicParameters();
+            parms.Add("@StatementType", "SelectAll");
+
+            var sessions = GetAll(StoreProcedure, parms);
+
+            return sessions;
+        }
+
+        public Session GetBySessionId(int sessionId)
+        {
+            var parms = new DynamicParameters();
+            parms.Add("@StatementType", "GetById");
+            parms.Add("@Id", sessionId);
+
+            var session = GetById(StoreProcedure, parms);
+
+            return session;
+        }
+
+        public bool UpdateSession(Session session)
+        {
+            var parms = new DynamicParameters();
+            parms.Add("@Id", session.Id);
+            parms.Add("@Name", session.Name);
+            parms.Add("@ModifiedBy", session.ModifiedBy);
+            parms.Add("@ModifiedOn", DateTime.Now);
+            parms.Add("@StatementType", "Update");
+
+            var isUpdated = Update(StoreProcedure, parms);
+
+            return isUpdated;
+        }
 
         public Session InsertSessionWithBulkQuestions(Session session)
         {
+            session.CreatedOn = DateTime.Now;
+
             DapperPlusManager.Entity<Session>().Table(SessionTableName).Identity(x => x.Id);
             DapperPlusManager.Entity<Question>().Table(QuestionTableName).Identity(x => x.Id);
 

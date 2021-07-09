@@ -9,6 +9,7 @@ using ServiceLayer;
 using ServiceLayer.Interfaces;
 using ServiceLayer.ModelServices;
 using Session_Feedback.core.UnitOfWorks;
+using System.Reflection;
 
 namespace Session_Feedback
 {
@@ -35,6 +36,8 @@ namespace Session_Feedback
             services.AddTransient<IQuestionService, QuestionService>();
             services.AddTransient<IAnswerService, AnswerService>();
             services.AddTransient<IUnitOfWork,UnitOfWork>();
+
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

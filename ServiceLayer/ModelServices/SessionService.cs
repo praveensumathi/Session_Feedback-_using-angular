@@ -1,19 +1,13 @@
 ﻿using Dapper;
 using Session_Feedback.core.Models;
 using Session_Feedback.core.UnitOfWorks;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ServiceLayer
 {
     public class SessionService : ISessionService
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        private readonly string StoreProcedure = "Session";
         public SessionService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -21,10 +15,7 @@ namespace ServiceLayer
 
         public IEnumerable<Session> GetAll()
         {
-            DynamicParameters parms = new DynamicParameters();
-            parms.Add("@StatementType", "SelectAll");
-
-            var sessions = _unitOfWork.Sessions.GetAll(StoreProcedure, parms);
+            var sessions = _unitOfWork.Sessions.GetAllSession();
             _unitOfWork.Commit();
 
             return sessions;
@@ -32,18 +23,14 @@ namespace ServiceLayer
 
         public Session GetById(int sessionId)
         {
-            DynamicParameters parms = new DynamicParameters();
-            parms.Add("@StatementType", "GetById");
-            parms.Add("@Id", sessionId);
-
-            var session = _unitOfWork.Sessions.GetById(StoreProcedure, parms);
+            var session = _unitOfWork.Sessions.GetBySessionId(sessionId);
             _unitOfWork.Commit();
+
             return session;
         }
 
         public Session InsertWithQuestions(Session session)
         {
-            session.CreatedOn = DateTime.Now;
             var newSession = _unitOfWork.Sessions.InsertSessionWithBulkQuestions(session);
             _unitOfWork.Commit();
 
@@ -52,14 +39,9 @@ namespace ServiceLayer
 
         public bool Update(Session session)
         {
-            DynamicParameters parms = new DynamicParameters();
-            parms.Add("@Id", session.Id);
-            parms.Add("@Name", session.Name);
-            parms.Add("@StatementType", "Update");
-
-            var isUpdated = _unitOfWork.Sessions.Update(StoreProcedure, parms);
-
+            var isUpdated = _unitOfWork.Sessions.UpdateSession(session);
             _unitOfWork.Commit();
+
             return isUpdated;
         }
     }

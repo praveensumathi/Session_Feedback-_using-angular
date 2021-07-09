@@ -1,12 +1,12 @@
-﻿using Dapper.Contrib.Extensions;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Session_Feedback.core.Models
+namespace API.Models
 {
-    [Table("Answers")]
-    public class Answer
+    public class AnswerDTO
     {
-        [Key]
         public int AnswerId { get; set; }
         public string QuestionAnswer { get; set; }
         public string AnsweredBy { get; set; }

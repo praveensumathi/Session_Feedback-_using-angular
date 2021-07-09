@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using API.Models;
+using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using ServiceLayer;
 using Session_Feedback.core.Models;
 using System;
@@ -11,16 +13,18 @@ namespace Session_Feedback.Controllers
     public class SessionController : ControllerBase
     {
         private readonly ISessionService _sessionService;
+        private readonly IMapper _mapper;
 
-        public SessionController(ISessionService sessionService)
+        public SessionController(ISessionService sessionService, IMapper mapper)
         {
             _sessionService = sessionService;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
-            var sessions = _sessionService.GetAll();
+            var sessions = _mapper.Map<IEnumerable<SessionDTO>>(_sessionService.GetAll());
             return Ok(sessions);
         }
 
