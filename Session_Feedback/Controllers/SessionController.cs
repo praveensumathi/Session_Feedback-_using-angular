@@ -1,5 +1,5 @@
-﻿using API.Models;
-using AutoMapper;
+﻿using AutoMapper;
+using BAL.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer;
 using Session_Feedback.core.Models;
@@ -24,7 +24,7 @@ namespace Session_Feedback.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var sessions = _mapper.Map<IEnumerable<SessionDTO>>(_sessionService.GetAll());
+            var sessions = _mapper.Map<IEnumerable<SessionViewModel>>(_sessionService.GetAll());
             return Ok(sessions);
         }
 

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace API.Models
+namespace BAL.ViewModels
 {
-    public class SessionDTO
+    public class SessionViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -13,6 +14,7 @@ namespace API.Models
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public string ModifiedBy { get; set; }
-       // public List<QuestionDTO> Questions { get; set; } = new List<QuestionDTO>();
+
+        // public List<QuestionDTO> Questions { get; set; } = new List<QuestionDTO>();
     }
 }

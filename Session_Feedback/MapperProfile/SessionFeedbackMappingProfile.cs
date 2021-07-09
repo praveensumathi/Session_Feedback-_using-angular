@@ -1,5 +1,6 @@
-﻿using API.Models;
-using AutoMapper;
+﻿using AutoMapper;
+using BAL.ViewModels;
+using RepositoryLayer.Models;
 using Session_Feedback.core.Models;
 
 namespace API.MapperProfile
@@ -8,9 +9,10 @@ namespace API.MapperProfile
     {
         public SessionFeedbackMappingProfile()
         {
-            CreateMap<Session, SessionDTO>();
-            CreateMap<Question, QuestionDTO>();
-            CreateMap<Answer, AnswerDTO>();
+            CreateMap<Session, SessionViewModel>();
+            CreateMap<Question, QuestionViewModel>();
+            CreateMap<Answer, AnswerViewModel>();
+            CreateMap<ApplicationUser, UserViewModel>();
         }
     }
 }

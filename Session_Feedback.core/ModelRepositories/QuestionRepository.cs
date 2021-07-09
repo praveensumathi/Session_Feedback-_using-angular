@@ -21,7 +21,7 @@ namespace Session_Feedback.core.ModelRepositories
 
         public IEnumerable<Question> GetQuestionsBySId(int sessionId)
         {
-            DynamicParameters parms = new DynamicParameters();
+            var parms = new DynamicParameters();
             parms.Add("@StatementType", "SelectBySId");
             parms.Add("@SessionId", sessionId);
 
@@ -32,7 +32,7 @@ namespace Session_Feedback.core.ModelRepositories
 
         public Question GetByQId(int questionId)
         {
-            DynamicParameters parms = new DynamicParameters();
+            var parms = new DynamicParameters();
             parms.Add("@StatementType", "GetById");
             parms.Add("@Id", questionId);
 
@@ -43,7 +43,7 @@ namespace Session_Feedback.core.ModelRepositories
 
         public Question Create(Question question)
         {
-            DynamicParameters parms = new DynamicParameters();
+            var parms = new DynamicParameters();
             parms.Add("@StatementType", "Insert");
             parms.Add("@FeedbackQuestion", question.FeedbackQuestion);
             parms.Add("@CreatedBy", question.CreatedBy);
@@ -59,7 +59,7 @@ namespace Session_Feedback.core.ModelRepositories
 
         public bool UpdateQuestion(Question question)
         {
-            DynamicParameters parms = new DynamicParameters();
+            var parms = new DynamicParameters();
             parms.Add("@StatementType", "Update");
             parms.Add("@Id", question.Id);
             parms.Add("@FeedbackQuestion", question.FeedbackQuestion);
@@ -77,13 +77,13 @@ namespace Session_Feedback.core.ModelRepositories
             DapperPlusManager.Entity<Question>().Table("Questions").Identity(x => x.Id);
             DapperPlusManager.Entity<Answer>().Table("Sessions").Identity(x => x.AnswerId);
 
-            DynamicParameters parms = new DynamicParameters();
+            var parms = new DynamicParameters();
             parms.Add("@Id", QId);
             parms.Add("@StatementType", "SelectByQId");
 
             var question = GetQuestionWithAnswersByQId("Question", parms);
 
-            List<Question> questions = new List<Question>() { question };
+            var questions = new List<Question>() { question };
 
 
             Connection.BulkDelete(questions.SelectMany(q => q.Answers)).BulkDelete(questions);
@@ -94,7 +94,7 @@ namespace Session_Feedback.core.ModelRepositories
         {
             var questionDictionary = new Dictionary<int, Question>();
 
-            
+
             var result = Connection.Query<Question, Answer, Question>(sp, (q, a) =>
             {
                 Question question;
