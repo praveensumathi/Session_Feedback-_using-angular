@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using DAL.Auth;
+using DAL.ModelRepositories;
+using Microsoft.Extensions.Configuration;
 using Session_Feedback.core.ModelRepositories;
 using System;
 using System.Data;
@@ -10,18 +12,21 @@ namespace Session_Feedback.core.UnitOfWorks
     {
         private IDbConnection _connection;
         private IDbTransaction _transaction;
+        private IJwtAuthManager _jwtAuth;
 
         private SessionRepository _sessionRepository;
         private QuestionRepository _questionRepository;
         private AnswerRepository _answerRepository;
+        private ApplicationUserRepository _applicationUserRepository;
 
         private bool _disposed;
 
-        public UnitOfWork(IConfiguration configuration)
+        public UnitOfWork(IConfiguration configuration,IJwtAuthManager jwtAuthManager)
         {
             _connection = new SqlConnection(configuration.GetConnectionString("connection_string"));
             _connection.Open();
             _transaction = _connection.BeginTransaction();
+            _jwtAuth = jwtAuthManager;
         }
 
         public SessionRepository Sessions 
@@ -45,6 +50,14 @@ namespace Session_Feedback.core.UnitOfWorks
             get
             {
                 return _answerRepository ??= new AnswerRepository(_transaction);
+            }
+        }
+
+        public ApplicationUserRepository Users 
+        {
+            get
+            {
+                return _applicationUserRepository ??= new ApplicationUserRepository(_transaction, _jwtAuth);
             }
         }
 

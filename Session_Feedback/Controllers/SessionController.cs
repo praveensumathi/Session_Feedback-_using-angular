@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BAL.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer;
 using Session_Feedback.core.Models;
@@ -20,6 +21,7 @@ namespace Session_Feedback.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult GetAll()
         {
             var sessions = _sessionService.GetAll();
@@ -27,6 +29,7 @@ namespace Session_Feedback.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult Post([FromBody] SessionViewModel sessionViewModel)
         {
             if(sessionViewModel == null)
@@ -39,6 +42,7 @@ namespace Session_Feedback.Controllers
         }
 
         [HttpPost("[action]")]
+        [Authorize(Roles = "Admin")]
         public IActionResult SessionWithQuestion([FromBody] Session session)
         {
             if (session.Name == null)
@@ -51,6 +55,7 @@ namespace Session_Feedback.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public IActionResult Put([FromBody] SessionViewModel sessionViewModel)
         {
             if (sessionViewModel == null)

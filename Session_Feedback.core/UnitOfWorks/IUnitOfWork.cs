@@ -1,4 +1,5 @@
-﻿using Session_Feedback.core.ModelRepositories;
+﻿using DAL.ModelRepositories;
+using Session_Feedback.core.ModelRepositories;
 using Session_Feedback.core.Repositories;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace Session_Feedback.core.UnitOfWorks
         SessionRepository Sessions { get; }
         QuestionRepository Questions { get; }
         AnswerRepository Answers { get; }
+        ApplicationUserRepository Users { get; }
         void Commit();
     }
 }

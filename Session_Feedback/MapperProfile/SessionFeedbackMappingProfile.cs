@@ -12,7 +12,7 @@ namespace API.MapperProfile
             CreateMap<Session, SessionViewModel>().ReverseMap();
             CreateMap<Question, QuestionViewModel>().ReverseMap();
             CreateMap<Answer, AnswerViewModel>();
-            CreateMap<ApplicationUser, UserViewModel>();
+            CreateMap<ApplicationUser, UserViewModel>().ReverseMap();
         }
     }
 }

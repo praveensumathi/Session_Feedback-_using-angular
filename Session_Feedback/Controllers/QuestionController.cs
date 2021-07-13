@@ -1,5 +1,6 @@
 ﻿using BAL.ViewModels;
 using Dapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.Interfaces;
 using Session_Feedback.core.Models;
@@ -37,6 +38,7 @@ namespace Session_Feedback.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult Post([FromBody] QuestionViewModel questionViewModel)
         {
             if (questionViewModel is null)
@@ -49,6 +51,7 @@ namespace Session_Feedback.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public IActionResult Put([FromBody] QuestionViewModel questionViewModel)
         {
             if (questionViewModel is null)
@@ -61,6 +64,7 @@ namespace Session_Feedback.Controllers
         }
 
         //[HttpDelete]
+        //[Authorize(Roles = "Admin")]
         //public IActionResult Delete(long QuestionId)
         //{
 

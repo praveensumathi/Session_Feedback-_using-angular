@@ -37,7 +37,7 @@ namespace Session_Feedback.core.ModelRepositories
             parms.Add("@StatementType", "GetById");
             parms.Add("@Id", sessionId);
 
-            var session = GetById(StoreProcedure, parms);
+            var session = GetByIdOrName(StoreProcedure, parms);
 
             return session;
         }

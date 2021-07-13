@@ -27,7 +27,7 @@ namespace Session_Feedback.core.Repositories
             return result;
         }
 
-        public T GetById(string sp, DynamicParameters parms)
+        public T GetByIdOrName(string sp, DynamicParameters parms)
         {
             var result = Connection.QueryFirstOrDefault<T>(sp, param: parms, commandType: CommandType.StoredProcedure, transaction: Transaction);
             return result;
