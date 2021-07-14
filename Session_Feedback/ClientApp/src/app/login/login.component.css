@@ -1,0 +1,27 @@
+.login-container {
+  width: 500px;
+  height: 500px;
+  box-shadow: 4px 4px 24px wheat;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.login-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.form-signin {
+  width: 100%;
+  padding: 32px;
+}
+.form-control:focus {
+  border-color: wheat;
+  box-shadow: 2px 2px 10px wheat;
+}
+.login-button {
+  display: flex;
+}

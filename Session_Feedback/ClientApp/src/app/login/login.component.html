@@ -1,40 +1,40 @@
-<div class="mx-auto" style="width: 500px">
-  <form class="form-signin" #loginForm="ngForm" (ngSubmit)="login(loginForm)">
-    <div class="container-fluid">
-      <h2 class="form-signin-heading">Login</h2>
-      <!-- <div *ngIf="invalidLogin" class="alert alert-danger">Invalid username or password.</div> -->
-      <br />
-      <label for="username" class="sr-only">User Name</label>
-      <input
-        id="username"
-        name="userName"
-        [(ngModel)]="userName"
-        class="form-control"
-        placeholder="User Name"
-        required
-        autofocus
-      />
-      <br />
-      <label for="password" class="sr-only">Password</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        [(ngModel)]="password"
-        class="form-control"
-        placeholder="Password"
-        required
-      />
-      <br />
-      <button
-        class="btn btn-lg btn-secondary btn-block"
-        type="submit"
-        (click)="login()"
-      >
-        Sign in
-      </button>
-    </div>
-  </form>
+<div class="login-container">
+  <div class="login-form">
+    <form class="form-signin" #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+      <div>
+        <h2 class="form-signin-heading text-center">Login</h2>
+        <div *ngIf="invalidLogin" class="alert alert-danger">
+          Invalid username or password.
+        </div>
+        <br />
+        <label for="username" class="sr-only">User Name</label>
+        <input
+          id="username"
+          name="name"
+          [(ngModel)]="name"
+          class="form-control"
+          placeholder="User Name"
+          required
+          autofocus
+        />
+        <br />
+        <label for="password" class="sr-only">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="password"
+          class="form-control"
+          placeholder="Password"
+          required
+        />
+        <br />
+        <div class="login-button">
+          <button class="btn btn-lg btn-danger btn-block" type="submit">
+            Login
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
-<!-- 
-(ngSubmit)="login(loginForm)" -->

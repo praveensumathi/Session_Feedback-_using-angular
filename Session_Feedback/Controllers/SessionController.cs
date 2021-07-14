@@ -21,7 +21,7 @@ namespace Session_Feedback.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public IActionResult GetAll()
         {
             var sessions = _sessionService.GetAll();

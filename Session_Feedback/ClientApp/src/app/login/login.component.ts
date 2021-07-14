@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, NgForm } from "@angular/forms";
+import { JwtHelperService } from "@auth0/angular-jwt";
+import { AuthGaurdService } from "../services/AuthService/auth-gaurd.service";
 
 @Component({
   selector: "app-login",
@@ -7,14 +9,15 @@ import { FormControl, NgForm } from "@angular/forms";
   styleUrls: ["./login.component.css"],
 })
 export class LoginComponent implements OnInit {
-  userName: string = "";
+  name: string = "";
   password: string = "";
+  invalidLogin: boolean = this.authService.invalidLogin;
 
-  constructor() {}
+  constructor(private authService: AuthGaurdService) {}
 
   ngOnInit() {}
 
-  login() {
-    alert(this.userName);
+  login(form: NgForm) {
+    this.authService.login(form);
   }
 }
