@@ -19,7 +19,9 @@ export class NavMenuComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.authService.user$.subscribe(() => (this.isAuthenticated = true));
+    this.authService.user$.subscribe({
+      next: () => (this.isAuthenticated = true),
+    });
   }
 
   collapse() {

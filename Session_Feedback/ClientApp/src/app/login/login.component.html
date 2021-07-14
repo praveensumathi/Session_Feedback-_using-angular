@@ -30,7 +30,11 @@
         />
         <br />
         <div class="login-button">
-          <button class="btn btn-lg btn-danger btn-block" type="submit">
+          <button
+            [disabled]="isLoading"
+            class="btn btn-lg btn-danger btn-block"
+            type="submit"
+          >
             Login
           </button>
         </div>

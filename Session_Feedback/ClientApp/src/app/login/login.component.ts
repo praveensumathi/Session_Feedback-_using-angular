@@ -11,11 +11,18 @@ import { AuthGaurdService } from "../services/AuthService/auth-gaurd.service";
 export class LoginComponent implements OnInit {
   name: string = "";
   password: string = "";
-  invalidLogin: boolean = this.authService.invalidLogin;
+  invalidLogin: boolean = false;
+  isLoading: boolean = false;
 
   constructor(private authService: AuthGaurdService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.authService.user$.subscribe({
+      error: () => {
+        this.invalidLogin = true;
+      },
+    });
+  }
 
   login(form: NgForm) {
     this.authService.login(form);

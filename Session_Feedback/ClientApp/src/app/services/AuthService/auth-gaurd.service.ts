@@ -9,9 +9,7 @@ import { Subject } from "rxjs";
   providedIn: "root",
 })
 export class AuthGaurdService implements CanActivate {
-  invalidLogin = false;
   private user = new Subject();
-
   user$ = this.user.asObservable();
 
   constructor(
@@ -32,7 +30,7 @@ export class AuthGaurdService implements CanActivate {
   login(form: NgForm) {
     const credentials = JSON.stringify(form.value);
     this.http
-      .post("https://localhost:44308/api/account", credentials, {
+      .post(`${location.origin}/api/account`, credentials, {
         headers: new HttpHeaders({
           "Content-Type": "application/json",
         }),
@@ -43,11 +41,10 @@ export class AuthGaurdService implements CanActivate {
           this.user.next();
           const token = response.toString();
           localStorage.setItem("jwt", token);
-          this.invalidLogin = false;
           this.router.navigate(["home"]);
         },
         (err) => {
-          this.invalidLogin = true;
+          this.user.error(null);
           console.log(err);
         }
       );
