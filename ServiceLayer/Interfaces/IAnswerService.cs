@@ -12,5 +12,6 @@ namespace ServiceLayer.Interfaces
     {
         IEnumerable<AnswerViewModel> GetAnswersByQId(int questionId);
         IEnumerable<AnswerViewModel> GetAnswersByUIdAndQId(long userId, long questionId);
+        bool AddAnswer(AnswerViewModel answerViewModel);
     }
 }

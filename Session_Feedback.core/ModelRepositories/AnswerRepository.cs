@@ -29,5 +29,24 @@ namespace Session_Feedback.core.ModelRepositories
 
             return answers;
         }
+
+        public bool InsertAnswer(Answer answer)
+        {
+            var parms = new DynamicParameters();
+            parms.Add("@FeedbackAnswer", answer.FeedbackAnswer);
+            parms.Add("@AnsweredBy", answer.AnsweredBy);
+            parms.Add("@AnsweredOn", DateTime.Now);
+            parms.Add("@UserId", answer.UserId);
+            parms.Add("@QuestionId", answer.QuestionId);
+            parms.Add("@StatementType", "Insert");
+
+            var insertedId = Insert(StoreProcedure, parms);
+
+            if(insertedId > 0)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

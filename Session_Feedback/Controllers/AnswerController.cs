@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BAL.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -26,20 +27,11 @@ namespace Session_Feedback.Controllers
             return Ok(answers);
         }
 
-        //[HttpPost]
-        //public IActionResult Post([FromBody] Answer answer)
-        //{
-        //    DynamicParameters parms = new DynamicParameters();
-        //    parms.Add("@QuestionAnswer", answer.QuestionAnswer);
-        //    parms.Add("@AnsweredBy", answer.AnsweredBy);
-        //    parms.Add("@AnsweredOn", DateTime.Now);
-        //    parms.Add("@QuestionId", answer.QuestionId);
-        //    parms.Add("@StatementType", "Insert");
-
-        //    var id = _dapperAnswerRepository.Insert("Answer", parms);
-
-        //    answer.AnswerId = id;
-        //    return Ok(answer);
-        //}
+        [HttpPost]
+        public IActionResult Post([FromBody] AnswerViewModel answerViewModel)
+        {
+            var result = _answerService.AddAnswer(answerViewModel);
+            return Ok(result);
+        }
     }
 }

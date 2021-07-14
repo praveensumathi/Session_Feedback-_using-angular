@@ -23,6 +23,12 @@ namespace ServiceLayer.ModelServices
             _mapper = mapper;
         }
 
+        public bool AddAnswer(AnswerViewModel answerViewModel)
+        {
+            _mapper.Map<IEnumerable<Answer>>(answerViewModel);
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<AnswerViewModel> GetAnswersByQId(int questionId)
         {
             var answers = _unitOfWork.Answers.GetAnswersByQId(questionId);

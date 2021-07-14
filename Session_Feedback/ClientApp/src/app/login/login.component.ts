@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, NgForm } from "@angular/forms";
-import { JwtHelperService } from "@auth0/angular-jwt";
 import { AuthGaurdService } from "../services/AuthService/auth-gaurd.service";
 
 @Component({
