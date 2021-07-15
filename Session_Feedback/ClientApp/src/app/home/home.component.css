@@ -1,0 +1,61 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins|Ubuntu&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #eee;
+  font-family: "Ubuntu", sans-serif;
+}
+
+.box {
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.box h4 {
+  margin-bottom: 10px;
+  border-bottom: 1px solid black;
+}
+
+.box:hover h4 {
+  border-bottom: 1px solid #fff;
+  transition: all 0.2s ease-in-out;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+}
+
+.our-sessions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-top: 50px;
+  padding-bottom: 30px;
+  padding: 0 60px;
+  min-height: 198px;
+  text-align: center;
+  border-radius: 10px;
+  background-color: #fff;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 0 25px 0 rgba(20, 27, 202, 0.17);
+}
+
+.our-sessions:hover h4,
+.our-sessions:hover div {
+  color: #fff;
+}
+
+.speedup:hover {
+  box-shadow: 0px 2px 9px #f82742;
+  cursor: pointer;
+  background-image: linear-gradient(-45deg, #fb0054 0%, #f55b2a 100%);
+}

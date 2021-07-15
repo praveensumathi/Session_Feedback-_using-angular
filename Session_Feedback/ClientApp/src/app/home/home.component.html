@@ -1,5 +1,25 @@
 <div *ngIf="sessions != []">
-  <div *ngFor="let session of sessions">
-    <h3>{{ session.name }}</h3>
+  <div class="container-fluid mb-5">
+    <div class="text-center mt-5">
+      <h1>Sessions</h1>
+    </div>
+    <div class="row">
+      <div class="col-md-4" *ngFor="let session of sessions">
+        <div class="box">
+          <div class="our-sessions speedup">
+            <div>
+              <h4>{{ session.name }}</h4>
+            </div>
+            <div class="details">
+              <div>ConductedBy : {{ session.conductedBy }}</div>
+              <div>
+                CreatedOn : {{ session.createdOn.toLocaleDateString() }}
+              </div>
+              <div>CreatedBy : {{ session.createdBy }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
