@@ -5,7 +5,7 @@
     </div>
     <div class="row">
       <div class="col-md-4" *ngFor="let session of sessions">
-        <div class="box">
+        <div class="box" routerLink="/detail/{{ session.id }}">
           <div class="our-sessions speedup">
             <div>
               <h4>{{ session.name }}</h4>

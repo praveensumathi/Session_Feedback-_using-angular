@@ -10,6 +10,7 @@ import { NavMenuComponent } from "./nav-menu/nav-menu.component";
 import { LoginComponent } from "./login/login.component";
 import { HomeComponent } from "./home/home.component";
 import { AuthGaurdService } from "./services/AuthService/auth-gaurd.service";
+import { SessionDetailsComponent } from "./session-details/session-details.component";
 // import { FetchDataComponent } from './fetch-data/fetch-data.component';
 
 export function tokenGetter() {
@@ -22,6 +23,7 @@ export function tokenGetter() {
     NavMenuComponent,
     LoginComponent,
     HomeComponent,
+    SessionDetailsComponent,
     // FetchDataComponent
   ],
   imports: [
@@ -41,6 +43,11 @@ export function tokenGetter() {
         pathMatch: "full",
       },
       { path: "login", component: LoginComponent },
+      {
+        path: "detail/:id",
+        component: SessionDetailsComponent,
+        canActivate: [AuthGaurdService],
+      },
     ]),
     JwtModule.forRoot({
       config: {
