@@ -1,8 +1,9 @@
 export interface ISession {
   id: number;
-  feedbackAnswer: string;
-  answeredBy: string;
-  answeredOn: Date;
-  userId: number;
-  questionId: number;
+  name: string;
+  createdBy: string;
+  createdOn: Date;
+  modifiedOn: Date;
+  modifiedBy: string;
+  conductedBy: string;
 }
