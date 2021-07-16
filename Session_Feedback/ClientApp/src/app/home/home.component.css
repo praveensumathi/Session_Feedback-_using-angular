@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins|Ubuntu&display=swap");
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 * {
   box-sizing: border-box;
@@ -11,6 +12,13 @@
   width: 100%;
   padding-right: 15px;
   padding-left: 15px;
+}
+
+.more-button {
+  position: absolute;
+  right: 20px;
+  top: 21px;
+  display: none;
 }
 
 .row {
@@ -39,7 +47,7 @@
 .our-sessions {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   margin-top: 50px;
   padding-bottom: 30px;
   padding: 0 60px;
@@ -49,6 +57,11 @@
   background-color: #fff;
   transition: all 0.2s ease-in-out;
   box-shadow: 0 0 25px 0 rgba(20, 27, 202, 0.17);
+}
+
+.our-sessions:hover .more-button {
+  display: block;
+  color: #fff;
 }
 
 .our-sessions:hover h4,

@@ -5,17 +5,37 @@
     </div>
     <div class="row">
       <div class="col-md-4" *ngFor="let session of sessions">
-        <div class="box" routerLink="/detail/{{ session.id }}">
+        <div class="box">
           <div class="our-sessions speedup">
-            <div>
-              <h4>{{ session.name }}</h4>
-            </div>
-            <div class="details">
-              <div>ConductedBy : {{ session.conductedBy }}</div>
+            <button
+              mat-icon-button
+              [matMenuTriggerFor]="menu"
+              aria-label="Example icon-button with a menu"
+              class="more-button"
+            >
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>delete</mat-icon>
+                <span>Delete</span>
+              </button>
+            </mat-menu>
+            <div routerLink="/detail/{{ session.id }}">
               <div>
-                CreatedOn : {{ session.createdOn.toLocaleDateString() }}
+                <h4>{{ session.name }}</h4>
               </div>
-              <div>CreatedBy : {{ session.createdBy }}</div>
+              <div class="details">
+                <div>ConductedBy : {{ session.conductedBy }}</div>
+                <div>
+                  CreatedOn : {{ session.createdOn.toLocaleDateString() }}
+                </div>
+                <div>CreatedBy : {{ session.createdBy }}</div>
+              </div>
             </div>
           </div>
         </div>

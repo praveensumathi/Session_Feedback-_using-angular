@@ -4,7 +4,10 @@ import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 import { JwtModule } from "@auth0/angular-jwt";
-//import { MaterialModule } from "./material.module";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatIconModule } from "@angular/material/icon";
+import { MatButtonModule } from "@angular/material/button";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppComponent } from "./app.component";
 import { NavMenuComponent } from "./nav-menu/nav-menu.component";
 import { LoginComponent } from "./login/login.component";
@@ -27,7 +30,6 @@ export function tokenGetter() {
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
     HttpClientModule,
-    //MaterialModule,
     FormsModule,
     RouterModule.forRoot([
       {
@@ -51,12 +53,19 @@ export function tokenGetter() {
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        whitelistedDomains: ["localhost:5001", "localhost:44308"],
+        whitelistedDomains: [
+          "https://localhost:5001/",
+          "https://localhost:44308/",
+        ],
         blacklistedRoutes: [],
         throwNoTokenError: true,
         skipWhenExpired: true,
       },
     }),
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
+    BrowserAnimationsModule,
   ],
   providers: [AuthGaurdService],
   bootstrap: [AppComponent],
