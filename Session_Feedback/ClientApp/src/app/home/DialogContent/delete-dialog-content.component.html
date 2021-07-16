@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Dialog with elements</h1>
+<div mat-dialog-content style="margin-bottom: 10px">
+  Are you sure you want to delete this session ?
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
+  <button mat-raised-button color="warn" [mat-dialog-close]="true">
+    Delete
+  </button>
+</div>

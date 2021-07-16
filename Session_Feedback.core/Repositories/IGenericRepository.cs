@@ -16,6 +16,6 @@ namespace Session_Feedback.core.Repositories
 
         //T Find(int id);
         //T FindByName(string name);
-        Task<bool> Delete(string sp, int id);
+        bool Delete(string sp, DynamicParameters parms);
     }
 }

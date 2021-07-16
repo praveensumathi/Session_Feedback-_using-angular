@@ -7,6 +7,7 @@ import { JwtModule } from "@auth0/angular-jwt";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
+import { MatDialogModule } from "@angular/material/dialog";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppComponent } from "./app.component";
 import { NavMenuComponent } from "./nav-menu/nav-menu.component";
@@ -14,6 +15,7 @@ import { LoginComponent } from "./login/login.component";
 import { HomeComponent } from "./home/home.component";
 import { AuthGaurdService } from "./services/AuthService/auth-gaurd.service";
 import { SessionDetailsComponent } from "./session-details/session-details.component";
+import { DeleteDialogContentComponent } from "./home/DialogContent/delete-dialog-content.component";
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -26,6 +28,7 @@ export function tokenGetter() {
     LoginComponent,
     HomeComponent,
     SessionDetailsComponent,
+    DeleteDialogContentComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -66,8 +69,10 @@ export function tokenGetter() {
     MatIconModule,
     MatButtonModule,
     BrowserAnimationsModule,
+    MatDialogModule,
   ],
   providers: [AuthGaurdService],
   bootstrap: [AppComponent],
+  entryComponents: [DeleteDialogContentComponent],
 })
 export class AppModule {}

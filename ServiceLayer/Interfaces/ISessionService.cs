@@ -11,5 +11,7 @@ namespace ServiceLayer
         SessionViewModel Insert(SessionViewModel sessionViewModel);
         SessionViewModel InsertWithQuestions(Session session);
         bool Update(SessionViewModel session);
+
+        bool Delete(int id);
     }
 }

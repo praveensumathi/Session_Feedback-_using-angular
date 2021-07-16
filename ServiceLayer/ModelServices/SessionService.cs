@@ -18,6 +18,13 @@ namespace ServiceLayer
             _mapper = mapper;
         }
 
+        public bool Delete(int id)
+        {
+            var isDeleted = _unitOfWork.Sessions.DeleteSession(id);
+
+            return isDeleted;
+        }
+
         public IEnumerable<SessionViewModel> GetAll()
         {
             var sessions = _unitOfWork.Sessions.GetAllSession();

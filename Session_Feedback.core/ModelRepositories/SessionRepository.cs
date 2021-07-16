@@ -73,6 +73,15 @@ namespace Session_Feedback.core.ModelRepositories
             return isUpdated;
         }
 
+        public bool DeleteSession(int id)
+        {
+            var parms = new DynamicParameters();
+            parms.Add("@Id", id);
+
+            var isDeleted = Delete(StoreProcedure, parms);
+
+            return isDeleted;
+        }
         public Session InsertSessionWithBulkQuestions(Session session)
         {
             session.CreatedOn = DateTime.Now;

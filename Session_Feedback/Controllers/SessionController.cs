@@ -32,7 +32,7 @@ namespace Session_Feedback.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Post([FromBody] SessionViewModel sessionViewModel)
         {
-            if(sessionViewModel == null)
+            if (sessionViewModel == null)
             {
                 return BadRequest();
             }
@@ -67,6 +67,22 @@ namespace Session_Feedback.Controllers
             if (isUpdated)
             {
                 return Ok(isUpdated);
+            }
+            return Ok(false);
+        }
+
+        [HttpDelete]
+        [Authorize(Roles = "Admin")]
+        public IActionResult Delete(int id)
+        {
+            if(id == 0)
+            {
+                return BadRequest();
+            }
+            var isDeleted = _sessionService.Delete(id);
+            if (isDeleted)
+            {
+                return Ok(isDeleted);
             }
             return Ok(false);
         }

@@ -15,11 +15,6 @@ namespace Session_Feedback.core.Repositories
         {
         }
 
-        public Task<bool> Delete(string sp, int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public IEnumerable<T> GetAll(string sp, DynamicParameters parms)
         {
             var result = Connection.Query<T>(sp, param: parms, commandType: CommandType.StoredProcedure, transaction: Transaction);
@@ -49,6 +44,17 @@ namespace Session_Feedback.core.Repositories
                 return true;
             }
             else return false;
+        }
+
+        public bool Delete(string sp,DynamicParameters parms)
+        {
+            var result = Connection.Execute(sp, commandType: CommandType.StoredProcedure, transaction: Transaction);
+
+            if(result > 0)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

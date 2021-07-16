@@ -18,7 +18,7 @@
   position: absolute;
   right: 20px;
   top: 21px;
-  display: none;
+  display: block;
 }
 
 .row {
@@ -59,10 +59,10 @@
   box-shadow: 0 0 25px 0 rgba(20, 27, 202, 0.17);
 }
 
-.our-sessions:hover .more-button {
+/* .our-sessions:hover .more-button {
   display: block;
   color: #fff;
-}
+} */
 
 .our-sessions:hover h4,
 .our-sessions:hover div {
@@ -72,5 +72,5 @@
 .speedup:hover {
   box-shadow: 0px 2px 9px #f82742;
   cursor: pointer;
-  background-image: linear-gradient(-45deg, #fb0054 0%, #f55b2a 100%);
+  background-image: linear-gradient(-45deg, #ee749d 0%, #f55b2a 100%);
 }
