@@ -20,8 +20,16 @@ export class HomeComponent implements OnInit {
       .subscribe((sessions) => (this.sessions = sessions));
   }
 
-  openDialog() {
-    const dialogRef = this.dialog.open(DeleteDialogContentComponent);
+  openDelete(session: ISession) {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.data = {
+      session: session,
+    };
+    const dialogRef = this.dialog.open(
+      DeleteDialogContentComponent,
+      dialogConfig
+    );
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
@@ -29,8 +37,4 @@ export class HomeComponent implements OnInit {
   }
 
   edit(id: number) {}
-
-  delete(id: number) {
-    console.log(id);
-  }
 }

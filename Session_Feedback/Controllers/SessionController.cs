@@ -72,7 +72,7 @@ namespace Session_Feedback.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
             if(id == 0)

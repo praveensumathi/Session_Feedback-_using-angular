@@ -31,5 +31,9 @@ export class SessionService {
 
   AddSession(session: ISession) {}
   UpdateSession(session: ISession) {}
-  DeleteSession(id: number) {}
+
+  DeleteSession(id: number): Observable<boolean> {
+    var result = this.resourceService.delete("/api/session", { id });
+    return result;
+  }
 }

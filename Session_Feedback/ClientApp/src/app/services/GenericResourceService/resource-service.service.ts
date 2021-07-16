@@ -49,17 +49,24 @@ export class ResourceService<T> {
   //   );
   // }
 
-  // add(resource: T): Observable<any> {
+  // add(resource: T,data: any = null,): Observable<any> {
   //   return this.httpClient
   //     .post(`/${this.APIUrl}`, this.toServerModel(resource))
   //     .pipe(catchError(this.handleError));
   // }
 
-  // delete(id: string | number): Observable<any> {
-  //   return this.httpClient
-  //     .delete(`/${this.APIUrl}/${id}`)
-  //     .pipe(catchError(this.handleError));
-  // }
+  delete(url: string, data: any = null, urlParams: any = {}): Observable<any> {
+    var request: string = this.BuildRequest(url, urlParams);
+
+    return this.http
+      .delete<boolean>(request, {
+        headers: new HttpHeaders({
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}}`,
+        }),
+      })
+      .pipe(catchError(this.handleError));
+  }
 
   // update(resource: T) {
   //   return this.httpClient
