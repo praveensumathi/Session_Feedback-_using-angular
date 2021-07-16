@@ -48,7 +48,7 @@ namespace Session_Feedback.core.Repositories
 
         public bool Delete(string sp,DynamicParameters parms)
         {
-            var result = Connection.Execute(sp, commandType: CommandType.StoredProcedure, transaction: Transaction);
+            var result = Connection.Execute(sp ,param:parms, commandType: CommandType.StoredProcedure, transaction: Transaction);
 
             if(result > 0)
             {

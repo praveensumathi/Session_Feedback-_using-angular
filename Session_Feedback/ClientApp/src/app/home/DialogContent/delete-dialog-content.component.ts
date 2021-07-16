@@ -36,6 +36,7 @@ export class DeleteDialogContentComponent implements OnInit {
         if (isDelete) {
           this.isDeleted = isDelete;
           this.isLoading = false;
+          this.sessionService.GetAllSession();
         } else {
           this.isDeleted = false;
           this.isLoading = false;

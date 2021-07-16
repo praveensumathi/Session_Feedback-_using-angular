@@ -77,6 +77,7 @@ namespace Session_Feedback.core.ModelRepositories
         {
             var parms = new DynamicParameters();
             parms.Add("@Id", id);
+            parms.Add("@StatementType", "Delete");
 
             var isDeleted = Delete(StoreProcedure, parms);
 
