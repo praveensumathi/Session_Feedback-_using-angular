@@ -4,13 +4,13 @@ import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 import { JwtModule } from "@auth0/angular-jwt";
+//import { MaterialModule } from "./material.module";
 import { AppComponent } from "./app.component";
 import { NavMenuComponent } from "./nav-menu/nav-menu.component";
 import { LoginComponent } from "./login/login.component";
 import { HomeComponent } from "./home/home.component";
 import { AuthGaurdService } from "./services/AuthService/auth-gaurd.service";
 import { SessionDetailsComponent } from "./session-details/session-details.component";
-// import { FetchDataComponent } from './fetch-data/fetch-data.component';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -23,11 +23,11 @@ export function tokenGetter() {
     LoginComponent,
     HomeComponent,
     SessionDetailsComponent,
-    // FetchDataComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
     HttpClientModule,
+    //MaterialModule,
     FormsModule,
     RouterModule.forRoot([
       {
@@ -51,10 +51,7 @@ export function tokenGetter() {
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        whitelistedDomains: [
-          "https://localhost:5001/",
-          "https://localhost:44308/",
-        ],
+        whitelistedDomains: ["localhost:5001", "localhost:44308"],
         blacklistedRoutes: [],
         throwNoTokenError: true,
         skipWhenExpired: true,
