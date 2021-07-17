@@ -5,7 +5,7 @@
     <h5>{{ session.name }}</h5>
   </div>
   <ng-template #successBlock>
-    <div>Session Successfully Deleted!</div>
+    <div class="alert alert-success">Session Successfully Deleted!</div>
   </ng-template>
   <div class="alert alert-danger" *ngIf="error != null">{{ error }}</div>
 </div>

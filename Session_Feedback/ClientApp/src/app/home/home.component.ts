@@ -2,7 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { ISession } from "../services/ApiService/SessionService/session";
 import { SessionService } from "../services/ApiService/SessionService/session.service";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
-import { DeleteDialogContentComponent } from "./DialogContent/delete-dialog-content.component";
+import { DeleteDialogComponent } from "./DialogContent/DeleteDialog/delete-dialog.component";
+import { UpdateDialogComponent } from "./DialogContent/UpdateDiaog/update-dialog.component";
 
 @Component({
   selector: "app-home",
@@ -15,6 +16,10 @@ export class HomeComponent implements OnInit {
   constructor(private session: SessionService, public dialog: MatDialog) {}
 
   ngOnInit() {
+    this.GetAllSessions();
+  }
+
+  GetAllSessions() {
     this.session
       .GetAllSession()
       .subscribe((sessions) => (this.sessions = sessions));
@@ -26,15 +31,29 @@ export class HomeComponent implements OnInit {
     dialogConfig.data = {
       session: session,
     };
-    const dialogRef = this.dialog.open(
-      DeleteDialogContentComponent,
-      dialogConfig
-    );
+
+    const dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
+      if (result) {
+        this.GetAllSessions();
+      }
     });
   }
 
-  edit(id: number) {}
+  openEdit(session: ISession) {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.data = {
+      session: session,
+    };
+
+    const dialogRef = this.dialog.open(UpdateDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.GetAllSessions();
+      }
+    });
+  }
 }

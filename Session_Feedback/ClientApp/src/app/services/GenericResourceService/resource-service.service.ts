@@ -58,7 +58,6 @@ export class ResourceService<T> {
   delete(url: string, data: any = null, urlParams: any = {}): Observable<any> {
     var request: string = this.BuildRequest(url, urlParams);
 
-    console.log(urlParams);
     return this.http
       .delete<boolean>(request, {
         headers: new HttpHeaders({

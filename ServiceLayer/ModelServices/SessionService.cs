@@ -21,6 +21,7 @@ namespace ServiceLayer
         public bool Delete(int id)
         {
             var isDeleted = _unitOfWork.Sessions.DeleteSession(id);
+            _unitOfWork.Commit();
 
             return isDeleted;
         }

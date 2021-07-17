@@ -8,6 +8,7 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDialogModule } from "@angular/material/dialog";
+import { MatSidenavModule } from "@angular/material/sidenav";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppComponent } from "./app.component";
 import { NavMenuComponent } from "./nav-menu/nav-menu.component";
@@ -15,7 +16,8 @@ import { LoginComponent } from "./login/login.component";
 import { HomeComponent } from "./home/home.component";
 import { AuthGaurdService } from "./services/AuthService/auth-gaurd.service";
 import { SessionDetailsComponent } from "./session-details/session-details.component";
-import { DeleteDialogContentComponent } from "./home/DialogContent/delete-dialog-content.component";
+import { DeleteDialogComponent } from "./home/DialogContent/DeleteDialog/delete-dialog.component";
+import { UpdateDialogComponent } from "./home/DialogContent/UpdateDiaog/update-dialog.component";
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -28,7 +30,8 @@ export function tokenGetter() {
     LoginComponent,
     HomeComponent,
     SessionDetailsComponent,
-    DeleteDialogContentComponent,
+    DeleteDialogComponent,
+    UpdateDialogComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -70,9 +73,10 @@ export function tokenGetter() {
     MatButtonModule,
     BrowserAnimationsModule,
     MatDialogModule,
+    MatSidenavModule,
   ],
   providers: [AuthGaurdService],
   bootstrap: [AppComponent],
-  entryComponents: [DeleteDialogContentComponent],
+  entryComponents: [DeleteDialogComponent, UpdateDialogComponent],
 })
 export class AppModule {}

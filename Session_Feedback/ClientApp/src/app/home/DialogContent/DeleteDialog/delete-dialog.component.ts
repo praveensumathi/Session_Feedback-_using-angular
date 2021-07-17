@@ -9,10 +9,9 @@ import { SessionService } from "src/app/services/ApiService/SessionService/sessi
 
 @Component({
   selector: "session-delete-dialog-content",
-  templateUrl: "./delete-dialog-content.component.html",
-  styleUrls: ["./delete-dialog.component.css"],
+  templateUrl: "./delete-dialog.component.html",
 })
-export class DeleteDialogContentComponent implements OnInit {
+export class DeleteDialogComponent implements OnInit {
   session: ISession;
   isDeleted: boolean = false;
   isLoading: boolean = false;
@@ -25,9 +24,7 @@ export class DeleteDialogContentComponent implements OnInit {
     this.session = data.session;
   }
 
-  ngOnInit(): void {
-    console.log(this.session);
-  }
+  ngOnInit(): void {}
 
   deleteSession(id: number) {
     this.isLoading = true;
@@ -36,7 +33,6 @@ export class DeleteDialogContentComponent implements OnInit {
         if (isDelete) {
           this.isDeleted = isDelete;
           this.isLoading = false;
-          this.sessionService.GetAllSession();
         } else {
           this.isDeleted = false;
           this.isLoading = false;
