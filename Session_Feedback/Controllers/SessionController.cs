@@ -55,7 +55,7 @@ namespace Session_Feedback.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public IActionResult Put([FromBody] SessionViewModel sessionViewModel)
         {
             if (sessionViewModel == null)

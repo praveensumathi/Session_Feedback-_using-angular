@@ -33,13 +33,12 @@ export class DeleteDialogComponent implements OnInit {
         if (isDelete) {
           this.isDeleted = isDelete;
           this.isLoading = false;
-        } else {
-          this.isDeleted = false;
-          this.isLoading = false;
         }
       },
       (error) => {
         this.error = error;
+        this.isDeleted = false;
+        this.isLoading = false;
       }
     );
   }

@@ -30,7 +30,11 @@ export class SessionService {
   }
 
   AddSession(session: ISession) {}
-  UpdateSession(session: ISession) {}
+
+  UpdateSession(session: ISession) {
+    var result = this.resourceService.update("/api/session", session);
+    return result;
+  }
 
   DeleteSession(id: number): Observable<boolean> {
     console.log(id);

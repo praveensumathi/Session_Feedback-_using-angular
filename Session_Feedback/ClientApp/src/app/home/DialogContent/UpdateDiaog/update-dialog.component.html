@@ -1,21 +1,61 @@
 <h1 mat-dialog-title>Update</h1>
 <div mat-dialog-content>
-  <div class="form-group">
-    <label for="sessionName">Session Name</label>
-    <input
-      type="text"
-      class="form-control"
-      id="sessionName"
-      aria-describedby="sessionInfo"
-      placeholder="Session Name"
-      value="{{ session.name }}"
-    />
-    <small id="sessionInfo" class="form-text text-muted"
-      >characters should be greater than 5</small
-    >
+  <div *ngIf="!isUpdated; else updateSucessBlock">
+    <div class="form-group">
+      <label for="sessionName">Session Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="sessionName"
+        aria-describedby="sessionNameInfo"
+        placeholder="Session Name"
+        [(ngModel)]="sessionName"
+        autocomplete="off"
+        (ngModelChange)="onNameChange($event)"
+      />
+      <small id="sessionNameInfo" class="form-text text-muted"
+        >*characters should be greater than 5</small
+      >
+    </div>
+    <div class="form-group">
+      <label for="conductedBy">Conducted By</label>
+      <input
+        type="text"
+        class="form-control"
+        id="conductedBy"
+        aria-describedby="sessionConductedByInfo"
+        placeholder="Conducted By"
+        [(ngModel)]="conductedBy"
+        (ngModelChange)="onConductedByChange($event)"
+      />
+      <small id="sessionConductedByInfo" class="form-text text-muted"></small>
+    </div>
   </div>
+  <ng-template #updateSucessBlock>
+    <div class="alert alert-success">Session Successfully Updated!</div>
+  </ng-template>
 </div>
+<div class="alert alert-danger" *ngIf="error != null">{{ error }}</div>
 <div mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
-  <button mat-raised-button color="primary">Update</button>
+  <button *ngIf="!isUpdated" mat-button mat-dialog-close cdkFocusInitial>
+    Cancel
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="updateSession()"
+    [disabled]="
+      currentSession.name === sessionName &&
+      currentSession.conductedBy === conductedBy
+    "
+    autocomplete="off"
+    *ngIf="!isUpdated; else elseBlock"
+  >
+    Update
+  </button>
+  <ng-template #elseBlock>
+    <button mat-button cdkFocusInitial mat-dialog-close>
+      Close
+    </button></ng-template
+  >
 </div>

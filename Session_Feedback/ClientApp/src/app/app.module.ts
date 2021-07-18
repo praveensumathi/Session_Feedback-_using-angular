@@ -39,11 +39,6 @@ export function tokenGetter() {
     FormsModule,
     RouterModule.forRoot([
       {
-        path: "",
-        component: LoginComponent,
-        pathMatch: "full",
-      },
-      {
         path: "home",
         component: HomeComponent,
         canActivate: [AuthGaurdService],
@@ -54,6 +49,11 @@ export function tokenGetter() {
         path: "detail/:id",
         component: SessionDetailsComponent,
         canActivate: [AuthGaurdService],
+      },
+      {
+        path: "",
+        component: LoginComponent,
+        pathMatch: "full",
       },
     ]),
     JwtModule.forRoot({

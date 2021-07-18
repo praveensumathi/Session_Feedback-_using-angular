@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
 
     const dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.beforeClosed().subscribe((result) => {
       if (result) {
         this.GetAllSessions();
       }
@@ -48,9 +48,10 @@ export class HomeComponent implements OnInit {
       session: session,
     };
 
+    dialogConfig.width = "30vw";
     const dialogRef = this.dialog.open(UpdateDialogComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.beforeClosed().subscribe((result) => {
       if (result) {
         this.GetAllSessions();
       }

@@ -55,24 +55,37 @@ export class ResourceService<T> {
   //     .pipe(catchError(this.handleError));
   // }
 
-  delete(url: string, data: any = null, urlParams: any = {}): Observable<any> {
+  delete(
+    url: string,
+    data: any = null,
+    urlParams: any = {}
+  ): Observable<boolean> {
     var request: string = this.BuildRequest(url, urlParams);
 
     return this.http
       .delete<boolean>(request, {
         headers: new HttpHeaders({
           "Content-Type": "application/json",
-          Authorization: `Bearer ${this.token}}`,
+          Authorization: `Bearer ${this.token}`,
         }),
       })
       .pipe(catchError(this.handleError));
   }
 
-  // update(resource: T) {
-  //   return this.httpClient
-  //     .put(`/${this.APIUrl}`, this.toServerModel(resource))
-  //     .pipe(catchError(this.handleError));
-  // }
+  update(url: string, data: any, urlParams: any = {}): Observable<boolean> {
+    var request: string = this.BuildRequest(url, urlParams);
+
+    console.log(data);
+
+    return this.http
+      .put<boolean>(request, data, {
+        headers: new HttpHeaders({
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`,
+        }),
+      })
+      .pipe(catchError(this.handleError));
+  }
 
   private handleError(error: HttpErrorResponse) {
     // Handle the HTTP error here
