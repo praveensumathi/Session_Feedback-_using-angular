@@ -49,6 +49,7 @@ namespace Session_Feedback.core.ModelRepositories
             parms.Add("@CreatedBy", session.CreatedBy);
             parms.Add("@CreatedOn", DateTime.Now);
             parms.Add("@ConductedBy", session.ConductedBy);
+            parms.Add("ConductedOn", session.ConductedOn);
             parms.Add("@StatementType", "Insert");
 
             var insetedId = Insert(StoreProcedure, parms);
@@ -66,6 +67,7 @@ namespace Session_Feedback.core.ModelRepositories
             parms.Add("@ModifiedBy", session.ModifiedBy);
             parms.Add("@ModifiedOn", DateTime.Now);
             parms.Add("@ConductedBy", session.ConductedBy);
+            parms.Add("ConductedOn", session.ConductedOn);
             parms.Add("@StatementType", "Update");
 
             var isUpdated = Update(StoreProcedure, parms);

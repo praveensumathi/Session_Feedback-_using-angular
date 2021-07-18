@@ -4,6 +4,7 @@ import { SessionService } from "../services/ApiService/SessionService/session.se
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { DeleteDialogComponent } from "./DialogContent/DeleteDialog/delete-dialog.component";
 import { UpdateDialogComponent } from "./DialogContent/UpdateDiaog/update-dialog.component";
+import { AddDialogComponent } from "./DialogContent/AddDialog/add-dialog.component";
 
 @Component({
   selector: "app-home",
@@ -50,6 +51,19 @@ export class HomeComponent implements OnInit {
 
     dialogConfig.width = "30vw";
     const dialogRef = this.dialog.open(UpdateDialogComponent, dialogConfig);
+
+    dialogRef.beforeClosed().subscribe((result) => {
+      if (result) {
+        this.GetAllSessions();
+      }
+    });
+  }
+
+  openAdd() {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.width = "30vw";
+    const dialogRef = this.dialog.open(AddDialogComponent, dialogConfig);
 
     dialogRef.beforeClosed().subscribe((result) => {
       if (result) {
