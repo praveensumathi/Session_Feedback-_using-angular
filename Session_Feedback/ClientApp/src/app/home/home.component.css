@@ -7,6 +7,21 @@
   padding: 0;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  padding-left: 24px;
+}
+.new-session-btn {
+  padding-right: 48px;
+}
+.new-session-btn .mat-raised-button {
+  color: #fff;
+  background-image: linear-gradient(-45deg, #ee749d 0%, #f55b2a 100%);
+}
 .box {
   position: relative;
   width: 100%;

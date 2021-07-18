@@ -29,7 +29,7 @@ namespace Session_Feedback.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public IActionResult Post([FromBody] SessionViewModel sessionViewModel)
         {
             if (sessionViewModel == null)

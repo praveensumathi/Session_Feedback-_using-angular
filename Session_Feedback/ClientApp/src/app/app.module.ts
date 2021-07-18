@@ -18,6 +18,7 @@ import { AuthGaurdService } from "./services/AuthService/auth-gaurd.service";
 import { SessionDetailsComponent } from "./session-details/session-details.component";
 import { DeleteDialogComponent } from "./home/DialogContent/DeleteDialog/delete-dialog.component";
 import { UpdateDialogComponent } from "./home/DialogContent/UpdateDiaog/update-dialog.component";
+import { AddDialogComponent } from "./home/DialogContent/AddDialog/add-dialog.component";
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -32,6 +33,7 @@ export function tokenGetter() {
     SessionDetailsComponent,
     DeleteDialogComponent,
     UpdateDialogComponent,
+    AddDialogComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -77,6 +79,10 @@ export function tokenGetter() {
   ],
   providers: [AuthGaurdService],
   bootstrap: [AppComponent],
-  entryComponents: [DeleteDialogComponent, UpdateDialogComponent],
+  entryComponents: [
+    DeleteDialogComponent,
+    UpdateDialogComponent,
+    AddDialogComponent,
+  ],
 })
 export class AppModule {}

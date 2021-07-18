@@ -17,6 +17,7 @@ export class ResourceService<T> {
   constructor(private http: HttpClient) {}
 
   private token = localStorage.getItem("jwt");
+
   BuildRequest(path: string, params: any = {}): string {
     const url: URL = new URL(path, this.base);
     Object.keys(params).forEach((key) =>
@@ -49,11 +50,17 @@ export class ResourceService<T> {
   //   );
   // }
 
-  // add(resource: T,data: any = null,): Observable<any> {
-  //   return this.httpClient
-  //     .post(`/${this.APIUrl}`, this.toServerModel(resource))
-  //     .pipe(catchError(this.handleError));
-  // }
+  add(url: string, data: any, urlParams: any = {}): Observable<T> {
+    var request: string = this.BuildRequest(url, urlParams);
+    return this.http
+      .post<T>(request, data, {
+        headers: new HttpHeaders({
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`,
+        }),
+      })
+      .pipe(catchError(this.handleError));
+  }
 
   delete(
     url: string,
@@ -74,8 +81,6 @@ export class ResourceService<T> {
 
   update(url: string, data: any, urlParams: any = {}): Observable<boolean> {
     var request: string = this.BuildRequest(url, urlParams);
-
-    console.log(data);
 
     return this.http
       .put<boolean>(request, data, {
