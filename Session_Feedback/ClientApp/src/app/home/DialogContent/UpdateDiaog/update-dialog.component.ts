@@ -12,6 +12,7 @@ import { SessionService } from "src/app/services/ApiService/SessionService/sessi
 export class UpdateDialogComponent implements OnInit {
   sessionName: string;
   conductedBy: string;
+  conductedOn: Date;
   currentSession: ISession;
   isUpdated: boolean = false;
   isLoading: boolean = false;
@@ -24,6 +25,7 @@ export class UpdateDialogComponent implements OnInit {
     this.currentSession = data.session;
     this.sessionName = data.session.name;
     this.conductedBy = data.session.conductedBy;
+    this.conductedOn = data.session.conductedOn;
   }
 
   ngOnInit() {}

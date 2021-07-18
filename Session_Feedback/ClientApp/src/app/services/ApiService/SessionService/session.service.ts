@@ -15,6 +15,7 @@ export class SessionService {
       ...session,
       createdOn: new Date(session.createdOn),
       modifiedOn: new Date(session.modifiedOn),
+      conductedOn: new Date(session.conductedOn),
     };
   }
 

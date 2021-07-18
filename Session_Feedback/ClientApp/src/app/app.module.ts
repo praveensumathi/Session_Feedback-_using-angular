@@ -9,6 +9,10 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatSidenavModule } from "@angular/material/sidenav";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
+import { MaterialModule } from "../material-module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppComponent } from "./app.component";
 import { NavMenuComponent } from "./nav-menu/nav-menu.component";
@@ -76,6 +80,9 @@ export function tokenGetter() {
     BrowserAnimationsModule,
     MatDialogModule,
     MatSidenavModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   providers: [AuthGaurdService],
   bootstrap: [AppComponent],
