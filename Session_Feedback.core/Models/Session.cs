@@ -14,7 +14,7 @@ namespace Session_Feedback.core.Models
         public DateTime? ModifiedOn { get; set; }
         public string ModifiedBy { get; set; }
         public string ConductedBy { get; set; }
-        public DateTime ConductedOn { get; set; }
+        public DateTime? ConductedOn { get; set; }
         public List<Question> Questions { get; set; } = new List<Question>();
     }
 }

@@ -34,7 +34,19 @@
   right: 20px;
   top: 21px;
   display: block;
+  padding: 0;
+  min-width: 0;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  line-height: 40px;
+  border-radius: 50%;
 }
+
+/* .more-button:hover {
+  background-color: #fff;
+  color: black;
+} */
 
 .row {
   overflow: auto;
@@ -78,6 +90,23 @@
   display: block;
   color: #fff;
 } */
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.25rem 1.5rem;
+  clear: both;
+  font-weight: 400;
+  color: #212529;
+  text-align: inherit;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+}
+
+.dropdown-item:hover {
+  background-color: #ececec;
+}
 
 .our-sessions:hover h4,
 .our-sessions:hover div {

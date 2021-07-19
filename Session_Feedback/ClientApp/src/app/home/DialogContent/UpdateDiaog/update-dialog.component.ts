@@ -46,7 +46,9 @@ export class UpdateDialogComponent implements OnInit {
       ...this.currentSession,
       name: this.sessionName,
       conductedBy: this.conductedBy,
+      conductedOn: this.conductedOn,
     };
+    console.log(updateSession);
     this.isLoading = true;
     this.sessionService.UpdateSession(updateSession).subscribe(
       (isUpdated) => {

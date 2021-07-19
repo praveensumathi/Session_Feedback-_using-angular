@@ -12,7 +12,7 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
-import { MaterialModule } from "../material-module";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppComponent } from "./app.component";
 import { NavMenuComponent } from "./nav-menu/nav-menu.component";
@@ -23,6 +23,7 @@ import { SessionDetailsComponent } from "./session-details/session-details.compo
 import { DeleteDialogComponent } from "./home/DialogContent/DeleteDialog/delete-dialog.component";
 import { UpdateDialogComponent } from "./home/DialogContent/UpdateDiaog/update-dialog.component";
 import { AddDialogComponent } from "./home/DialogContent/AddDialog/add-dialog.component";
+import { NgDropDownComponent } from "./ng-drop-down/ng-drop-down.component";
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -38,11 +39,13 @@ export function tokenGetter() {
     DeleteDialogComponent,
     UpdateDialogComponent,
     AddDialogComponent,
+    NgDropDownComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
     HttpClientModule,
     FormsModule,
+    NgbModule,
     RouterModule.forRoot([
       {
         path: "home",

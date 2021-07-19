@@ -1,3 +1,14 @@
+<div ngbDropdown class="d-inline-block">
+  <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+    Toggle dropdown
+  </button>
+  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+    <button ngbDropdownItem>Action - 1</button>
+    <button ngbDropdownItem>Another Action</button>
+    <button ngbDropdownItem>Something else is here</button>
+  </div>
+</div>
+<i class="fas fa-ellipsis-v"></i>
 <div *ngIf="sessions != []">
   <div class="container-fluid mb-2">
     <div class="text-center mt-1 header">
@@ -12,24 +23,19 @@
       <div class="col-md-4" *ngFor="let session of sessions">
         <div class="box">
           <div class="our-sessions speedup">
-            <button
-              mat-icon-button
-              [matMenuTriggerFor]="menu"
-              aria-label="menu"
-              class="more-button"
-            >
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item (click)="openEdit(session)">
-                <mat-icon>edit</mat-icon>
-                <span>Edit</span>
-              </button>
-              <button mat-menu-item (click)="openDelete(session)">
-                <mat-icon>delete</mat-icon>
-                <span>Delete</span>
-              </button>
-            </mat-menu>
+            <div ngbDropdown class="d-inline-block">
+              <i
+                class="fas fa-ellipsis-v"
+                id="dropdownBasic1"
+                ngbDropdownToggle
+              ></i>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button ngbDropdownItem>Action - 1</button>
+                <button ngbDropdownItem>Another Action</button>
+                <button ngbDropdownItem>Something else is here</button>
+              </div>
+            </div>
+
             <div routerLink="/detail/{{ session.id }}">
               <div>
                 <h4>{{ session.name }}</h4>
