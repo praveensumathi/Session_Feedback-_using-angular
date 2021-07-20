@@ -34,7 +34,6 @@ export class HomeComponent implements OnInit {
   }
 
   openEditModal(session: ISession) {
-    debugger;
     this.editModel.openVerticallyCentered(session);
   }
 }

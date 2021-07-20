@@ -30,11 +30,15 @@
                 <h4>{{ session.name }}</h4>
               </div>
               <div class="details">
-                <div>ConductedBy : {{ session.conductedBy }}</div>
+                <div>Conducted By : {{ session.conductedBy }}</div>
                 <div>
-                  CreatedOn : {{ session.createdOn.toLocaleDateString() }}
+                  Conducted On :
+                  {{ session.conductedOn ? session.conductedOn : null }}
                 </div>
-                <div>CreatedBy : {{ session.createdBy }}</div>
+                <div>
+                  Created On : {{ session.createdOn.toLocaleDateString() }}
+                </div>
+                <div>Created By : {{ session.createdBy }}</div>
               </div>
             </div>
           </div>

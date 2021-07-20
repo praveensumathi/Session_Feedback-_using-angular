@@ -1,6 +1,6 @@
 <ng-template #content>
   <div class="modal-header">
-    <h4 class="modal-title">Delete</h4>
+    <h4 class="modal-title">Update</h4>
     <button
       type="button"
       class="close"
@@ -11,46 +11,54 @@
     </button>
   </div>
   <div class="modal-body">
-    <input
-      type="text"
-      class="form-control mb-3"
-      id="sessionName"
-      aria-describedby="sessionNameHelp"
-      placeholder="Session Name"
-      [(ngModel)]="sessionName"
-      (ngModelChange)="onNameChange($event)"
-    />
-    <input
-      type="text"
-      class="form-control mb-3"
-      id="conducedBy"
-      aria-describedby="conducedByHelp"
-      placeholder="Conducted By"
-      [(ngModel)]="conductedBy"
-      (ngModelChange)="onConductedByChange($event)"
-    />
-    <div class="input-group">
+    <div *ngIf="!isUpdated; else updateSucessBlock">
       <input
-        class="form-control"
-        placeholder="yyyy-mm-dd"
-        name="dp"
-        [(ngModel)]="model"
-        ngbDatepicker
-        #d="ngbDatepicker"
-        [placement]="placement"
-        [positionTarget]="buttonEl"
+        type="text"
+        class="form-control mb-3"
+        id="sessionName"
+        aria-describedby="sessionNameHelp"
+        placeholder="Session Name"
+        [(ngModel)]="sessionName"
+        (ngModelChange)="onNameChange($event)"
       />
-      <div class="input-group-append">
-        <button
-          #buttonEl
-          class="btn btn-outline-secondary calendar"
-          (click)="d.toggle()"
-          type="button"
-        >
-          <i class="fas fa-calendar-alt"></i>
-        </button>
+      <input
+        type="text"
+        class="form-control mb-3"
+        id="conducedBy"
+        aria-describedby="conducedByHelp"
+        placeholder="Conducted By"
+        [(ngModel)]="conductedBy"
+        (ngModelChange)="onConductedByChange($event)"
+      />
+      <div class="input-group">
+        <input
+          class="form-control"
+          placeholder="yyyy-mm-dd"
+          name="dp"
+          (dateSelect)="onDateChange($event)"
+          ngbDatepicker
+          #d="ngbDatepicker"
+          [placement]="placement"
+          [positionTarget]="buttonEl"
+          [disabled]
+          [value]="conductedOn"
+        />
+        <div class="input-group-append">
+          <button
+            #buttonEl
+            class="btn btn-outline-secondary calendar"
+            (click)="d.toggle()"
+            type="button"
+          >
+            <i class="fas fa-calendar-alt"></i>
+          </button>
+        </div>
       </div>
     </div>
+    <ng-template #updateSucessBlock>
+      <div class="alert alert-success">Session Successfully Updated!</div>
+    </ng-template>
+    <div class="alert alert-danger" *ngIf="error != null">{{ error }}</div>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-light" (click)="closeModal()">
