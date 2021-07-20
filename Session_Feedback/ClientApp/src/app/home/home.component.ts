@@ -1,10 +1,17 @@
-import { Component, OnInit } from "@angular/core";
+import {
+  AfterViewInit,
+  Component,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+} from "@angular/core";
 import { ISession } from "../services/ApiService/SessionService/session";
 import { SessionService } from "../services/ApiService/SessionService/session.service";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { DeleteDialogComponent } from "./DialogContent/DeleteDialog/delete-dialog.component";
 import { UpdateDialogComponent } from "./DialogContent/UpdateDiaog/update-dialog.component";
 import { AddDialogComponent } from "./DialogContent/AddDialog/add-dialog.component";
+import { SessionEditModelComponent } from "./session-edit-model/session-edit-model.component";
 
 @Component({
   selector: "app-home",
@@ -16,6 +23,9 @@ export class HomeComponent implements OnInit {
 
   constructor(private session: SessionService, public dialog: MatDialog) {}
 
+  @ViewChild("edit", { static: false })
+  editModel: SessionEditModelComponent;
+
   ngOnInit() {
     this.GetAllSessions();
   }
@@ -24,6 +34,11 @@ export class HomeComponent implements OnInit {
     this.session
       .GetAllSession()
       .subscribe((sessions) => (this.sessions = sessions));
+  }
+
+  openEditModal(session: ISession) {
+    debugger;
+    this.editModel.openVerticallyCentered(session);
   }
 
   openDelete(session: ISession) {
