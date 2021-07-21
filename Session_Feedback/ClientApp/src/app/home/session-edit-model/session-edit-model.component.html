@@ -1,4 +1,4 @@
-<ng-template #content>
+<ng-template #editContent>
   <div class="modal-header">
     <h4 class="modal-title">Update</h4>
     <button
@@ -58,11 +58,11 @@
     <ng-template #updateSucessBlock>
       <div class="alert alert-success">Session Successfully Updated!</div>
     </ng-template>
-    <div class="alert alert-danger" *ngIf="error != null">{{ error }}</div>
+    <div class="alert alert-danger mt-3" *ngIf="error != null">{{ error }}</div>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-light" (click)="closeModal()">
-      Close
+      {{ !isUpdated ? "Cancel" : "Close" }}
     </button>
     <button
       *ngIf="!isUpdated"

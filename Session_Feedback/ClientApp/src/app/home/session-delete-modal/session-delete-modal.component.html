@@ -1,1 +1,36 @@
-<p>session-delete-modal works!</p>
+<ng-template #deleteContent>
+  <div class="modal-header">
+    <h4 class="modal-title">Delete</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="dismissModal()"
+    >
+      <span class="closeIcon" aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div *ngIf="!isDeleted; else deleteSucessBlock">
+      <span>Are you sure you want to delete this</span>
+      <span class="h5">{{ selectedSession.name }}</span>
+    </div>
+    <ng-template #deleteSucessBlock>
+      <div class="alert alert-success">Session Successfully Updated!</div>
+    </ng-template>
+    <div class="alert alert-danger mt-3" *ngIf="error != null">{{ error }}</div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="closeModal()">
+      {{ !isDeleted ? "Cancel" : "Close" }}
+    </button>
+    <button
+      *ngIf="!isDeleted"
+      mat-raised-button
+      color="warn"
+      (click)="deleteSession()"
+    >
+      Delete
+    </button>
+  </div>
+</ng-template>

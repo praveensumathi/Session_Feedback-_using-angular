@@ -9,11 +9,10 @@ import { SessionService } from "src/app/services/ApiService/SessionService/sessi
   templateUrl: "./session-edit-model.component.html",
   styleUrls: ["./session-edit-model.component.css"],
 })
-export class SessionEditModelComponent implements AfterViewInit {
+export class SessionEditModelComponent {
   date: string;
   placement = "bottom";
 
-  private editModelContent: any;
   selectedSession: ISession;
 
   sessionName: string;
@@ -27,25 +26,25 @@ export class SessionEditModelComponent implements AfterViewInit {
     private sessionService: SessionService
   ) {}
 
-  @ViewChild("content", { static: false })
-  editModel: any;
-
-  ngAfterViewInit() {
-    this.editModelContent = this.editModel;
-  }
+  @ViewChild("editContent", { static: false })
+  editModalContent: any;
 
   dismissModal() {
     this.modalService.dismissAll();
+    this.error = null;
+    this.isUpdated = false;
   }
   closeModal() {
     this.modalService.dismissAll();
+    this.error = null;
+    this.isUpdated = false;
   }
   openVerticallyCentered(session: ISession) {
     this.selectedSession = session;
     this.sessionName = session.name;
     this.conductedBy = session.conductedBy;
     this.conductedOn = session.conductedOn;
-    this.modalService.open(this.editModelContent, { centered: true });
+    this.modalService.open(this.editModalContent, { centered: true });
   }
 
   onConductedByChange(e) {
@@ -59,9 +58,7 @@ export class SessionEditModelComponent implements AfterViewInit {
     }
   }
   onDateChange(e: NgbDate) {
-    var date = new Date();
     this.conductedOn = e.year + "-" + e.month + "-" + e.day;
-    console.log(this.conductedOn);
   }
 
   updatedSession() {

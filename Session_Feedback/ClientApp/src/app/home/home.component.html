@@ -19,7 +19,7 @@
                 <button ngbDropdownItem (click)="openEditModal(session)">
                   <i class="fas fa-pen-square icon"></i>Edit
                 </button>
-                <button ngbDropdownItem>
+                <button ngbDropdownItem (click)="openDeleteModal(session)">
                   <i class="fas fa-trash icon"></i>Delete
                 </button>
               </div>
@@ -48,3 +48,4 @@
   </div>
 </div>
 <app-session-edit-model #edit></app-session-edit-model>
+<app-session-delete-modal #delete></app-session-delete-modal>

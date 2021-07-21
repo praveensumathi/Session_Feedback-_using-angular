@@ -1,12 +1,7 @@
-import {
-  AfterViewInit,
-  Component,
-  OnInit,
-  TemplateRef,
-  ViewChild,
-} from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { ISession } from "../services/ApiService/SessionService/session";
 import { SessionService } from "../services/ApiService/SessionService/session.service";
+import { SessionDeleteModalComponent } from "./session-delete-modal/session-delete-modal.component";
 import { SessionEditModelComponent } from "./session-edit-model/session-edit-model.component";
 
 @Component({
@@ -22,6 +17,9 @@ export class HomeComponent implements OnInit {
   @ViewChild("edit", { static: false })
   editModel: SessionEditModelComponent;
 
+  @ViewChild("delete", { static: false })
+  deleteModel: SessionDeleteModalComponent;
+
   ngOnInit() {
     this.GetAllSessions();
   }
@@ -35,5 +33,9 @@ export class HomeComponent implements OnInit {
 
   openEditModal(session: ISession) {
     this.editModel.openVerticallyCentered(session);
+  }
+
+  openDeleteModal(session: ISession) {
+    this.deleteModel.openVerticallyCentered(session);
   }
 }
