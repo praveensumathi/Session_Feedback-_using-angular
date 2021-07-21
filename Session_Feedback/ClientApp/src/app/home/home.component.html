@@ -49,6 +49,9 @@
     </div>
   </div>
 </div>
-<app-session-edit-model #edit></app-session-edit-model>
+<app-session-edit-model
+  #edit
+  (getAllSessions)="GetAllSessions()"
+></app-session-edit-model>
 <app-session-delete-modal #delete></app-session-delete-modal>
 <app-session-add-modal #add></app-session-add-modal>

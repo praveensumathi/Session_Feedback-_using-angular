@@ -1,4 +1,4 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, EventEmitter, Output, ViewChild } from "@angular/core";
 import { NgbDate, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import * as _ from "lodash";
 import { ISession } from "src/app/services/ApiService/SessionService/session";
@@ -28,6 +28,9 @@ export class SessionEditModelComponent {
 
   @ViewChild("editContent", { static: false })
   editModalContent: any;
+
+  @Output("getAllSessions") getAllSessions: EventEmitter<any> =
+    new EventEmitter();
 
   dismissModal() {
     this.modalService.dismissAll();
@@ -75,6 +78,7 @@ export class SessionEditModelComponent {
       (isUpdated) => {
         if (isUpdated) {
           this.isUpdated = isUpdated;
+          this.getAllSessions.emit();
         }
       },
       (error) => {
