@@ -7,7 +7,6 @@ import {
 } from "@angular/core";
 import { ISession } from "../services/ApiService/SessionService/session";
 import { SessionService } from "../services/ApiService/SessionService/session.service";
-import { MatDialog } from "@angular/material/dialog";
 import { SessionEditModelComponent } from "./session-edit-model/session-edit-model.component";
 
 @Component({
@@ -18,7 +17,7 @@ import { SessionEditModelComponent } from "./session-edit-model/session-edit-mod
 export class HomeComponent implements OnInit {
   public sessions: ISession[];
 
-  constructor(private session: SessionService, public dialog: MatDialog) {}
+  constructor(private session: SessionService) {}
 
   @ViewChild("edit", { static: false })
   editModel: SessionEditModelComponent;
@@ -28,6 +27,7 @@ export class HomeComponent implements OnInit {
   }
 
   GetAllSessions() {
+    debugger;
     this.session
       .GetAllSession()
       .subscribe((sessions) => (this.sessions = sessions));

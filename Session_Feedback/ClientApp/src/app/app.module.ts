@@ -7,12 +7,7 @@ import { JwtModule } from "@auth0/angular-jwt";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
-import { MatDialogModule } from "@angular/material/dialog";
-import { MatSidenavModule } from "@angular/material/sidenav";
-import { MatDatepickerModule } from "@angular/material/datepicker";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatInputModule } from "@angular/material/input";
-import { NgbActiveModal, NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppComponent } from "./app.component";
 import { NavMenuComponent } from "./nav-menu/nav-menu.component";
@@ -20,9 +15,6 @@ import { LoginComponent } from "./login/login.component";
 import { HomeComponent } from "./home/home.component";
 import { AuthGaurdService } from "./services/AuthService/auth-gaurd.service";
 import { SessionDetailsComponent } from "./session-details/session-details.component";
-import { DeleteDialogComponent } from "./home/DialogContent/DeleteDialog/delete-dialog.component";
-import { UpdateDialogComponent } from "./home/DialogContent/UpdateDiaog/update-dialog.component";
-import { AddDialogComponent } from "./home/DialogContent/AddDialog/add-dialog.component";
 import { SessionEditModelComponent } from "./home/session-edit-model/session-edit-model.component";
 
 export function tokenGetter() {
@@ -36,9 +28,6 @@ export function tokenGetter() {
     LoginComponent,
     HomeComponent,
     SessionDetailsComponent,
-    DeleteDialogComponent,
-    UpdateDialogComponent,
-    AddDialogComponent,
     SessionEditModelComponent,
   ],
   imports: [
@@ -81,19 +70,9 @@ export function tokenGetter() {
     MatIconModule,
     MatButtonModule,
     BrowserAnimationsModule,
-    MatDialogModule,
-    MatSidenavModule,
-    MatDatepickerModule,
-    MatFormFieldModule,
-    MatInputModule,
   ],
   providers: [AuthGaurdService],
   bootstrap: [AppComponent],
-  entryComponents: [
-    DeleteDialogComponent,
-    UpdateDialogComponent,
-    AddDialogComponent,
-    SessionEditModelComponent,
-  ],
+  entryComponents: [SessionEditModelComponent],
 })
 export class AppModule {}
