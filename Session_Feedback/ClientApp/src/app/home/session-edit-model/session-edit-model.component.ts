@@ -35,6 +35,7 @@ export class SessionEditModelComponent {
   ngbModalOptions: NgbModalOptions = {
     backdrop: "static",
     centered: true,
+    keyboard: false,
   };
 
   dismissModal() {

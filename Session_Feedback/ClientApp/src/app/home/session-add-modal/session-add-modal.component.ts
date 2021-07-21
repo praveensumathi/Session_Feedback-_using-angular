@@ -38,6 +38,7 @@ export class SessionAddModalComponent {
   ngbModalOptions: NgbModalOptions = {
     backdrop: "static",
     centered: true,
+    keyboard: false,
   };
 
   dismissModal() {
