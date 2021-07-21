@@ -29,7 +29,6 @@ export class HomeComponent implements OnInit {
   }
 
   GetAllSessions() {
-    debugger;
     this.session
       .GetAllSession()
       .subscribe((sessions) => (this.sessions = sessions));

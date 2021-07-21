@@ -36,10 +36,7 @@ export class ResourceService<T> {
           Authorization: `Bearer ${this.token}`,
         }),
       })
-      .pipe(
-        map((response) => response),
-        catchError(this.handleError)
-      );
+      .pipe(catchError(this.handleError));
     return response;
   }
 

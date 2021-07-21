@@ -32,7 +32,10 @@ export class SessionService {
     return result;
   }
 
-  AddSession(session: ISession) {}
+  AddSession(session: ISession): Observable<ISession> {
+    var result = this.resourceService.add("/api/session", session);
+    return result;
+  }
 
   UpdateSession(session: ISession) {
     var result = this.resourceService.update("/api/session", session);

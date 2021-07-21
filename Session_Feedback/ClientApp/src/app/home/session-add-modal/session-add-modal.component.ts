@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from "@angular/core";
 import { NgbDate, NgbModal, NgbModalOptions } from "@ng-bootstrap/ng-bootstrap";
 import * as _ from "lodash";
 import { ISession } from "src/app/services/ApiService/SessionService/session";
@@ -13,7 +19,6 @@ export class SessionAddModalComponent {
   isAdded: boolean = false;
   isValidSession: boolean = false;
   error: string = null;
-  newSession: ISession;
   sessionName: string = null;
   createdBy: string = null;
   conductedOn: string = null;
@@ -27,6 +32,9 @@ export class SessionAddModalComponent {
   @ViewChild("addContent", { static: false })
   addModalContent: any;
 
+  @Output("getAllSessions") getAllSessions: EventEmitter<any> =
+    new EventEmitter();
+
   ngbModalOptions: NgbModalOptions = {
     backdrop: "static",
     centered: true,
@@ -34,13 +42,19 @@ export class SessionAddModalComponent {
 
   dismissModal() {
     this.modalService.dismissAll();
-    this.error = null;
     this.isAdded = false;
+    this.sessionName = null;
+    this.createdBy = null;
+    this.conductedOn = null;
+    this.conductedBy = null;
   }
   closeModal() {
     this.modalService.dismissAll();
-    this.error = null;
     this.isAdded = false;
+    this.sessionName = null;
+    this.createdBy = null;
+    this.conductedOn = null;
+    this.conductedBy = null;
   }
 
   openVerticallyCentered() {
@@ -69,6 +83,24 @@ export class SessionAddModalComponent {
   }
   onConductedOnChange(e: NgbDate) {
     this.conductedOn = e.year + "-" + e.month + "-" + e.day;
-    this.isValidSession = false;
+  }
+
+  addSession() {
+    var session: ISession = {
+      id: 0,
+      name: this.sessionName,
+      createdBy: this.createdBy,
+      conductedBy: this.conductedBy,
+      conductedOn: this.conductedOn,
+    };
+    this.sessionService.AddSession(session).subscribe(
+      (addedSession) => {
+        this.isAdded = true;
+        this.getAllSessions.emit();
+      },
+      (error) => {
+        this.error = error;
+      }
+    );
   }
 }
