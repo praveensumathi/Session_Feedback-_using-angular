@@ -17,6 +17,7 @@ import { AuthGaurdService } from "./services/AuthService/auth-gaurd.service";
 import { SessionDetailsComponent } from "./session-details/session-details.component";
 import { SessionEditModelComponent } from "./home/session-edit-model/session-edit-model.component";
 import { SessionDeleteModalComponent } from "./home/session-delete-modal/session-delete-modal.component";
+import { SessionAddModalComponent } from "./home/session-add-modal/session-add-modal.component";
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -31,6 +32,7 @@ export function tokenGetter() {
     SessionDetailsComponent,
     SessionEditModelComponent,
     SessionDeleteModalComponent,
+    SessionAddModalComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),

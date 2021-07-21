@@ -1,17 +1,12 @@
-<ng-template #editContent>
+<ng-template #addContent>
   <div class="modal-header">
-    <h4 class="modal-title">Update</h4>
-    <button
-      type="button"
-      class="close"
-      aria-label="Close"
-      (click)="dismissModal()"
-    >
+    <h4 class="modal-title">Add</h4>
+    <button type="button" class="close" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <div *ngIf="!isUpdated; else updateSucessBlock">
+    <div *ngIf="!isAdded; else addSucessBlock">
       <label for="sessionName">Session Name</label>
       <input
         type="text"
@@ -19,8 +14,14 @@
         id="sessionName"
         aria-describedby="sessionNameHelp"
         placeholder="Session Name"
-        [(ngModel)]="sessionName"
-        (ngModelChange)="onNameChange($event)"
+      />
+      <label for="createdBy">Created By</label>
+      <input
+        type="text"
+        class="form-control mb-2"
+        id="createdBy"
+        aria-describedby="createdByHelp"
+        placeholder="Created By"
       />
       <label for="conducedBy">Conducted By</label>
       <input
@@ -29,23 +30,19 @@
         id="conducedBy"
         aria-describedby="conducedByHelp"
         placeholder="Conducted By"
-        [(ngModel)]="conductedBy"
-        (ngModelChange)="onConductedByChange($event)"
       />
-      <label for="conductedOn">Conducted On</label>
+      <label for="conducedOn">Conducted On</label>
       <div class="input-group">
         <input
+          id="conducedOn"
           class="form-control"
           placeholder="yyyy-mm-dd"
           name="dp"
-          id="conductedOn"
-          (dateSelect)="onDateChange($event)"
           ngbDatepicker
           #d="ngbDatepicker"
-          [placement]="placement"
+          placement="top"
           [positionTarget]="buttonEl"
           [disabled]
-          [value]="conductedOn"
         />
         <div class="input-group-append">
           <button
@@ -59,22 +56,13 @@
         </div>
       </div>
     </div>
-    <ng-template #updateSucessBlock>
-      <div class="alert alert-success">Session Successfully Updated!</div>
+    <ng-template #addSucessBlock>
+      <div class="alert alert-success">Session Successfully Added!</div>
     </ng-template>
     <div class="alert alert-danger mt-2" *ngIf="error != null">{{ error }}</div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-light" (click)="closeModal()">
-      {{ !isUpdated ? "Cancel" : "Close" }}
-    </button>
-    <button
-      *ngIf="!isUpdated"
-      mat-raised-button
-      color="primary"
-      (click)="updatedSession()"
-    >
-      Update
-    </button>
+    <button type="button" class="btn btn-light">Close</button>
+    <button class="btn btn-success" mat-raised-button>Add</button>
   </div>
 </ng-template>

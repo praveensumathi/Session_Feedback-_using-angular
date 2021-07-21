@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { ISession } from "../services/ApiService/SessionService/session";
 import { SessionService } from "../services/ApiService/SessionService/session.service";
+import { SessionAddModalComponent } from "./session-add-modal/session-add-modal.component";
 import { SessionDeleteModalComponent } from "./session-delete-modal/session-delete-modal.component";
 import { SessionEditModelComponent } from "./session-edit-model/session-edit-model.component";
 
@@ -13,6 +14,9 @@ export class HomeComponent implements OnInit {
   public sessions: ISession[];
 
   constructor(private session: SessionService) {}
+
+  @ViewChild("add", { static: false })
+  addModal: SessionAddModalComponent;
 
   @ViewChild("edit", { static: false })
   editModel: SessionEditModelComponent;
@@ -31,6 +35,9 @@ export class HomeComponent implements OnInit {
       .subscribe((sessions) => (this.sessions = sessions));
   }
 
+  openAddModal() {
+    this.addModal.openVerticallyCentered();
+  }
   openEditModal(session: ISession) {
     this.editModel.openVerticallyCentered(session);
   }

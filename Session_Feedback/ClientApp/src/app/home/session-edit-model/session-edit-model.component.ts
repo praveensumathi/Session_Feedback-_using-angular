@@ -44,7 +44,9 @@ export class SessionEditModelComponent {
     this.sessionName = session.name;
     this.conductedBy = session.conductedBy;
     this.conductedOn = session.conductedOn;
-    this.modalService.open(this.editModalContent, { centered: true });
+    this.modalService.open(this.editModalContent, {
+      centered: true,
+    });
   }
 
   onConductedByChange(e) {
