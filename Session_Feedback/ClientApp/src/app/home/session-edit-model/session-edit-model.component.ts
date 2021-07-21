@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, ViewChild } from "@angular/core";
-import { NgbDate, NgbDateStruct, NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { Component, ViewChild } from "@angular/core";
+import { NgbDate, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import * as _ from "lodash";
 import { ISession } from "src/app/services/ApiService/SessionService/session";
 import { SessionService } from "src/app/services/ApiService/SessionService/session.service";
