@@ -53,5 +53,11 @@
   #edit
   (getAllSessions)="GetAllSessions()"
 ></app-session-edit-model>
-<app-session-delete-modal #delete></app-session-delete-modal>
-<app-session-add-modal #add></app-session-add-modal>
+<app-session-delete-modal
+  #delete
+  (getAllSessions)="GetAllSessions()"
+></app-session-delete-modal>
+<app-session-add-modal
+  #add
+  (getAllSessions)="GetAllSessions()"
+></app-session-add-modal>

@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import * as _ from "lodash";
+import { ISession } from "src/app/services/ApiService/SessionService/session";
 import { SessionService } from "src/app/services/ApiService/SessionService/session.service";
 
 @Component({
@@ -9,7 +11,13 @@ import { SessionService } from "src/app/services/ApiService/SessionService/sessi
 })
 export class SessionAddModalComponent {
   isAdded: boolean = false;
+  isValidSession: boolean = false;
   error: string = null;
+  newSession: ISession;
+  sessionName: string;
+  createdBy: string;
+  conductedOn: string;
+  conductedBy: string;
 
   constructor(
     private modalService: NgbModal,
@@ -33,4 +41,22 @@ export class SessionAddModalComponent {
   openVerticallyCentered() {
     this.modalService.open(this.addModalContent, { centered: true });
   }
+
+  isValidSessionDetails() {
+    if (
+      !_.isEmpty(this.newSession.name) ||
+      !_.isEmpty(this.newSession.createdBy)
+    ) {
+      this.isValidSession = true;
+    }
+  }
+
+  onNameChange(e) {
+    if (_.isEmpty(e)) {
+      this.isValidSession = false;
+    }
+  }
+  onCreatedByChange(e) {}
+  onConductedByChange(e) {}
+  onConductedOnChange(e) {}
 }

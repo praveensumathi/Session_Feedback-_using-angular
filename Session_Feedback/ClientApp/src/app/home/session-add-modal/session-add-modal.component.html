@@ -1,7 +1,12 @@
 <ng-template #addContent>
   <div class="modal-header">
     <h4 class="modal-title">Add</h4>
-    <button type="button" class="close" aria-label="Close">
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="dismissModal()"
+    >
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -14,6 +19,8 @@
         id="sessionName"
         aria-describedby="sessionNameHelp"
         placeholder="Session Name"
+        [(ngModel)]="sessionName"
+        (ngModelChange)="onNameChange($event)"
       />
       <label for="createdBy">Created By</label>
       <input
@@ -22,6 +29,8 @@
         id="createdBy"
         aria-describedby="createdByHelp"
         placeholder="Created By"
+        [(ngModel)]="createdBy"
+        (ngModelChange)="onCreatedByChange($event)"
       />
       <label for="conducedBy">Conducted By</label>
       <input
@@ -30,6 +39,8 @@
         id="conducedBy"
         aria-describedby="conducedByHelp"
         placeholder="Conducted By"
+        [(ngModel)]="conductedBy"
+        (ngModelChange)="onConductedByChange($event)"
       />
       <label for="conducedOn">Conducted On</label>
       <div class="input-group">
@@ -42,7 +53,8 @@
           #d="ngbDatepicker"
           placement="top"
           [positionTarget]="buttonEl"
-          [disabled]
+          [(ngModel)]="conductedOn"
+          (ngModelChange)="onConductedOnChange($event)"
         />
         <div class="input-group-append">
           <button
@@ -62,7 +74,15 @@
     <div class="alert alert-danger mt-2" *ngIf="error != null">{{ error }}</div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-light">Close</button>
-    <button class="btn btn-success" mat-raised-button>Add</button>
+    <button type="button" class="btn btn-light" (click)="closeModal()">
+      Close
+    </button>
+    <button
+      class="btn btn-success"
+      mat-raised-button
+      [disabled]="!isValidSession"
+    >
+      Add
+    </button>
   </div>
 </ng-template>

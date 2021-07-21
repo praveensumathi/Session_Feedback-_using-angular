@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from "@angular/core";
 import { NgbModal, NgbModalOptions } from "@ng-bootstrap/ng-bootstrap";
 import { ISession } from "src/app/services/ApiService/SessionService/session";
 import { SessionService } from "src/app/services/ApiService/SessionService/session.service";
@@ -20,6 +26,9 @@ export class SessionDeleteModalComponent implements OnInit {
 
   @ViewChild("deleteContent", { static: false })
   deleteModalContent: any;
+
+  @Output("getAllSessions") getAllSessions: EventEmitter<any> =
+    new EventEmitter();
 
   ngbModalOptions: NgbModalOptions = {
     backdrop: "static",
@@ -48,6 +57,7 @@ export class SessionDeleteModalComponent implements OnInit {
     this.sessionService.DeleteSession(this.selectedSession.id).subscribe(
       (isDeleted) => {
         this.isDeleted = isDeleted;
+        this.getAllSessions.emit();
       },
       (error) => {
         this.error = error;
