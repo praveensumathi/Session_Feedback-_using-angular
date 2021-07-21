@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output, ViewChild } from "@angular/core";
-import { NgbDate, NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { NgbDate, NgbModal, NgbModalOptions } from "@ng-bootstrap/ng-bootstrap";
 import * as _ from "lodash";
 import { ISession } from "src/app/services/ApiService/SessionService/session";
 import { SessionService } from "src/app/services/ApiService/SessionService/session.service";
@@ -32,6 +32,11 @@ export class SessionEditModelComponent {
   @Output("getAllSessions") getAllSessions: EventEmitter<any> =
     new EventEmitter();
 
+  ngbModalOptions: NgbModalOptions = {
+    backdrop: "static",
+    centered: true,
+  };
+
   dismissModal() {
     this.modalService.dismissAll();
     this.error = null;
@@ -47,9 +52,7 @@ export class SessionEditModelComponent {
     this.sessionName = session.name;
     this.conductedBy = session.conductedBy;
     this.conductedOn = session.conductedOn;
-    this.modalService.open(this.editModalContent, {
-      centered: true,
-    });
+    this.modalService.open(this.editModalContent, this.ngbModalOptions);
   }
 
   onConductedByChange(e) {

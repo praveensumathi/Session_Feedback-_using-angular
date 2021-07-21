@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { NgbModal, NgbModalOptions } from "@ng-bootstrap/ng-bootstrap";
 import { ISession } from "src/app/services/ApiService/SessionService/session";
 import { SessionService } from "src/app/services/ApiService/SessionService/session.service";
 
@@ -21,6 +21,11 @@ export class SessionDeleteModalComponent implements OnInit {
   @ViewChild("deleteContent", { static: false })
   deleteModalContent: any;
 
+  ngbModalOptions: NgbModalOptions = {
+    backdrop: "static",
+    centered: true,
+  };
+
   ngOnInit() {}
 
   dismissModal() {
@@ -36,7 +41,7 @@ export class SessionDeleteModalComponent implements OnInit {
 
   openVerticallyCentered(session: ISession) {
     this.selectedSession = session;
-    this.modalService.open(this.deleteModalContent, { centered: true });
+    this.modalService.open(this.deleteModalContent, this.ngbModalOptions);
   }
 
   deleteSession() {
