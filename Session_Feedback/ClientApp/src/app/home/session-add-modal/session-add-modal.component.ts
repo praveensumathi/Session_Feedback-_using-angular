@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { NgbDate, NgbModal, NgbModalOptions } from "@ng-bootstrap/ng-bootstrap";
 import * as _ from "lodash";
 import { ISession } from "src/app/services/ApiService/SessionService/session";
 import { SessionService } from "src/app/services/ApiService/SessionService/session.service";
@@ -14,10 +14,10 @@ export class SessionAddModalComponent {
   isValidSession: boolean = false;
   error: string = null;
   newSession: ISession;
-  sessionName: string;
-  createdBy: string;
-  conductedOn: string;
-  conductedBy: string;
+  sessionName: string = null;
+  createdBy: string = null;
+  conductedOn: string = null;
+  conductedBy: string = null;
 
   constructor(
     private modalService: NgbModal,
@@ -26,6 +26,11 @@ export class SessionAddModalComponent {
 
   @ViewChild("addContent", { static: false })
   addModalContent: any;
+
+  ngbModalOptions: NgbModalOptions = {
+    backdrop: "static",
+    centered: true,
+  };
 
   dismissModal() {
     this.modalService.dismissAll();
@@ -39,24 +44,31 @@ export class SessionAddModalComponent {
   }
 
   openVerticallyCentered() {
-    this.modalService.open(this.addModalContent, { centered: true });
+    this.modalService.open(this.addModalContent, this.ngbModalOptions);
   }
 
   isValidSessionDetails() {
-    if (
-      !_.isEmpty(this.newSession.name) ||
-      !_.isEmpty(this.newSession.createdBy)
-    ) {
-      this.isValidSession = true;
+    if (_.isNil(this.sessionName) || _.isNil(this.createdBy)) {
+      return (this.isValidSession = false);
+    } else {
+      return (this.isValidSession = true);
     }
   }
-
   onNameChange(e) {
     if (_.isEmpty(e)) {
-      this.isValidSession = false;
+      this.sessionName = null;
     }
   }
-  onCreatedByChange(e) {}
-  onConductedByChange(e) {}
-  onConductedOnChange(e) {}
+  onCreatedByChange(e) {
+    if (_.isEmpty(e)) {
+      this.createdBy = null;
+    }
+  }
+  onConductedByChange(e) {
+    this.conductedBy = e;
+  }
+  onConductedOnChange(e: NgbDate) {
+    this.conductedOn = e.year + "-" + e.month + "-" + e.day;
+    this.isValidSession = false;
+  }
 }

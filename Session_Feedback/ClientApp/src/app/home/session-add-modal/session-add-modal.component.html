@@ -54,7 +54,7 @@
           placement="top"
           [positionTarget]="buttonEl"
           [(ngModel)]="conductedOn"
-          (ngModelChange)="onConductedOnChange($event)"
+          (dateSelect)="onConductedOnChange($event)"
         />
         <div class="input-group-append">
           <button
@@ -80,7 +80,7 @@
     <button
       class="btn btn-success"
       mat-raised-button
-      [disabled]="!isValidSession"
+      [disabled]="!isValidSessionDetails()"
     >
       Add
     </button>
