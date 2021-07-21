@@ -79,8 +79,8 @@
     </button>
     <button
       *ngIf="!isAdded"
+      type="button"
       class="btn btn-success"
-      mat-raised-button
       [disabled]="!isValidSessionDetails()"
       (click)="addSession()"
     >

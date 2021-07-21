@@ -12,7 +12,7 @@ import { SessionService } from "src/app/services/ApiService/SessionService/sessi
 @Component({
   selector: "app-session-delete-modal",
   templateUrl: "./session-delete-modal.component.html",
-  styleUrls: ["./session-delete-modal.component.css"],
+  styleUrls: ["./session-delete-modal.component.scss"],
 })
 export class SessionDeleteModalComponent implements OnInit {
   selectedSession: ISession;

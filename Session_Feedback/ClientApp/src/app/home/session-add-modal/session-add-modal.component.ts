@@ -13,7 +13,7 @@ import { SessionService } from "src/app/services/ApiService/SessionService/sessi
 @Component({
   selector: "app-session-add-modal",
   templateUrl: "./session-add-modal.component.html",
-  styleUrls: ["./session-add-modal.component.css"],
+  styleUrls: ["./session-add-modal.component.scss"],
 })
 export class SessionAddModalComponent {
   isAdded: boolean = false;

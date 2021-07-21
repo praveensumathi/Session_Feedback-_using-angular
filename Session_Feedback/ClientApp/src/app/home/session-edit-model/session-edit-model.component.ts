@@ -7,7 +7,7 @@ import { SessionService } from "src/app/services/ApiService/SessionService/sessi
 @Component({
   selector: "app-session-edit-model",
   templateUrl: "./session-edit-model.component.html",
-  styleUrls: ["./session-edit-model.component.css"],
+  styleUrls: ["./session-edit-model.component.scss"],
 })
 export class SessionEditModelComponent {
   date: string;

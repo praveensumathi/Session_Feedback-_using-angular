@@ -26,8 +26,8 @@
     </button>
     <button
       *ngIf="!isDeleted"
-      mat-raised-button
-      color="warn"
+      type="button"
+      class="btn btn-danger"
       (click)="deleteSession()"
     >
       Delete

@@ -5,7 +5,7 @@ import { AuthGaurdService } from "../services/AuthService/auth-gaurd.service";
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.css"],
+  styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit {
   name: string = "";
