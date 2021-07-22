@@ -115,19 +115,18 @@ export class SessionAddModalComponent {
       name: this.sessionName,
       createdBy: this.createdBy,
       conductedBy: this.conductedBy,
-      // conductedOn: new Date(this.conductedOn + ` ${this.toModel(this.time)}`),
-      conductedOn: new Date(this.conductedOn),
+      conductedOn: this.conductedOn + ` ${this.toModel(this.time)}`,
     };
 
     console.log(session);
-    // this.sessionService.AddSession(session).subscribe(
-    //   (addedSession) => {
-    //     this.isAdded = true;
-    //     this.getAllSessions.emit();
-    //   },
-    //   (error) => {
-    //     this.error = error;
-    //   }
-    // );
+    this.sessionService.AddSession(session).subscribe(
+      (addedSession) => {
+        this.isAdded = true;
+        this.getAllSessions.emit();
+      },
+      (error) => {
+        this.error = error;
+      }
+    );
   }
 }

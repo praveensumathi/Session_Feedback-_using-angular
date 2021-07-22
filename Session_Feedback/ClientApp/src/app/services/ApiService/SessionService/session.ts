@@ -6,5 +6,5 @@ export interface ISession {
   modifiedOn?: Date;
   modifiedBy?: string;
   conductedBy: string;
-  conductedOn: Date;
+  conductedOn: string;
 }

@@ -71,11 +71,7 @@ export class SessionEditModelComponent {
     this.conductedOn = session.conductedOn
       ? new Date(session.conductedOn).toLocaleDateString()
       : null;
-    this.sessionTime = this.fromModel(
-      session.conductedOn
-        ? new Date(session.conductedOn).toLocaleTimeString()
-        : null
-    );
+    this.sessionTime = this.fromModel(session.conductedOn);
     this.modalService.open(this.editModalContent, this.ngbModalOptions);
   }
 
@@ -93,11 +89,28 @@ export class SessionEditModelComponent {
     this.conductedOn = e.year + "-" + e.month + "-" + e.day;
   }
 
+  pad = (i: number): string => (i < 10 ? `0${i}` : `${i}`);
+
+  toModel(time: NgbTimeStruct | null): string | null {
+    return time != null
+      ? `${this.pad(time.hour)}:${this.pad(time.minute)}:${this.pad(
+          time.second
+        )}`
+      : null;
+  }
+
   fromModel(value: string | null): NgbTimeStruct | null {
+    console.log(value);
     if (!value) {
       return null;
     }
-    const split = value.split(":");
+    const split = value.split("T")[1].split(":");
+
+    console.log(split);
+
+    if (split[0] == "00" && split[1] == "00") {
+      return null;
+    }
     return {
       hour: parseInt(split[0], 10),
       minute: parseInt(split[1], 10),
@@ -110,7 +123,7 @@ export class SessionEditModelComponent {
       ...this.selectedSession,
       name: this.sessionName,
       conductedBy: this.conductedBy,
-      conductedOn: new Date(this.conductedOn),
+      conductedOn: this.conductedOn + ` ${this.toModel(this.sessionTime)}`,
     };
 
     this.sessionService.UpdateSession(updateSession).subscribe(

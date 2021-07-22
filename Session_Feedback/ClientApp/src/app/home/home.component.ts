@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
+import { NgbTimeStruct } from "@ng-bootstrap/ng-bootstrap";
 import { ISession } from "../services/ApiService/SessionService/session";
 import { SessionService } from "../services/ApiService/SessionService/session.service";
 import { SessionAddModalComponent } from "./session-add-modal/session-add-modal.component";
@@ -29,17 +30,9 @@ export class HomeComponent implements OnInit {
   }
 
   GetAllSessions() {
-    this.session.GetAllSession().subscribe(
-      (sessions) =>
-        (this.sessions = sessions.map((session) => {
-          return {
-            ...session,
-            conductedOn: session.conductedOn
-              ? new Date(session.conductedOn)
-              : null,
-          };
-        }))
-    );
+    this.session
+      .GetAllSession()
+      .subscribe((sessions) => (this.sessions = sessions));
   }
 
   openAddModal() {
