@@ -98,7 +98,7 @@ export class SessionEditModelComponent {
       conductedBy: this.conductedBy,
       conductedOn:
         this.conductedOn +
-        ` ${this.ngTmeStructToModalValidation(this.sessionTime)}`,
+        ` ${this.sessionService.ngTmeStructToModel(this.sessionTime)}`,
     };
 
     this.sessionService.UpdateSession(updateSession).subscribe(
@@ -113,12 +113,5 @@ export class SessionEditModelComponent {
         this.isUpdated = false;
       }
     );
-  }
-
-  ngTmeStructToModalValidation(sessionTime): string {
-    if (!!this.sessionService.ngTmeStructToModel(sessionTime)) {
-      return this.sessionService.ngTmeStructToModel(this.sessionTime);
-    }
-    return "";
   }
 }

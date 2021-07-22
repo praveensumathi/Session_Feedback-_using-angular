@@ -49,7 +49,6 @@ export class SessionService {
   }
 
   ngTmeStructFromModal(value: string | null): NgbTimeStruct | null {
-    console.log(value);
     if (!value) {
       return null;
     }
@@ -72,6 +71,6 @@ export class SessionService {
       ? `${this.pad(time.hour)}:${this.pad(time.minute)}:${this.pad(
           time.second
         )}`
-      : null;
+      : "";
   }
 }
