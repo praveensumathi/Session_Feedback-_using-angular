@@ -39,12 +39,12 @@
           placeholder="yyyy-mm-dd"
           name="dp"
           id="conductedOn"
+          [value]="conductedOn"
           (dateSelect)="onDateChange($event)"
           ngbDatepicker
           #d="ngbDatepicker"
-          [placement]="placement"
+          [placement]="datePickerPlacement"
           [positionTarget]="buttonEl"
-          [value]="conductedOn"
         />
         <div class="input-group-append">
           <button
@@ -56,9 +56,9 @@
             <i class="fas fa-calendar-alt"></i>
           </button>
         </div>
-        <div class="timepicker" *ngIf="isConductedOnChanged">
+        <div class="timepicker">
           <ngb-timepicker
-            [(ngModel)]="timePickerConfig.time"
+            [(ngModel)]="sessionTime"
             [meridian]="true"
             size="small"
           ></ngb-timepicker>

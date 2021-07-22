@@ -14,7 +14,6 @@ import {
   NgbTimeStruct,
 } from "@ng-bootstrap/ng-bootstrap";
 import * as _ from "lodash";
-import { pad } from "lodash";
 import { ISession } from "src/app/services/ApiService/SessionService/session";
 import { SessionService } from "src/app/services/ApiService/SessionService/session.service";
 
@@ -116,7 +115,8 @@ export class SessionAddModalComponent {
       name: this.sessionName,
       createdBy: this.createdBy,
       conductedBy: this.conductedBy,
-      conductedOn: this.conductedOn + ` ${this.toModel(this.time)}`,
+      // conductedOn: new Date(this.conductedOn + ` ${this.toModel(this.time)}`),
+      conductedOn: new Date(this.conductedOn),
     };
 
     console.log(session);

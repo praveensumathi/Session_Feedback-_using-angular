@@ -1,9 +1,16 @@
-import { Component, EventEmitter, Output, ViewChild } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from "@angular/core";
 import {
   NgbDate,
   NgbModal,
   NgbModalOptions,
   NgbTimepickerConfig,
+  NgbTimeStruct,
 } from "@ng-bootstrap/ng-bootstrap";
 import * as _ from "lodash";
 import { ISession } from "src/app/services/ApiService/SessionService/session";
@@ -15,15 +22,14 @@ import { SessionService } from "src/app/services/ApiService/SessionService/sessi
   styleUrls: ["./session-edit-model.component.scss"],
 })
 export class SessionEditModelComponent {
-  date: string;
-  placement = "bottom";
+  datePickerPlacement = "top";
 
   selectedSession: ISession;
   sessionName: string;
   conductedBy: string;
   conductedOn: string;
+  conductedTime: string;
   isUpdated: boolean = false;
-  isConductedOnChanged: boolean = false;
   error: string = null;
 
   constructor(
@@ -46,29 +52,30 @@ export class SessionEditModelComponent {
     centered: true,
     keyboard: false,
   };
-
-  timePickerConfig = {
-    time: 0,
-    meridian: true,
-  };
+  sessionTime: NgbTimeStruct;
 
   dismissModal() {
     this.modalService.dismissAll();
     this.error = null;
     this.isUpdated = false;
-    this.isConductedOnChanged = false;
   }
   closeModal() {
     this.modalService.dismissAll();
     this.error = null;
     this.isUpdated = false;
-    this.isConductedOnChanged = false;
   }
   openVerticallyCentered(session: ISession) {
     this.selectedSession = session;
     this.sessionName = session.name;
     this.conductedBy = session.conductedBy;
-    this.conductedOn = session.conductedOn;
+    this.conductedOn = session.conductedOn
+      ? new Date(session.conductedOn).toLocaleDateString()
+      : null;
+    this.sessionTime = this.fromModel(
+      session.conductedOn
+        ? new Date(session.conductedOn).toLocaleTimeString()
+        : null
+    );
     this.modalService.open(this.editModalContent, this.ngbModalOptions);
   }
 
@@ -83,8 +90,19 @@ export class SessionEditModelComponent {
     }
   }
   onDateChange(e: NgbDate) {
-    this.isConductedOnChanged = true;
     this.conductedOn = e.year + "-" + e.month + "-" + e.day;
+  }
+
+  fromModel(value: string | null): NgbTimeStruct | null {
+    if (!value) {
+      return null;
+    }
+    const split = value.split(":");
+    return {
+      hour: parseInt(split[0], 10),
+      minute: parseInt(split[1], 10),
+      second: parseInt(split[2], 10),
+    };
   }
 
   updatedSession() {
@@ -92,7 +110,7 @@ export class SessionEditModelComponent {
       ...this.selectedSession,
       name: this.sessionName,
       conductedBy: this.conductedBy,
-      conductedOn: this.conductedOn,
+      conductedOn: new Date(this.conductedOn),
     };
 
     this.sessionService.UpdateSession(updateSession).subscribe(

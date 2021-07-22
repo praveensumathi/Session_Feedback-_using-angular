@@ -16,10 +16,7 @@ export class SessionService {
       createdOn: new Date(session.createdOn),
       modifiedOn: new Date(session.modifiedOn),
       modifiedBy: session.modifiedBy,
-      conductedOn: session.conductedOn
-        ? new Date(session.conductedOn).toDateString() +
-          ` ${new Date(session.conductedOn).toLocaleTimeString()}`
-        : null,
+      conductedOn: session.conductedOn,
     };
   }
 

@@ -29,9 +29,17 @@ export class HomeComponent implements OnInit {
   }
 
   GetAllSessions() {
-    this.session
-      .GetAllSession()
-      .subscribe((sessions) => (this.sessions = sessions));
+    this.session.GetAllSession().subscribe(
+      (sessions) =>
+        (this.sessions = sessions.map((session) => {
+          return {
+            ...session,
+            conductedOn: session.conductedOn
+              ? new Date(session.conductedOn)
+              : null,
+          };
+        }))
+    );
   }
 
   openAddModal() {

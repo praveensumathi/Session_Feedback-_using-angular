@@ -35,7 +35,11 @@
                 <div>Conducted By : {{ session.conductedBy }}</div>
                 <div>
                   Conducted On :
-                  {{ session.conductedOn ? session.conductedOn : null }}
+                  {{
+                    session.conductedOn
+                      ? session.conductedOn.toDateString()
+                      : null
+                  }}
                 </div>
                 <div>
                   Created On : {{ session.createdOn.toDateString() }}
