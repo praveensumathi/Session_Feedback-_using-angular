@@ -99,26 +99,17 @@ export class SessionAddModalComponent {
     this.conductedOn = e.year + "-" + e.month + "-" + e.day;
   }
 
-  pad = (i: number): string => (i < 10 ? `0${i}` : `${i}`);
-
-  toModel(time: NgbTimeStruct | null): string | null {
-    return time != null
-      ? `${this.pad(time.hour)}:${this.pad(time.minute)}:${this.pad(
-          time.second
-        )}`
-      : null;
-  }
-
   addSession() {
     var session: ISession = {
       id: 0,
       name: this.sessionName,
       createdBy: this.createdBy,
       conductedBy: this.conductedBy,
-      conductedOn: this.conductedOn + ` ${this.toModel(this.time)}`,
+      conductedOn:
+        this.conductedOn +
+        ` ${this.sessionService.ngTmeStructToModel(this.time)}`,
     };
 
-    console.log(session);
     this.sessionService.AddSession(session).subscribe(
       (addedSession) => {
         this.isAdded = true;
