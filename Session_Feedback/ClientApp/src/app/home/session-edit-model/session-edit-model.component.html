@@ -56,6 +56,12 @@
             <i class="fas fa-calendar-alt"></i>
           </button>
         </div>
+        <div class="timepicker" *ngIf="isConductedOnChanged">
+          <ngb-timepicker
+            [(ngModel)]="timePickerConfig.time"
+            [meridian]="timePickerConfig.meridian"
+          ></ngb-timepicker>
+        </div>
       </div>
     </div>
     <ng-template #updateSucessBlock>

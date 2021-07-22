@@ -1,5 +1,10 @@
 import { Component, EventEmitter, Output, ViewChild } from "@angular/core";
-import { NgbDate, NgbModal, NgbModalOptions } from "@ng-bootstrap/ng-bootstrap";
+import {
+  NgbDate,
+  NgbModal,
+  NgbModalOptions,
+  NgbTimepickerConfig,
+} from "@ng-bootstrap/ng-bootstrap";
 import * as _ from "lodash";
 import { ISession } from "src/app/services/ApiService/SessionService/session";
 import { SessionService } from "src/app/services/ApiService/SessionService/session.service";
@@ -14,17 +19,21 @@ export class SessionEditModelComponent {
   placement = "bottom";
 
   selectedSession: ISession;
-
   sessionName: string;
   conductedBy: string;
   conductedOn: string;
   isUpdated: boolean = false;
+  isConductedOnChanged: boolean = false;
   error: string = null;
 
   constructor(
     private modalService: NgbModal,
-    private sessionService: SessionService
-  ) {}
+    private sessionService: SessionService,
+    public config: NgbTimepickerConfig
+  ) {
+    config.seconds = false;
+    config.spinners = false;
+  }
 
   @ViewChild("editContent", { static: false })
   editModalContent: any;
@@ -36,6 +45,11 @@ export class SessionEditModelComponent {
     backdrop: "static",
     centered: true,
     keyboard: false,
+  };
+
+  timePickerConfig = {
+    time: 0,
+    meridian: true,
   };
 
   dismissModal() {
@@ -67,6 +81,7 @@ export class SessionEditModelComponent {
     }
   }
   onDateChange(e: NgbDate) {
+    this.isConductedOnChanged = true;
     this.conductedOn = e.year + "-" + e.month + "-" + e.day;
   }
 
