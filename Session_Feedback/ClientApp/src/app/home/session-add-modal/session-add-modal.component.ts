@@ -5,7 +5,13 @@ import {
   Output,
   ViewChild,
 } from "@angular/core";
-import { NgbDate, NgbModal, NgbModalOptions } from "@ng-bootstrap/ng-bootstrap";
+import {
+  NgbDate,
+  NgbModal,
+  NgbModalOptions,
+  NgbTimepickerConfig,
+  NgbTimeStruct,
+} from "@ng-bootstrap/ng-bootstrap";
 import * as _ from "lodash";
 import { ISession } from "src/app/services/ApiService/SessionService/session";
 import { SessionService } from "src/app/services/ApiService/SessionService/session.service";
@@ -26,8 +32,12 @@ export class SessionAddModalComponent {
 
   constructor(
     private modalService: NgbModal,
-    private sessionService: SessionService
-  ) {}
+    private sessionService: SessionService,
+    public config: NgbTimepickerConfig
+  ) {
+    config.seconds = false;
+    config.spinners = false;
+  }
 
   @ViewChild("addContent", { static: false })
   addModalContent: any;
@@ -39,6 +49,11 @@ export class SessionAddModalComponent {
     backdrop: "static",
     centered: true,
     keyboard: false,
+  };
+
+  timePickerConfig = {
+    time: 0,
+    meridian: true,
   };
 
   dismissModal() {
