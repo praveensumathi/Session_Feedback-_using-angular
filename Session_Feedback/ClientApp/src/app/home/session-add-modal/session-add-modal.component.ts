@@ -52,7 +52,7 @@ export class SessionAddModalComponent {
     keyboard: false,
   };
 
-  time: NgbTimeStruct;
+  sessionTime: NgbTimeStruct;
 
   dismissModal() {
     this.modalService.dismissAll();
@@ -107,7 +107,7 @@ export class SessionAddModalComponent {
       conductedBy: this.conductedBy,
       conductedOn:
         this.conductedOn +
-        ` ${this.sessionService.ngTmeStructToModel(this.time)}`,
+        ` ${this.sessionService.ngTmeStructToModel(this.sessionTime)}`,
     };
 
     this.sessionService.AddSession(session).subscribe(
