@@ -9,10 +9,12 @@ import {
   NgbDate,
   NgbModal,
   NgbModalOptions,
+  NgbTimeAdapter,
   NgbTimepickerConfig,
   NgbTimeStruct,
 } from "@ng-bootstrap/ng-bootstrap";
 import * as _ from "lodash";
+import { pad } from "lodash";
 import { ISession } from "src/app/services/ApiService/SessionService/session";
 import { SessionService } from "src/app/services/ApiService/SessionService/session.service";
 
@@ -51,10 +53,7 @@ export class SessionAddModalComponent {
     keyboard: false,
   };
 
-  timePickerConfig = {
-    time: 0,
-    meridian: true,
-  };
+  time: NgbTimeStruct;
 
   dismissModal() {
     this.modalService.dismissAll();
@@ -101,22 +100,34 @@ export class SessionAddModalComponent {
     this.conductedOn = e.year + "-" + e.month + "-" + e.day;
   }
 
+  pad = (i: number): string => (i < 10 ? `0${i}` : `${i}`);
+
+  toModel(time: NgbTimeStruct | null): string | null {
+    return time != null
+      ? `${this.pad(time.hour)}:${this.pad(time.minute)}:${this.pad(
+          time.second
+        )}`
+      : null;
+  }
+
   addSession() {
     var session: ISession = {
       id: 0,
       name: this.sessionName,
       createdBy: this.createdBy,
       conductedBy: this.conductedBy,
-      conductedOn: this.conductedOn,
+      conductedOn: this.conductedOn + ` ${this.toModel(this.time)}`,
     };
-    this.sessionService.AddSession(session).subscribe(
-      (addedSession) => {
-        this.isAdded = true;
-        this.getAllSessions.emit();
-      },
-      (error) => {
-        this.error = error;
-      }
-    );
+
+    console.log(session);
+    // this.sessionService.AddSession(session).subscribe(
+    //   (addedSession) => {
+    //     this.isAdded = true;
+    //     this.getAllSessions.emit();
+    //   },
+    //   (error) => {
+    //     this.error = error;
+    //   }
+    // );
   }
 }

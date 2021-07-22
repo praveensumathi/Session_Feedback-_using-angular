@@ -68,8 +68,11 @@
         </div>
         <div class="timepicker">
           <ngb-timepicker
-            [(ngModel)]="timePickerConfig.time"
-            [meridian]="timePickerConfig.meridian"
+            [(ngModel)]="time"
+            [meridian]="true"
+            size="small"
+            size="small"
+            [disabled]="conductedOn == null"
           ></ngb-timepicker>
         </div>
       </div>
@@ -81,7 +84,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-light" (click)="closeModal()">
-      Close
+      {{ !isAdded ? "Cancel" : "Close" }}
     </button>
     <button
       *ngIf="!isAdded"

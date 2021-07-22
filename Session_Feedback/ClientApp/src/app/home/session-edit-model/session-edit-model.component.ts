@@ -56,11 +56,13 @@ export class SessionEditModelComponent {
     this.modalService.dismissAll();
     this.error = null;
     this.isUpdated = false;
+    this.isConductedOnChanged = false;
   }
   closeModal() {
     this.modalService.dismissAll();
     this.error = null;
     this.isUpdated = false;
+    this.isConductedOnChanged = false;
   }
   openVerticallyCentered(session: ISession) {
     this.selectedSession = session;

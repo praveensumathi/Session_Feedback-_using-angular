@@ -59,7 +59,8 @@
         <div class="timepicker" *ngIf="isConductedOnChanged">
           <ngb-timepicker
             [(ngModel)]="timePickerConfig.time"
-            [meridian]="timePickerConfig.meridian"
+            [meridian]="true"
+            size="small"
           ></ngb-timepicker>
         </div>
       </div>
