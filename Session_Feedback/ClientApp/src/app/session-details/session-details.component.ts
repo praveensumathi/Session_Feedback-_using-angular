@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { NgSelectModule, NgOption } from "@ng-select/ng-select";
 import { IQuestionTemplate } from "../services/ApiService/QuestionTeplateService/IQuestionTemplate";
 import { QuestionTemplateServiceService } from "../services/ApiService/QuestionTeplateService/question-template-service.service";
 import { ISession } from "../services/ApiService/SessionService/session";

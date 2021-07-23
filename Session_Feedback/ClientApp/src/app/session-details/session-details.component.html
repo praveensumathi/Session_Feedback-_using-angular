@@ -3,26 +3,36 @@
     <div class=".col-xs-2 h3">Session Name</div>
     <div class=".col-xs-6 d-flex">
       <div *ngIf="sessions != []">
-        <label>Sessions</label>
-        <ng-select
-          [items]="sessions"
-          bindLabel="name"
-          bindValue="id"
-          [multiple]="true"
-          placeholder="Select cities"
-        >
-        </ng-select>
+        <div ngbDropdown class="d-inline-block">
+          <button
+            class="btn btn-outline-primary"
+            id="dropdownBasic1"
+            ngbDropdownToggle
+          >
+            Toggle dropdown
+          </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <div *ngFor="let session of sessions">
+              <button ngbDropdownItem>{{ session.name }}</button>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="ml-5" *ngIf="questionTemplates != []">
-        <label>Templates</label>
-        <ng-select
-          [items]="questionTemplates"
-          bindLabel="name"
-          bindValue="id"
-          [multiple]="true"
-          placeholder="Select cities"
-        >
-        </ng-select>
+        <div ngbDropdown class="d-inline-block">
+          <button
+            class="btn btn-outline-primary"
+            id="dropdownBasic1"
+            ngbDropdownToggle
+          >
+            Toggle dropdown
+          </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <div *ngFor="let template of questionTemplates">
+              <button ngbDropdownItem>{{ template.name }}</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

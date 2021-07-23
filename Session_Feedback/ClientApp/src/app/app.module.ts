@@ -8,7 +8,6 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import { NgSelectModule, NgSelectConfig, ɵs } from "@ng-select/ng-select";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppComponent } from "./app.component";
 import { NavMenuComponent } from "./nav-menu/nav-menu.component";
@@ -40,7 +39,6 @@ export function tokenGetter() {
     HttpClientModule,
     FormsModule,
     NgbModule,
-    NgSelectModule,
     RouterModule.forRoot([
       {
         path: "home",
@@ -77,7 +75,7 @@ export function tokenGetter() {
     MatButtonModule,
     BrowserAnimationsModule,
   ],
-  providers: [AuthGaurdService, NgSelectConfig, ɵs],
+  providers: [AuthGaurdService],
   bootstrap: [AppComponent],
   entryComponents: [],
 })
