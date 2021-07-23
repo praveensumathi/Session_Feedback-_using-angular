@@ -43,16 +43,21 @@
       <div *ngFor="let question of questions">
         <div class="wrapper mb-2">
           <div class="question">
-            {{ question.feedback }}
-            <span>{{ question.createdBy }}</span>
-            <span>{{ question.createdOn.toLocaleDateString() }}</span>
+            <span class="h5">{{ question.feedback }}</span>
+            <span class="question-details"
+              >{{ question.createdBy }} -
+              {{ question.createdOn.toLocaleDateString() }}</span
+            >
           </div>
           <div class="icons">
-            <i class="fas fa-pen-square icon"></i>
-            <i class="fas fa-times-circle"></i>
+            <i class="fas fa-pen-square icon fa-lg actions"></i>
+            <i class="fas fa-times-circle fa-lg actions"></i>
           </div>
         </div>
       </div>
     </div>
+  </div>
+  <div class="new-session-btn mt-3">
+    <button class="btn"><i class="fas fa-plus"></i> Add More</button>
   </div>
 </div>
