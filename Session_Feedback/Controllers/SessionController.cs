@@ -28,6 +28,16 @@ namespace Session_Feedback.Controllers
             return Ok(sessions);
         }
 
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            if(id >0)
+            {
+                return BadRequest();
+            }
+            var session = _sessionService.GetById(id);
+            return Ok(session);
+        }
         [HttpPost]
         //[Authorize(Roles = "Admin")]
         public IActionResult Post([FromBody] SessionViewModel sessionViewModel)

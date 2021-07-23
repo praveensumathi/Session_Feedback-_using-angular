@@ -22,6 +22,11 @@ export class SessionService {
     return result;
   }
 
+  GetById(id: string): Observable<ISession> {
+    var result = this.resourceService.getById("/api/session", { id });
+    return result;
+  }
+
   AddSession(session: ISession): Observable<ISession> {
     var result = this.resourceService.add("/api/session", session);
     return result;

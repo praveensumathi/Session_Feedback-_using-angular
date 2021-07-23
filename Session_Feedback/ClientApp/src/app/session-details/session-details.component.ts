@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { IQuestionTemplate } from "../services/ApiService/QuestionTeplateService/IQuestionTemplate";
-import { QuestionTemplateServiceService } from "../services/ApiService/QuestionTeplateService/question-template-service.service";
+import { ActivatedRoute } from "@angular/router";
+import * as _ from "lodash";
+import { IQuestionTemplate } from "../services/ApiService/QuestionTemplateService/IQuestionTemplate";
+import { QuestionTemplateServiceService } from "../services/ApiService/QuestionTemplateService/question-template-service.service";
 import { ISession } from "../services/ApiService/SessionService/session";
 import { SessionService } from "../services/ApiService/SessionService/session.service";
 
@@ -12,15 +14,20 @@ import { SessionService } from "../services/ApiService/SessionService/session.se
 export class SessionDetailsComponent implements OnInit {
   public questionTemplates: IQuestionTemplate[];
   public sessions: ISession[];
+  public session: ISession;
+  public sessionId: number;
 
   constructor(
     private questionTemplateService: QuestionTemplateServiceService,
-    private session: SessionService
-  ) {}
+    private sessionService: SessionService,
+    private route: ActivatedRoute
+  ) {
+    this.sessionId = parseInt(this.route.snapshot.paramMap.get("id"));
+  }
 
   ngOnInit() {
-    this.GetAllQuestionTemplates();
     this.GetAllSessions();
+    this.GetAllQuestionTemplates();
   }
 
   GetAllQuestionTemplates() {
@@ -31,8 +38,11 @@ export class SessionDetailsComponent implements OnInit {
       );
   }
   GetAllSessions() {
-    this.session
-      .GetAllSession()
-      .subscribe((sessions) => (this.sessions = sessions));
+    this.sessionService.GetAllSession().subscribe((sessions) => {
+      this.sessions = sessions;
+      this.session = !_.isEmpty(sessions)
+        ? sessions.find((x) => x.id === this.sessionId)
+        : null;
+    });
   }
 }

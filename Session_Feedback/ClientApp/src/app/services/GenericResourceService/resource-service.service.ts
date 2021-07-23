@@ -40,12 +40,18 @@ export class ResourceService<T> {
     return response;
   }
 
-  // get(id: string | number): Observable<T> {
-  //   return this.httpClient.get<T>(`/${this.APIUrl}/${id}`).pipe(
-  //     map((json) => this.fromServerModel(json)),
-  //     catchError(this.handleError)
-  //   );
-  // }
+  getById(url: string, urlParams: any = {}): Observable<T> {
+    var request: string = this.BuildRequest(url, urlParams);
+
+    return this.http
+      .get<T>(request, {
+        headers: new HttpHeaders({
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`,
+        }),
+      })
+      .pipe(catchError(this.handleError));
+  }
 
   add(url: string, data: any, urlParams: any = {}): Observable<T> {
     var request: string = this.BuildRequest(url, urlParams);
