@@ -3,7 +3,7 @@ import { NgbTimeStruct } from "@ng-bootstrap/ng-bootstrap";
 import { Observable } from "rxjs/internal/Observable";
 import { map } from "rxjs/internal/operators/map";
 import { ResourceService } from "../../GenericResourceService/resource-service.service";
-import { ISession } from "./session";
+import { ISession } from "./ISession";
 
 @Injectable({
   providedIn: "root",

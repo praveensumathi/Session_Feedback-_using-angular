@@ -1,0 +1,17 @@
+.wrapper {
+  cursor: pointer;
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgb(241, 241, 241);
+  border-radius: 5px;
+
+  .icons {
+    margin: 5px;
+  }
+}
+.wrapper:hover {
+  box-shadow: 1px 2px 6px lightgrey;
+  transition: all 0.2s ease-in-out;
+}

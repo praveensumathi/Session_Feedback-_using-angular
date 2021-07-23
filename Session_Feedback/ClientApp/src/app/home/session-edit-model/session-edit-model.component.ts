@@ -13,7 +13,7 @@ import {
   NgbTimeStruct,
 } from "@ng-bootstrap/ng-bootstrap";
 import * as _ from "lodash";
-import { ISession } from "src/app/services/ApiService/SessionService/session";
+import { ISession } from "src/app/services/ApiService/SessionService/ISession";
 import { SessionService } from "src/app/services/ApiService/SessionService/session.service";
 
 @Component({

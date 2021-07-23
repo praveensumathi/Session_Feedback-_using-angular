@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { NgbTimeStruct } from "@ng-bootstrap/ng-bootstrap";
-import { ISession } from "../services/ApiService/SessionService/session";
+import { ISession } from "../services/ApiService/SessionService/ISession";
 import { SessionService } from "../services/ApiService/SessionService/session.service";
 import { SessionAddModalComponent } from "./session-add-modal/session-add-modal.component";
 import { SessionDeleteModalComponent } from "./session-delete-modal/session-delete-modal.component";

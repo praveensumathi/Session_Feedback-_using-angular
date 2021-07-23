@@ -6,7 +6,7 @@ import {
   ViewChild,
 } from "@angular/core";
 import { NgbModal, NgbModalOptions } from "@ng-bootstrap/ng-bootstrap";
-import { ISession } from "src/app/services/ApiService/SessionService/session";
+import { ISession } from "src/app/services/ApiService/SessionService/ISession";
 import { SessionService } from "src/app/services/ApiService/SessionService/session.service";
 
 @Component({
