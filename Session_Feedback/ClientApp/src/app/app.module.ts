@@ -7,17 +7,18 @@ import { JwtModule } from "@auth0/angular-jwt";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
-import { NgbModule, NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { NgSelectModule, NgSelectConfig, ɵs } from "@ng-select/ng-select";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppComponent } from "./app.component";
 import { NavMenuComponent } from "./nav-menu/nav-menu.component";
 import { LoginComponent } from "./login/login.component";
 import { HomeComponent } from "./home/home.component";
 import { AuthGaurdService } from "./services/AuthService/auth-gaurd.service";
-import { SessionDetailsComponent } from "./session-details/session-details.component";
 import { SessionEditModelComponent } from "./home/session-edit-model/session-edit-model.component";
 import { SessionDeleteModalComponent } from "./home/session-delete-modal/session-delete-modal.component";
 import { SessionAddModalComponent } from "./home/session-add-modal/session-add-modal.component";
+import { SessionDetailsComponent } from "./session-details/session-details.component";
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -39,6 +40,7 @@ export function tokenGetter() {
     HttpClientModule,
     FormsModule,
     NgbModule,
+    NgSelectModule,
     RouterModule.forRoot([
       {
         path: "home",
@@ -75,7 +77,7 @@ export function tokenGetter() {
     MatButtonModule,
     BrowserAnimationsModule,
   ],
-  providers: [AuthGaurdService],
+  providers: [AuthGaurdService, NgSelectConfig, ɵs],
   bootstrap: [AppComponent],
   entryComponents: [],
 })

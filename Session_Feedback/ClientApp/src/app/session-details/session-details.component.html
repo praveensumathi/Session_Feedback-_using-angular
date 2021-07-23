@@ -1,1 +1,29 @@
-<p>session-details works!</p>
+<div class="container">
+  <div class="row justify-content-between">
+    <div class=".col-xs-2 h3">Session Name</div>
+    <div class=".col-xs-6 d-flex">
+      <div *ngIf="sessions != []">
+        <label>Sessions</label>
+        <ng-select
+          [items]="sessions"
+          bindLabel="name"
+          bindValue="id"
+          [multiple]="true"
+          placeholder="Select cities"
+        >
+        </ng-select>
+      </div>
+      <div class="ml-5" *ngIf="questionTemplates != []">
+        <label>Templates</label>
+        <ng-select
+          [items]="questionTemplates"
+          bindLabel="name"
+          bindValue="id"
+          [multiple]="true"
+          placeholder="Select cities"
+        >
+        </ng-select>
+      </div>
+    </div>
+  </div>
+</div>

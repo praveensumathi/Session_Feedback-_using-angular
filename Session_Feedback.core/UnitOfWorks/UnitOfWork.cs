@@ -18,6 +18,7 @@ namespace Session_Feedback.core.UnitOfWorks
         private QuestionRepository _questionRepository;
         private AnswerRepository _answerRepository;
         private ApplicationUserRepository _applicationUserRepository;
+        private QuestionTemplateRepository _questionTemplateRepository;
 
         private bool _disposed;
 
@@ -58,6 +59,14 @@ namespace Session_Feedback.core.UnitOfWorks
             get
             {
                 return _applicationUserRepository ??= new ApplicationUserRepository(_transaction, _jwtAuth);
+            }
+        }
+
+        public QuestionTemplateRepository Templates
+        {
+            get
+            {
+                return _questionTemplateRepository ??= new QuestionTemplateRepository(_transaction);
             }
         }
 

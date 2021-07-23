@@ -15,6 +15,8 @@ namespace Session_Feedback.core.UnitOfWorks
         QuestionRepository Questions { get; }
         AnswerRepository Answers { get; }
         ApplicationUserRepository Users { get; }
+
+        QuestionTemplateRepository Templates { get; }
         void Commit();
     }
 }

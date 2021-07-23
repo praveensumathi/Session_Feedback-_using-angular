@@ -44,6 +44,7 @@ namespace Session_Feedback
             services.AddTransient<IQuestionService, QuestionService>();
             services.AddTransient<IAnswerService, AnswerService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IQuestionTemplateService, QuestionTemplateService>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IJwtAuthManager, AuthManager>();
 

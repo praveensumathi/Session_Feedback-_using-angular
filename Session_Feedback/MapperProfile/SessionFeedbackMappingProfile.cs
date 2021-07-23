@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BAL.ViewModels;
+using DAL.Models;
 using RepositoryLayer.Models;
 using Session_Feedback.core.Models;
 
@@ -13,6 +14,7 @@ namespace API.MapperProfile
             CreateMap<Question, QuestionViewModel>().ReverseMap();
             CreateMap<Answer, AnswerViewModel>();
             CreateMap<ApplicationUser, UserViewModel>().ReverseMap();
+            CreateMap<QuestionTemplate, QuestionTemplateViewModel>().ReverseMap();
         }
     }
 }
