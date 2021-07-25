@@ -34,12 +34,6 @@ export class SessionDetailsComponent implements OnInit {
     this.GetAllQuestionTemplates();
   }
 
-  onRouterLinkChange(id: number) {
-    this.session = !_.isEmpty(this.sessions)
-      ? this.sessions.find((x) => x.id === id)
-      : null;
-  }
-
   GetAllQuestionTemplates() {
     this.questionTemplateService
       .GetAllTemplates()
@@ -63,5 +57,11 @@ export class SessionDetailsComponent implements OnInit {
         };
       });
     });
+  }
+
+  onRouterLinkChange(id: number) {
+    this.session = !_.isEmpty(this.sessions)
+      ? this.sessions.find((x) => x.id === id)
+      : null;
   }
 }
