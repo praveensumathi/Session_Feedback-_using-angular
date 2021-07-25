@@ -15,7 +15,9 @@
           </button>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
             <div *ngFor="let session of sessions">
-              <button ngbDropdownItem>{{ session.name }}</button>
+              <button ngbDropdownItem routerLink="/detail/{{ session.id }}">
+                {{ session.name }}
+              </button>
             </div>
           </div>
         </div>
@@ -38,7 +40,12 @@
       </div>
     </div>
   </div>
-  <div class="col-md-10 mx-auto mt-5">
+
+  <div class="col-md-10 mx-auto mt-3">
+    <div class="mb-2">
+      <span class="h4">Questions </span
+      ><span>total - {{ questions ? questions.length : 0 }}</span>
+    </div>
     <div class="questions-container">
       <div *ngFor="let question of questions">
         <div class="wrapper mb-2">

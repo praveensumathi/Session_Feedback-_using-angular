@@ -18,21 +18,26 @@ export class SessionDetailsComponent implements OnInit {
   public sessions: ISession[];
   public questions: IQuestion[];
   public session: ISession;
-  public sessionId: number;
 
   constructor(
     private questionTemplateService: QuestionTemplateServiceService,
     private sessionService: SessionService,
     private questionService: QuestionService,
-    private route: ActivatedRoute
-  ) {
-    this.sessionId = parseInt(this.route.snapshot.paramMap.get("id"));
-  }
+    private activeRoute: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     this.GetAllSessions();
-    this.GetQuestionsBySessionId();
+    this.activeRoute.params.subscribe((routeParams) => {
+      this.GetQuestionsBySessionId(Number(routeParams.id));
+    });
     this.GetAllQuestionTemplates();
+  }
+
+  onRouterLinkChange(id: number) {
+    this.session = !_.isEmpty(this.sessions)
+      ? this.sessions.find((x) => x.id === id)
+      : null;
   }
 
   GetAllQuestionTemplates() {
@@ -45,22 +50,18 @@ export class SessionDetailsComponent implements OnInit {
   GetAllSessions() {
     this.sessionService.GetAllSession().subscribe((sessions) => {
       this.sessions = sessions;
-      this.session = !_.isEmpty(sessions)
-        ? sessions.find((x) => x.id === this.sessionId)
-        : null;
     });
   }
 
-  GetQuestionsBySessionId() {
-    this.questionService
-      .GetQuestionsBySessionId(this.sessionId)
-      .subscribe((questions) => {
-        this.questions = questions.map((question) => {
-          return {
-            ...question,
-            createdOn: new Date(question.createdOn),
-          };
-        });
+  GetQuestionsBySessionId(id: number) {
+    this.questionService.GetQuestionsBySessionId(id).subscribe((questions) => {
+      this.onRouterLinkChange(id);
+      this.questions = questions.map((question) => {
+        return {
+          ...question,
+          createdOn: new Date(question.createdOn),
+        };
       });
+    });
   }
 }
